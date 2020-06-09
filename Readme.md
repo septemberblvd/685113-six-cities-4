@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
 
 * Студент: [Александр Митягин](https://up.htmlacademy.ru/react/4/user/685113).
-* Наставник: `Неизвестно`.
+* Наставник: [Виталий Комолаев](https://htmlacademy.ru/profile/id1274335).
 
 ---
 
