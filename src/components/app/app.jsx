@@ -3,9 +3,9 @@ import React from "react";
 import MainScreen from "../main-screen/main-screen.jsx";
 
 const App = (props) => {
-  const {offersCount} = props;
+  const {offersCount, offersHeaders} = props;
 
-  return <MainScreen offersCount = {offersCount}/>;
+  return <MainScreen offersCount = {offersCount} offersHeaders = {offersHeaders}/>;
 };
 
 export default App;

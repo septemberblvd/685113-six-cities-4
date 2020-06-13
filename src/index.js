@@ -7,8 +7,16 @@ const init = () => {
     offersCount: 31,
   };
 
+  const offersHeaders = [
+    `Beautiful & luxurious apartment at great location`,
+    `Wood and stone place`,
+    `Canal View Prinsengracht`,
+    `Nice, cozy, warm big bed apartment`,
+  ];
+
   ReactDOM.render(
-      <App offersCount = {data.offersCount}/>,
+      <App offersCount = {data.offersCount}
+        offersHeaders = {offersHeaders}/>,
       document.querySelector(`#root`)
   );
 };
