@@ -3,7 +3,7 @@ import OfferCard from "../offer-card/offer-card.jsx";
 import PropTypes from "prop-types";
 
 const MainScreen = (props) => {
-  const {offersCount, offersHeaders} = props;
+  const {offersCount, offersHeaders, onHeaderClick} = props;
 
   return <div className="page page--gray page--main">
     <header className="header">
@@ -34,32 +34,32 @@ const MainScreen = (props) => {
         <section className="locations container">
           <ul className="locations__list tabs__list">
             <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
+              <a className="locations__item-link tabs__item" onClick = {onHeaderClick} href="#">
                 <span>Paris</span>
               </a>
             </li>
             <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
+              <a className="locations__item-link tabs__item" onClick = {onHeaderClick} href="#">
                 <span>Cologne</span>
               </a>
             </li>
             <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
+              <a className="locations__item-link tabs__item" onClick = {onHeaderClick} href="#">
                 <span>Brussels</span>
               </a>
             </li>
             <li className="locations__item">
-              <a className="locations__item-link tabs__item tabs__item--active">
+              <a className="locations__item-link tabs__item tabs__item--active" onClick = {onHeaderClick}>
                 <span>Amsterdam</span>
               </a>
             </li>
             <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
+              <a className="locations__item-link tabs__item" onClick = {onHeaderClick} href="#">
                 <span>Hamburg</span>
               </a>
             </li>
             <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
+              <a className="locations__item-link tabs__item" onClick = {onHeaderClick} href="#">
                 <span>Dusseldorf</span>
               </a>
             </li>
@@ -104,6 +104,7 @@ MainScreen.propTypes = {
   offersHeaders: PropTypes.arrayOf(
       PropTypes.string.isRequired
   ).isRequired,
+  onHeaderClick: PropTypes.func.isRequired,
 };
 
 export default MainScreen;
