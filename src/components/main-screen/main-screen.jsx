@@ -3,7 +3,7 @@ import OfferCard from "../offer-card/offer-card.jsx";
 import PropTypes from "prop-types";
 
 const MainScreen = (props) => {
-  const {offersCount, offersHeaders, onHeaderClick} = props;
+  const {offersCount, offers, onHeaderClick} = props;
 
   return <div className="page page--gray page--main">
     <header className="header">
@@ -85,7 +85,7 @@ const MainScreen = (props) => {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {offersHeaders.map((it, i) => <OfferCard key={it + i} offersHeader={it} />)}
+              {offers.map((it, i) => <OfferCard key={it.description + i} offer={it} />)}
             </div>
           </section>
           <div className="cities__right-section">
@@ -101,8 +101,15 @@ const MainScreen = (props) => {
 
 MainScreen.propTypes = {
   offersCount: PropTypes.number.isRequired,
-  offersHeaders: PropTypes.arrayOf(
-      PropTypes.string.isRequired
+  offers: PropTypes.arrayOf(
+      PropTypes.shape({
+        description: PropTypes.string.isRequired,
+        img: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        rating: PropTypes.number.isRequired,
+        type: PropTypes.string.isRequired,
+        isItPremium: PropTypes.bool.isRequired,
+      })
   ).isRequired,
   onHeaderClick: PropTypes.func.isRequired,
 };
