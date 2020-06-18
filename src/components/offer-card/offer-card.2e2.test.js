@@ -1,6 +1,7 @@
 import React from "react";
-import renderer from "react-test-renderer";
-import OfferCard from "./offer-card.jsx";
+import Enzyme, {mount} from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
+import OfferCard from "./offer-card";
 
 const offers = [
   {
@@ -37,12 +38,26 @@ const offers = [
   },
 ];
 
-it(`Should OfferCard render correctly`, () => {
-  const tree = renderer
-      .create(offers.map((it, i) => <OfferCard
-        key={it.description + i}
-        offer={it} />))
-      .toJSON();
+Enzyme.configure({
+  adapter: new Adapter(),
+});
 
-  expect(tree).toMatchSnapshot();
+describe(`OfferCardComponent`, () => {
+  it(`Should card be hovered`, () => {
+    const onCardHover = jest.fn();
+
+    const OfferCards = mount(
+        offers.map((it, i) => <OfferCard
+          key={it.description + i}
+          offer={it}
+          onCardHover={onCardHover} />)
+    );
+
+    const offerCardsAll = OfferCards.find(`.place-card`);
+    const offerCardTwo = offerCardsAll.at[1];
+
+    offerCardTwo.simulate(`mouseover`, {preventDefault() {}});
+
+    expect(onCardHover).toHaveBeenCalledTimes(1);
+  });
 });

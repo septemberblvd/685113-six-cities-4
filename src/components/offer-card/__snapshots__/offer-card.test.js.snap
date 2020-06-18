@@ -6,6 +6,13 @@ Array [
     className="cities__place-card place-card"
   >
     <div
+      className="place-card__mark"
+    >
+      <span>
+        Premium
+      </span>
+    </div>
+    <div
       className="cities__image-wrapper place-card__image-wrapper"
     >
       <a
@@ -15,7 +22,7 @@ Array [
           alt="Place image"
           className="place-card__image"
           height="200"
-          src="img/room.jpg"
+          src="img/apartment-01.jpg"
           width="260"
         />
       </a>
@@ -32,7 +39,8 @@ Array [
           <b
             className="place-card__price-value"
           >
-            €80
+            €
+            140
           </b>
           <span
             className="place-card__price-text"
@@ -92,13 +100,14 @@ Array [
       <p
         className="place-card__type"
       >
-        Private room
+        Apartment
       </p>
     </div>
   </article>,
   <article
     className="cities__place-card place-card"
   >
+    
     <div
       className="cities__image-wrapper place-card__image-wrapper"
     >
@@ -126,7 +135,8 @@ Array [
           <b
             className="place-card__price-value"
           >
-            €80
+            €
+            80
           </b>
           <span
             className="place-card__price-text"
@@ -193,6 +203,7 @@ Array [
   <article
     className="cities__place-card place-card"
   >
+    
     <div
       className="cities__image-wrapper place-card__image-wrapper"
     >
@@ -203,7 +214,7 @@ Array [
           alt="Place image"
           className="place-card__image"
           height="200"
-          src="img/room.jpg"
+          src="img/apartment-02.jpg"
           width="260"
         />
       </a>
@@ -220,7 +231,8 @@ Array [
           <b
             className="place-card__price-value"
           >
-            €80
+            €
+            138
           </b>
           <span
             className="place-card__price-text"
@@ -280,13 +292,20 @@ Array [
       <p
         className="place-card__type"
       >
-        Private room
+        Apartment
       </p>
     </div>
   </article>,
   <article
     className="cities__place-card place-card"
   >
+    <div
+      className="place-card__mark"
+    >
+      <span>
+        Premium
+      </span>
+    </div>
     <div
       className="cities__image-wrapper place-card__image-wrapper"
     >
@@ -297,7 +316,7 @@ Array [
           alt="Place image"
           className="place-card__image"
           height="200"
-          src="img/room.jpg"
+          src="img/apartment-03.jpg"
           width="260"
         />
       </a>
@@ -314,7 +333,8 @@ Array [
           <b
             className="place-card__price-value"
           >
-            €80
+            €
+            180
           </b>
           <span
             className="place-card__price-text"
@@ -351,7 +371,7 @@ Array [
           <span
             style={
               Object {
-                "width": "80%",
+                "width": "100%",
               }
             }
           />
@@ -374,7 +394,7 @@ Array [
       <p
         className="place-card__type"
       >
-        Private room
+        Apartment
       </p>
     </div>
   </article>,

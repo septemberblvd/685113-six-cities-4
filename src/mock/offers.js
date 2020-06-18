@@ -2,7 +2,7 @@ export default [
   {
     description: `Beautiful & luxurious apartment at great location`,
     img: `img/apartment-01.jpg`,
-    price: 120,
+    price: 140,
     rating: 4,
     type: `Apartment`,
     isItPremium: true,
