@@ -10,6 +10,7 @@ const offers = [
     rating: 4,
     type: `Apartment`,
     isItPremium: true,
+    id: 1,
   },
   {
     description: `Canal View Prinsengracht`,
@@ -18,6 +19,7 @@ const offers = [
     rating: 2,
     type: `Apartment`,
     isItPremium: true,
+    id: 2,
   },
   {
     description: `Nice, cozy, warm big bed apartment`,
@@ -26,6 +28,7 @@ const offers = [
     rating: 3,
     type: `Apartment`,
     isItPremium: true,
+    id: 3,
   },
   {
     description: `Nice, cozy`,
@@ -34,6 +37,7 @@ const offers = [
     rating: 5,
     type: `Apartment`,
     isItPremium: true,
+    id: 4,
   },
 ];
 

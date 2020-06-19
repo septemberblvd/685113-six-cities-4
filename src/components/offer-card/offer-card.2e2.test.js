@@ -3,48 +3,6 @@ import Enzyme, {mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import OfferCard from "./offer-card";
 
-const offers = [
-  {
-    description: `Beautiful & luxurious apartment at great location`,
-    img: `src`,
-    price: 140,
-    rating: 4,
-    type: `Apartment`,
-    isItPremium: true,
-  },
-  {
-    description: `Wood and stone place`,
-    img: `src`,
-    price: 80,
-    rating: 4,
-    type: `Private room`,
-    isItPremium: false,
-  },
-  {
-    description: `Beautiful & luxurious apartment at great location`,
-    img: `src`,
-    price: 234,
-    rating: 4,
-    type: `Apartment`,
-    isItPremium: true,
-  },
-  {
-    description: `Wood and stone place`,
-    img: `src`,
-    price: 122,
-    rating: 5,
-    type: `Private room`,
-    isItPremium: false,
-  },
-  {
-    description: `Canal View Prinsengracht`,
-    img: `src`,
-    price: 110,
-    rating: 4,
-    type: `Private room`,
-    isItPremium: true,
-  },
-];
 
 const userChoise = {
   description: `Wood and stone place`,
@@ -53,6 +11,7 @@ const userChoise = {
   rating: 4,
   type: `Private room`,
   isItPremium: false,
+  id: 2,
 };
 
 Enzyme.configure({
@@ -64,14 +23,14 @@ describe(`OfferCardComponent`, () => {
     const onCardMouseEnter = jest.fn();
 
 
-    const OfferCards = mount(
+    const offerCard = mount(
         <OfferCard
-          key={offers[1].description + 1}
-          offer={offers[1]}
+          key={userChoise.description + 1}
+          offer={userChoise}
           onCardMouseEnter={onCardMouseEnter} />
     );
 
-    const offerCardTwo = OfferCards.find(`.place-card`);
+    const offerCardTwo = offerCard.find(`.place-card`);
 
     offerCardTwo.simulate(`mouseenter`, {preventDefault() {}});
 

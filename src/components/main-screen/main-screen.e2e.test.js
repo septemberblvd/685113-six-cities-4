@@ -11,6 +11,7 @@ const offers = [
     rating: 4,
     type: `Apartment`,
     isItPremium: true,
+    id: 1,
   },
   {
     description: `Wood and stone place`,
@@ -19,6 +20,7 @@ const offers = [
     rating: 5,
     type: `Private room`,
     isItPremium: false,
+    id: 2,
   },
   {
     description: `Canal View Prinsengracht`,
@@ -27,6 +29,7 @@ const offers = [
     rating: 4,
     type: `Private room`,
     isItPremium: true,
+    id: 3,
   },
 ];
 
@@ -38,14 +41,14 @@ describe(`MainScreenComponent`, () => {
   it(`Should header button be pressed`, () => {
     const onHeaderClick = jest.fn();
 
-    const welcomeScreen = mount(
+    const mainScreen = mount(
         <MainScreen
           offersCount = {31}
           offers = {offers}
           onHeaderClick = {onHeaderClick}/>
     );
 
-    const headerButtons = welcomeScreen.find(`.tabs__item`);
+    const headerButtons = mainScreen.find(`.tabs__item`);
 
     headerButtons.forEach((it) => it.simulate(`click`, {preventDefault() {}}));
 

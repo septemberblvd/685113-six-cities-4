@@ -1,43 +1,41 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "./app.jsx";
+import OffersList from "./offers-list.jsx";
 
 const offers = [
   {
     description: `Beautiful & luxurious apartment at great location`,
-    img: `src`,
-    price: 156,
-    rating: 2,
+    img: `img/apartment-01.jpg`,
+    price: 140,
+    rating: 4,
     type: `Apartment`,
     isItPremium: true,
     id: 1,
   },
   {
-    description: `Wood and stone place`,
+    description: `Nice, cozy, warm big bed apartment`,
     img: `src`,
-    price: 141,
-    rating: 5,
-    type: `Private room`,
-    isItPremium: false,
+    price: 180,
+    rating: 2,
+    type: `Apartment`,
+    isItPremium: true,
     id: 2,
   },
   {
     description: `Canal View Prinsengracht`,
-    img: `src`,
-    price: 138,
-    rating: 2,
+    img: `img/apartment-03.jpg`,
+    price: 150,
+    rating: 3,
     type: `Apartment`,
     isItPremium: false,
-    id: 3,
+    id: 4,
   },
 ];
 
-it(`Render App`, () => {
+it(`Should OfferCard render correctly`, () => {
   const tree = renderer
-    .create(<App offersCount = {31}
-      offers = {offers}
-      onHeaderClick = {() => {}}/>)
-    .toJSON();
+      .create(<OffersList offers={offers}/>)
+      .toJSON();
 
   expect(tree).toMatchSnapshot();
 });

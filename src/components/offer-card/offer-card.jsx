@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const OfferCard = (props) => {
   const {offer, onCardMouseEnter} = props;
 
-  return <article className="cities__place-card place-card" onMouseEnter={onCardMouseEnter}>
+  return <article className="cities__place-card place-card" onMouseEnter={() => onCardMouseEnter(offer)}>
     {offer.isItPremium ? <div className="place-card__mark">
       <span>Premium</span>
     </div> : ``}

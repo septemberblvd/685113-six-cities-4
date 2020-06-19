@@ -14,8 +14,8 @@ class OffersList extends PureComponent {
     };
   }
 
-  _handleCardMouseEnter(id) {
-    this.setState({activeCard: id});
+  _handleCardMouseEnter(offer) {
+    this.setState({activeCard: offer.id});
   }
 
   render() {
