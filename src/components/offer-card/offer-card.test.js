@@ -37,11 +37,14 @@ const offers = [
   },
 ];
 
+const onCardMouseEnter = () => {};
+
 it(`Should OfferCard render correctly`, () => {
   const tree = renderer
       .create(offers.map((it, i) => <OfferCard
         key={it.description + i}
-        offer={it} />))
+        offer={it}
+        onCardMouseEnter={onCardMouseEnter} />))
       .toJSON();
 
   expect(tree).toMatchSnapshot();

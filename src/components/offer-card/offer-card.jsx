@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const OfferCard = (props) => {
-  const {offer} = props;
+  const {offer, onCardMouseEnter} = props;
 
-  return <article className="cities__place-card place-card">
+  return <article className="cities__place-card place-card" onMouseEnter = {onCardMouseEnter(offer)}>
     {offer.isItPremium ? <div className="place-card__mark">
       <span>Premium</span>
     </div> : ``}
@@ -41,6 +41,7 @@ const OfferCard = (props) => {
 };
 
 OfferCard.propTypes = {
+  onCardMouseEnter: PropTypes.func.isRequired,
   offer: PropTypes.shape({
     description: PropTypes.string.isRequired,
     img: PropTypes.string.isRequired,

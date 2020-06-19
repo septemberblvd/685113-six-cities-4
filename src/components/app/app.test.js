@@ -40,7 +40,8 @@ const offers = [
 it(`Render App`, () => {
   const tree = renderer
     .create(<App offersCount = {31}
-      offers = {offers}/>)
+      offers = {offers}
+      onHeaderClick = {() => {}}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

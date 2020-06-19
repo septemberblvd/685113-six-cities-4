@@ -38,26 +38,36 @@ const offers = [
   },
 ];
 
+const userChoise = {
+  description: `Wood and stone place`,
+  img: `img/room.jpg`,
+  price: 80,
+  rating: 4,
+  type: `Private room`,
+  isItPremium: false,
+};
+
 Enzyme.configure({
   adapter: new Adapter(),
 });
 
 describe(`OfferCardComponent`, () => {
   it(`Should card be hovered`, () => {
-    const onCardHover = jest.fn();
+    const onCardMouseEnter = jest.fn();
+
 
     const OfferCards = mount(
-        offers.map((it, i) => <OfferCard
-          key={it.description + i}
-          offer={it}
-          onCardHover={onCardHover} />)
+        <OfferCard
+          key={offers[1].description + 1}
+          offer={offers[1]}
+          onCardMouseEnter={onCardMouseEnter} />
     );
 
-    const offerCardsAll = OfferCards.find(`.place-card`);
-    const offerCardTwo = offerCardsAll.at[1];
+    const offerCardTwo = OfferCards.find(`.place-card`);
 
-    offerCardTwo.simulate(`mouseover`, {preventDefault() {}});
+    offerCardTwo.simulate(`mouseenter`, {preventDefault() {}});
 
-    expect(onCardHover).toHaveBeenCalledTimes(1);
+    expect(onCardMouseEnter).toHaveBeenCalledTimes(1);
+    expect(onCardMouseEnter.mock.calls[0][0]).toMatchObject(userChoise);
   });
 });

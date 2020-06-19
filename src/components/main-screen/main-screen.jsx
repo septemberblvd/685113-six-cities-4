@@ -85,7 +85,7 @@ const MainScreen = (props) => {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {offers.map((it, i) => <OfferCard key={it.description + i} offer={it} />)}
+              {offers.map((it, i) => <OfferCard key={it.description + i} offer={it} onCardMouseEnter={() => {}}/>)}
             </div>
           </section>
           <div className="cities__right-section">
