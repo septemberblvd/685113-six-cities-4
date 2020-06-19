@@ -26,7 +26,6 @@ App.propTypes = {
         id: PropTypes.number.isRequired,
       })
   ).isRequired,
-  onHeaderClick: PropTypes.func.isRequired,
 };
 
 export default App;
