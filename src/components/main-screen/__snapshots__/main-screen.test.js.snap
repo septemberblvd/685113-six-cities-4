@@ -232,7 +232,15 @@ exports[`Should MainScreen render correctly 1`] = `
           >
             <article
               className="cities__place-card place-card"
+              onMouseEnter={[Function]}
             >
+              <div
+                className="place-card__mark"
+              >
+                <span>
+                  Premium
+                </span>
+              </div>
               <div
                 className="cities__image-wrapper place-card__image-wrapper"
               >
@@ -243,7 +251,7 @@ exports[`Should MainScreen render correctly 1`] = `
                     alt="Place image"
                     className="place-card__image"
                     height="200"
-                    src="img/room.jpg"
+                    src="src"
                     width="260"
                   />
                 </a>
@@ -260,7 +268,8 @@ exports[`Should MainScreen render correctly 1`] = `
                     <b
                       className="place-card__price-value"
                     >
-                      €80
+                      €
+                      110
                     </b>
                     <span
                       className="place-card__price-text"
@@ -297,7 +306,7 @@ exports[`Should MainScreen render correctly 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "40%",
                         }
                       }
                     />
@@ -320,13 +329,15 @@ exports[`Should MainScreen render correctly 1`] = `
                 <p
                   className="place-card__type"
                 >
-                  Private room
+                  Apartment
                 </p>
               </div>
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseEnter={[Function]}
             >
+              
               <div
                 className="cities__image-wrapper place-card__image-wrapper"
               >
@@ -337,7 +348,7 @@ exports[`Should MainScreen render correctly 1`] = `
                     alt="Place image"
                     className="place-card__image"
                     height="200"
-                    src="img/room.jpg"
+                    src="src"
                     width="260"
                   />
                 </a>
@@ -354,7 +365,8 @@ exports[`Should MainScreen render correctly 1`] = `
                     <b
                       className="place-card__price-value"
                     >
-                      €80
+                      €
+                      55
                     </b>
                     <span
                       className="place-card__price-text"
@@ -391,7 +403,7 @@ exports[`Should MainScreen render correctly 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "100%",
                         }
                       }
                     />
@@ -420,7 +432,15 @@ exports[`Should MainScreen render correctly 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseEnter={[Function]}
             >
+              <div
+                className="place-card__mark"
+              >
+                <span>
+                  Premium
+                </span>
+              </div>
               <div
                 className="cities__image-wrapper place-card__image-wrapper"
               >
@@ -431,7 +451,7 @@ exports[`Should MainScreen render correctly 1`] = `
                     alt="Place image"
                     className="place-card__image"
                     height="200"
-                    src="img/room.jpg"
+                    src="src"
                     width="260"
                   />
                 </a>
@@ -448,7 +468,8 @@ exports[`Should MainScreen render correctly 1`] = `
                     <b
                       className="place-card__price-value"
                     >
-                      €80
+                      €
+                      138
                     </b>
                     <span
                       className="place-card__price-text"
@@ -485,7 +506,7 @@ exports[`Should MainScreen render correctly 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "40%",
                         }
                       }
                     />
@@ -508,13 +529,21 @@ exports[`Should MainScreen render correctly 1`] = `
                 <p
                   className="place-card__type"
                 >
-                  Private room
+                  Apartment
                 </p>
               </div>
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseEnter={[Function]}
             >
+              <div
+                className="place-card__mark"
+              >
+                <span>
+                  Premium
+                </span>
+              </div>
               <div
                 className="cities__image-wrapper place-card__image-wrapper"
               >
@@ -525,7 +554,7 @@ exports[`Should MainScreen render correctly 1`] = `
                     alt="Place image"
                     className="place-card__image"
                     height="200"
-                    src="img/room.jpg"
+                    src="src"
                     width="260"
                   />
                 </a>
@@ -542,7 +571,8 @@ exports[`Should MainScreen render correctly 1`] = `
                     <b
                       className="place-card__price-value"
                     >
-                      €80
+                      €
+                      180
                     </b>
                     <span
                       className="place-card__price-text"
@@ -579,7 +609,7 @@ exports[`Should MainScreen render correctly 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "60%",
                         }
                       }
                     />
@@ -602,7 +632,7 @@ exports[`Should MainScreen render correctly 1`] = `
                 <p
                   className="place-card__type"
                 >
-                  Private room
+                  Apartment
                 </p>
               </div>
             </article>

@@ -1,9 +1,9 @@
 import React from "react";
-import OfferCard from "../offer-card/offer-card.jsx";
+import OffersList from "../offers-list/offers-list.jsx";
 import PropTypes from "prop-types";
 
 const MainScreen = (props) => {
-  const {offersCount, offersHeaders, onHeaderClick} = props;
+  const {offersCount, offers, onHeaderClick} = props;
 
   return <div className="page page--gray page--main">
     <header className="header">
@@ -84,9 +84,7 @@ const MainScreen = (props) => {
                 <li className="places__option" tabIndex="0">Top rated first</li>
               </ul>
             </form>
-            <div className="cities__places-list places__list tabs__content">
-              {offersHeaders.map((it, i) => <OfferCard key={it + i} offersHeader={it} />)}
-            </div>
+            <OffersList offers={offers}/>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"></section>
@@ -101,8 +99,16 @@ const MainScreen = (props) => {
 
 MainScreen.propTypes = {
   offersCount: PropTypes.number.isRequired,
-  offersHeaders: PropTypes.arrayOf(
-      PropTypes.string.isRequired
+  offers: PropTypes.arrayOf(
+      PropTypes.shape({
+        description: PropTypes.string.isRequired,
+        img: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        rating: PropTypes.number.isRequired,
+        type: PropTypes.string.isRequired,
+        isItPremium: PropTypes.bool.isRequired,
+        id: PropTypes.number.isRequired,
+      })
   ).isRequired,
   onHeaderClick: PropTypes.func.isRequired,
 };
