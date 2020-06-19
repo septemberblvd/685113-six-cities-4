@@ -1,5 +1,5 @@
 import React from "react";
-import OfferCard from "../offer-card/offer-card.jsx";
+import OffersList from "../offers-list/offers-list.jsx";
 import PropTypes from "prop-types";
 
 const MainScreen = (props) => {
@@ -84,9 +84,7 @@ const MainScreen = (props) => {
                 <li className="places__option" tabIndex="0">Top rated first</li>
               </ul>
             </form>
-            <div className="cities__places-list places__list tabs__content">
-              {offers.map((it, i) => <OfferCard key={it.description + i} offer={it} onCardMouseEnter={() => {}}/>)}
-            </div>
+            <OffersList offers={offers}/>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"></section>
@@ -109,6 +107,7 @@ MainScreen.propTypes = {
         rating: PropTypes.number.isRequired,
         type: PropTypes.string.isRequired,
         isItPremium: PropTypes.bool.isRequired,
+        id: PropTypes.number.isRequired,
       })
   ).isRequired,
   onHeaderClick: PropTypes.func.isRequired,

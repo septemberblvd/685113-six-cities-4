@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const OfferCard = (props) => {
   const {offer, onCardMouseEnter} = props;
 
-  return <article className="cities__place-card place-card" onMouseEnter = {onCardMouseEnter(offer)}>
+  return <article className="cities__place-card place-card" onMouseEnter={onCardMouseEnter}>
     {offer.isItPremium ? <div className="place-card__mark">
       <span>Premium</span>
     </div> : ``}
@@ -49,6 +49,7 @@ OfferCard.propTypes = {
     rating: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     isItPremium: PropTypes.bool.isRequired,
+    id: PropTypes.number.isRequired,
   })
 };
 

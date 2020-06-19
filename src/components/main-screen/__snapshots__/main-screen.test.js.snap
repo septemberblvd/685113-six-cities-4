@@ -232,6 +232,7 @@ exports[`Should MainScreen render correctly 1`] = `
           >
             <article
               className="cities__place-card place-card"
+              onMouseEnter={[Function]}
             >
               <div
                 className="place-card__mark"
@@ -250,7 +251,7 @@ exports[`Should MainScreen render correctly 1`] = `
                     alt="Place image"
                     className="place-card__image"
                     height="200"
-                    src="img/apartment-01.jpg"
+                    src="src"
                     width="260"
                   />
                 </a>
@@ -268,7 +269,7 @@ exports[`Should MainScreen render correctly 1`] = `
                       className="place-card__price-value"
                     >
                       €
-                      140
+                      110
                     </b>
                     <span
                       className="place-card__price-text"
@@ -305,7 +306,7 @@ exports[`Should MainScreen render correctly 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "40%",
                         }
                       }
                     />
@@ -334,6 +335,7 @@ exports[`Should MainScreen render correctly 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseEnter={[Function]}
             >
               
               <div
@@ -346,7 +348,7 @@ exports[`Should MainScreen render correctly 1`] = `
                     alt="Place image"
                     className="place-card__image"
                     height="200"
-                    src="img/room.jpg"
+                    src="src"
                     width="260"
                   />
                 </a>
@@ -364,7 +366,7 @@ exports[`Should MainScreen render correctly 1`] = `
                       className="place-card__price-value"
                     >
                       €
-                      80
+                      55
                     </b>
                     <span
                       className="place-card__price-text"
@@ -401,7 +403,7 @@ exports[`Should MainScreen render correctly 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "100%",
                         }
                       }
                     />
@@ -430,8 +432,15 @@ exports[`Should MainScreen render correctly 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseEnter={[Function]}
             >
-              
+              <div
+                className="place-card__mark"
+              >
+                <span>
+                  Premium
+                </span>
+              </div>
               <div
                 className="cities__image-wrapper place-card__image-wrapper"
               >
@@ -442,7 +451,7 @@ exports[`Should MainScreen render correctly 1`] = `
                     alt="Place image"
                     className="place-card__image"
                     height="200"
-                    src="img/apartment-02.jpg"
+                    src="src"
                     width="260"
                   />
                 </a>
@@ -497,7 +506,7 @@ exports[`Should MainScreen render correctly 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "40%",
                         }
                       }
                     />
@@ -526,6 +535,7 @@ exports[`Should MainScreen render correctly 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseEnter={[Function]}
             >
               <div
                 className="place-card__mark"
@@ -544,7 +554,7 @@ exports[`Should MainScreen render correctly 1`] = `
                     alt="Place image"
                     className="place-card__image"
                     height="200"
-                    src="img/apartment-03.jpg"
+                    src="src"
                     width="260"
                   />
                 </a>
@@ -599,7 +609,7 @@ exports[`Should MainScreen render correctly 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "100%",
+                          "width": "60%",
                         }
                       }
                     />

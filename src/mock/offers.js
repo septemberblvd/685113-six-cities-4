@@ -6,6 +6,7 @@ export default [
     rating: 4,
     type: `Apartment`,
     isItPremium: true,
+    id: 1,
   },
   {
     description: `Wood and stone place`,
@@ -14,6 +15,7 @@ export default [
     rating: 4,
     type: `Private room`,
     isItPremium: false,
+    id: 2,
   },
   {
     description: `Canal View Prinsengracht`,
@@ -22,6 +24,7 @@ export default [
     rating: 4,
     type: `Apartment`,
     isItPremium: false,
+    id: 3,
   },
   {
     description: `Nice, cozy, warm big bed apartment`,
@@ -30,5 +33,6 @@ export default [
     rating: 5,
     type: `Apartment`,
     isItPremium: true,
+    id: 4,
   },
 ];

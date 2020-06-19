@@ -5,35 +5,27 @@ import App from "./app.jsx";
 const offers = [
   {
     description: `Beautiful & luxurious apartment at great location`,
-    img: `img/apartment-01.jpg`,
-    price: 140,
-    rating: 4,
+    img: `src`,
+    price: 156,
+    rating: 2,
     type: `Apartment`,
     isItPremium: true,
   },
   {
     description: `Wood and stone place`,
-    img: `img/room.jpg`,
-    price: 80,
-    rating: 4,
+    img: `src`,
+    price: 141,
+    rating: 5,
     type: `Private room`,
     isItPremium: false,
   },
   {
     description: `Canal View Prinsengracht`,
-    img: `img/apartment-02.jpg`,
+    img: `src`,
     price: 138,
-    rating: 4,
+    rating: 2,
     type: `Apartment`,
     isItPremium: false,
-  },
-  {
-    description: `Nice, cozy, warm big bed apartment`,
-    img: `img/apartment-03.jpg`,
-    price: 180,
-    rating: 5,
-    type: `Apartment`,
-    isItPremium: true,
   },
 ];
 

@@ -23,6 +23,7 @@ App.propTypes = {
         rating: PropTypes.number.isRequired,
         type: PropTypes.string.isRequired,
         isItPremium: PropTypes.bool.isRequired,
+        id: PropTypes.number.isRequired,
       })
   ).isRequired,
   onHeaderClick: PropTypes.func.isRequired,
