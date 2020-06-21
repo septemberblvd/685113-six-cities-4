@@ -5,13 +5,37 @@ import OfferCard from "./offer-card";
 
 
 const userChoise = {
-  description: `Wood and stone place`,
+  title: `Wood and stone place`,
   img: `src`,
   price: 80,
-  rating: 4,
-  type: `Private room`,
-  isItPremium: false,
-  id: 2,
+  rating: 5,
+  type: `Apartment`,
+  isItPremium: true,
+  id: 4,
+  images: [
+    `src`,
+    `src`,
+    `src`,
+    `src`,
+    `src`,
+    `src`,
+  ],
+  description: `Some text`,
+  bedrooms: 2,
+  guests: 3,
+  appliances: [
+    `Wi-Fi`,
+    `Baby seat`,
+    `Kitchen`,
+    `Dishwasher`,
+    `Cabel TV`,
+    `Fridge`,
+  ],
+  owner: {
+    avatar: `src`,
+    name: `Death`,
+    isSuper: true,
+  },
 };
 
 Enzyme.configure({
@@ -21,13 +45,15 @@ Enzyme.configure({
 describe(`OfferCardComponent`, () => {
   it(`Should card be hovered`, () => {
     const onCardMouseEnter = jest.fn();
+    const onHeaderClick = jest.fn();
 
 
     const offerCard = mount(
         <OfferCard
-          key={userChoise.description + 1}
+          key={userChoise.title + 1}
           offer={userChoise}
-          onCardMouseEnter={onCardMouseEnter} />
+          onCardMouseEnter={onCardMouseEnter}
+          onHeaderClick={onHeaderClick} />
     );
 
     const offerCardTwo = offerCard.find(`.place-card`);

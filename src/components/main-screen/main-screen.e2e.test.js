@@ -5,31 +5,70 @@ import MainScreen from "./main-screen";
 
 const offers = [
   {
-    description: `Beautiful & luxurious apartment at great location`,
+    title: `Canal View Prinsengracht`,
     img: `src`,
-    price: 234,
+    price: 138,
     rating: 4,
     type: `Apartment`,
-    isItPremium: true,
-    id: 1,
-  },
-  {
-    description: `Wood and stone place`,
-    img: `src`,
-    price: 122,
-    rating: 5,
-    type: `Private room`,
     isItPremium: false,
-    id: 2,
+    id: 3,
+    images: [
+      `src`,
+      `src`,
+      `src`,
+      `src`,
+      `src`,
+      `src`,
+    ],
+    description: `Some text`,
+    bedrooms: 4,
+    guests: 5,
+    appliances: [
+      `Wi-Fi`,
+      `Washing machine`,
+      `Towels`,
+      `Baby seat`,
+      `Kitchen`,
+      `Dishwasher`,
+    ],
+    owner: {
+      avatar: `src`,
+      name: `War`,
+      isSuper: true,
+    },
   },
   {
-    description: `Canal View Prinsengracht`,
+    title: `Wood and stone place`,
     img: `src`,
-    price: 110,
-    rating: 4,
-    type: `Private room`,
+    price: 80,
+    rating: 5,
+    type: `Apartment`,
     isItPremium: true,
-    id: 3,
+    id: 4,
+    images: [
+      `src`,
+      `src`,
+      `src`,
+      `src`,
+      `src`,
+      `src`,
+    ],
+    description: `Some text`,
+    bedrooms: 2,
+    guests: 3,
+    appliances: [
+      `Wi-Fi`,
+      `Baby seat`,
+      `Kitchen`,
+      `Dishwasher`,
+      `Cabel TV`,
+      `Fridge`,
+    ],
+    owner: {
+      avatar: `src`,
+      name: `Death`,
+      isSuper: true,
+    },
   },
 ];
 
@@ -48,11 +87,12 @@ describe(`MainScreenComponent`, () => {
           onHeaderClick = {onHeaderClick}/>
     );
 
-    const headerButtons = mainScreen.find(`.tabs__item`);
+    const headerButtons = mainScreen.find(`.place-card__name a`);
+    const headerButtonOne = headerButtons.at(0);
 
-    headerButtons.forEach((it) => it.simulate(`click`, {preventDefault() {}}));
+    headerButtonOne.simulate(`click`, {preventDefault() {}});
 
-    expect(onHeaderClick).toHaveBeenCalledTimes(headerButtons.length);
+    expect(onHeaderClick).toHaveBeenCalledTimes(1);
   });
 });
 
