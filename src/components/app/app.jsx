@@ -78,6 +78,9 @@ App.propTypes = {
           name: PropTypes.string.isRequired,
           isSuper: PropTypes.bool.isRequired,
         }).isRequired,
+        coords: PropTypes.arrayOf(
+            PropTypes.number.isRequired
+        ).isRequired
       })
   ).isRequired,
 };
