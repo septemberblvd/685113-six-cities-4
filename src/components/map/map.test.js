@@ -1,7 +1,6 @@
-
 import React from "react";
 import renderer from "react-test-renderer";
-import MainScreen from "./main-screen.jsx";
+import Map from "./map.jsx";
 
 const offers = [
   {
@@ -36,6 +35,7 @@ const offers = [
       name: `Death`,
       isSuper: true,
     },
+    coords: [53.3909553946548, 4.829309555914198],
   },
   {
     title: `Canal View Prinsengracht`,
@@ -69,6 +69,7 @@ const offers = [
       name: `War`,
       isSuper: true,
     },
+    coords: [53.390955365488441, 4.829309555498465],
   },
   {
     title: `Wood and stone place`,
@@ -102,18 +103,16 @@ const offers = [
       name: `Death`,
       isSuper: true,
     },
+    coords: [52.39874984984841, 4.82456445558843],
   },
 ];
 
-it(`Should MainScreen render correctly`, () => {
+it(`Should Map render correctly`, () => {
   const tree = renderer
-      .create(<MainScreen
-        offersCount = {31}
-        offers = {offers}
-        onHeaderClick = {() => {}}
-      />, {createNodeMock: () => {
-        return document.createElement(`div`);
-      }})
+      .create(<Map offers={offers}/>,
+          {createNodeMock: () => {
+            return document.createElement(`div`);
+          }})
       .toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -88,9 +88,7 @@ const MainScreen = (props) => {
             <OffersList offers={offers} onHeaderClick={onHeaderClick}/>
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map">
-              <div id="map"><Map offers={offers}/></div>
-            </section>
+            <Map offers={offers}/>
           </div>
         </div>
       </div>
