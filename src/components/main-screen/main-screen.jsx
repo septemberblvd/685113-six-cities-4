@@ -34,32 +34,32 @@ const MainScreen = (props) => {
         <section className="locations container">
           <ul className="locations__list tabs__list">
             <li className="locations__item">
-              <a className="locations__item-link tabs__item" onClick = {onHeaderClick} href="#">
+              <a className="locations__item-link tabs__item" href="#">
                 <span>Paris</span>
               </a>
             </li>
             <li className="locations__item">
-              <a className="locations__item-link tabs__item" onClick = {onHeaderClick} href="#">
+              <a className="locations__item-link tabs__item" href="#">
                 <span>Cologne</span>
               </a>
             </li>
             <li className="locations__item">
-              <a className="locations__item-link tabs__item" onClick = {onHeaderClick} href="#">
+              <a className="locations__item-link tabs__item" href="#">
                 <span>Brussels</span>
               </a>
             </li>
             <li className="locations__item">
-              <a className="locations__item-link tabs__item tabs__item--active" onClick = {onHeaderClick}>
+              <a className="locations__item-link tabs__item tabs__item--active">
                 <span>Amsterdam</span>
               </a>
             </li>
             <li className="locations__item">
-              <a className="locations__item-link tabs__item" onClick = {onHeaderClick} href="#">
+              <a className="locations__item-link tabs__item" href="#">
                 <span>Hamburg</span>
               </a>
             </li>
             <li className="locations__item">
-              <a className="locations__item-link tabs__item" onClick = {onHeaderClick} href="#">
+              <a className="locations__item-link tabs__item" href="#">
                 <span>Dusseldorf</span>
               </a>
             </li>
@@ -84,7 +84,7 @@ const MainScreen = (props) => {
                 <li className="places__option" tabIndex="0">Top rated first</li>
               </ul>
             </form>
-            <OffersList offers={offers}/>
+            <OffersList offers={offers} onHeaderClick={onHeaderClick}/>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"></section>
@@ -101,13 +101,27 @@ MainScreen.propTypes = {
   offersCount: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(
       PropTypes.shape({
-        description: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
         img: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         rating: PropTypes.number.isRequired,
         type: PropTypes.string.isRequired,
         isItPremium: PropTypes.bool.isRequired,
         id: PropTypes.number.isRequired,
+        images: PropTypes.arrayOf(
+            PropTypes.string.isRequired
+        ).isRequired,
+        description: PropTypes.string.isRequired,
+        bedrooms: PropTypes.number.isRequired,
+        guests: PropTypes.number.isRequired,
+        appliances: PropTypes.arrayOf(
+            PropTypes.string.isRequired
+        ).isRequired,
+        owner: PropTypes.shape({
+          avatar: PropTypes.string.isRequired,
+          name: PropTypes.string.isRequired,
+          isSuper: PropTypes.bool.isRequired,
+        }).isRequired,
       })
   ).isRequired,
   onHeaderClick: PropTypes.func.isRequired,
