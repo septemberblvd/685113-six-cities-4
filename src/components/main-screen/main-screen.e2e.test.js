@@ -36,6 +36,7 @@ const offers = [
       name: `War`,
       isSuper: true,
     },
+    coords: [52.2342344555489, 4.4567464565458],
   },
   {
     title: `Wood and stone place`,
@@ -69,6 +70,7 @@ const offers = [
       name: `Death`,
       isSuper: true,
     },
+    coords: [55.3234234234555489, 4.824562342342358],
   },
 ];
 
