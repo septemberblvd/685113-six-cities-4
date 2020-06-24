@@ -1,6 +1,7 @@
 import React from "react";
 import OffersList from "../offers-list/offers-list.jsx";
 import PropTypes from "prop-types";
+import Map from "../map/map.jsx";
 
 const MainScreen = (props) => {
   const {offersCount, offers, onHeaderClick} = props;
@@ -87,7 +88,7 @@ const MainScreen = (props) => {
             <OffersList offers={offers} onHeaderClick={onHeaderClick}/>
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"></section>
+            <Map offers={offers}/>
           </div>
         </div>
       </div>
@@ -122,6 +123,9 @@ MainScreen.propTypes = {
           name: PropTypes.string.isRequired,
           isSuper: PropTypes.bool.isRequired,
         }).isRequired,
+        coords: PropTypes.arrayOf(
+            PropTypes.number.isRequired
+        ).isRequired
       })
   ).isRequired,
   onHeaderClick: PropTypes.func.isRequired,

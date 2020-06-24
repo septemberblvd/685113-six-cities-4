@@ -1,9 +1,42 @@
 import React from "react";
-import Enzyme, {mount} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-import MainScreen from "./main-screen";
+import renderer from "react-test-renderer";
+import Map from "./map.jsx";
 
 const offers = [
+  {
+    title: `Wood and stone place`,
+    img: `src`,
+    price: 180,
+    rating: 5,
+    type: `Hotel`,
+    isItPremium: true,
+    id: 4,
+    images: [
+      `src`,
+      `src`,
+      `src`,
+      `src`,
+      `src`,
+      `src`,
+    ],
+    description: `Some text`,
+    bedrooms: 1,
+    guests: 2,
+    appliances: [
+      `Wi-Fi`,
+      `Baby seat`,
+      `Kitchen`,
+      `Dishwasher`,
+      `Cabel TV`,
+      `Fridge`,
+    ],
+    owner: {
+      avatar: `src`,
+      name: `Death`,
+      isSuper: true,
+    },
+    coords: [53.3909553946548, 4.829309555914198],
+  },
   {
     title: `Canal View Prinsengracht`,
     img: `src`,
@@ -36,7 +69,7 @@ const offers = [
       name: `War`,
       isSuper: true,
     },
-    coords: [52.2342344555489, 4.4567464565458]
+    coords: [53.390955365488441, 4.829309555498465],
   },
   {
     title: `Wood and stone place`,
@@ -70,32 +103,17 @@ const offers = [
       name: `Death`,
       isSuper: true,
     },
-    coords: [55.3234234234555489, 4.824562342342358]
+    coords: [52.39874984984841, 4.82456445558843],
   },
 ];
 
-Enzyme.configure({
-  adapter: new Adapter(),
+it(`Should Map render correctly`, () => {
+  const tree = renderer
+      .create(<Map offers={offers}/>,
+          {createNodeMock: () => {
+            return document.createElement(`div`);
+          }})
+      .toJSON();
+
+  expect(tree).toMatchSnapshot();
 });
-
-describe(`MainScreenComponent`, () => {
-  it(`Should header button be pressed`, () => {
-    const onHeaderClick = jest.fn();
-
-    const mainScreen = mount(
-        <MainScreen
-          offersCount = {31}
-          offers = {offers}
-          onHeaderClick = {onHeaderClick}/>
-    );
-
-    const headerButtons = mainScreen.find(`.place-card__name a`);
-    const headerButtonOne = headerButtons.at(0);
-
-    headerButtonOne.simulate(`click`, {preventDefault() {}});
-
-    expect(onHeaderClick).toHaveBeenCalledTimes(1);
-  });
-});
-
-
