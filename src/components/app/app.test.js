@@ -35,7 +35,7 @@ const offers = [
       name: `Death`,
       isSuper: true,
     },
-    coords: [52.39874984984841, 4.82456445558843],
+    coords: [52.39874984984841, 4.82456445558843]
   },
   {
     title: `Canal View Prinsengracht`,
@@ -69,7 +69,7 @@ const offers = [
       name: `War`,
       isSuper: true,
     },
-    coords: [52.398749844555489, 4.82456445565458],
+    coords: [52.398749844555489, 4.82456445565458]
   },
 ];
 

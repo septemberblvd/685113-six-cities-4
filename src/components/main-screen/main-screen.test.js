@@ -36,7 +36,7 @@ const offers = [
       name: `Death`,
       isSuper: true,
     },
-    coords: [52.2555565555489, 4.724556465465458],
+    coords: [52.2555565555489, 4.724556465465458]
   },
   {
     title: `Canal View Prinsengracht`,
@@ -70,7 +70,7 @@ const offers = [
       name: `War`,
       isSuper: true,
     },
-    coords: [52.654565844555489, 4.8245687745458],
+    coords: [52.654565844555489, 4.8245687745458]
   },
   {
     title: `Wood and stone place`,
@@ -104,7 +104,7 @@ const offers = [
       name: `Death`,
       isSuper: true,
     },
-    coords: [52.3987234423489, 4.23432423565458],
+    coords: [52.3987234423489, 4.23432423565458]
   },
 ];
 
