@@ -1,4 +1,4 @@
-export default [
+const offers = [
   {
     title: `Beautiful & luxurious apartment at great location`,
     img: `img/apartment-01.jpg`,
@@ -31,7 +31,26 @@ export default [
       name: `War`,
       isSuper: true,
     },
-    coords: [52.3909553943508, 4.85309666406198]
+    coords: [52.3909553943508, 4.85309666406198],
+    reviews: [
+      {
+        reviewId: 14,
+        reviewName: `Ozzy`,
+        reviewAvatar: `img/avatar-max.jpg`,
+        reviewGrade: 4,
+        reviewText: `Id minim labore ut velit sit velit.Magna deserunt reprehenderit consequat elit cupidatat proident nostrud amet minim nulla.`,
+        reviewTime: `May 8, 2016`,
+      },
+      {
+        reviewId: 22,
+        reviewName: `Mick`,
+        reviewAvatar: `img/avatar-max.jpg`,
+        reviewGrade: 2,
+        reviewText: `Incididunt fugiat non aliqua eu nisi.Id Lorem cillum non voluptate nulla id fugiat Lorem exercitation irure ullamco enim veniam ullamco.`,
+        reviewTime: `June 5, 2018`,
+      },
+    ],
+    nearOffers: [2, 3, 4]
   },
   {
     title: `Wood and stone place`,
@@ -70,7 +89,26 @@ export default [
       name: `Death`,
       isSuper: true,
     },
-    coords: [52.369553943508, 4.85309666406198]
+    coords: [52.369553943508, 4.85309666406198],
+    reviews: [
+      {
+        reviewId: 12,
+        reviewName: `Corey`,
+        reviewAvatar: `img/avatar-max.jpg`,
+        reviewGrade: 3,
+        reviewText: `Adipisicing do reprehenderit ipsum commodo culpa laborum amet eiusmod minim labore culpa esse.`,
+        reviewTime: `May 6, 2018`,
+      },
+      {
+        reviewId: 45,
+        reviewName: `Tom`,
+        reviewAvatar: `img/avatar-max.jpg`,
+        reviewGrade: 2,
+        reviewText: `Eu sit consectetur pariatur excepteur do.Occaecat voluptate do elit culpa cupidatat nisi labore reprehenderit tempor commodo minim.`,
+        reviewTime: `August 13, 2018`,
+      },
+    ],
+    nearOffers: [1, 3, 4]
   },
   {
     title: `Canal View Prinsengracht`,
@@ -112,7 +150,26 @@ export default [
       name: `Hunger`,
       isSuper: false,
     },
-    coords: [52.3909553943508, 4.929309666406198]
+    coords: [52.3909553943508, 4.929309666406198],
+    reviews: [
+      {
+        reviewId: 44,
+        reviewName: `Sid`,
+        reviewAvatar: `img/avatar-max.jpg`,
+        reviewGrade: 5,
+        reviewText: `Exercitation enim non esse minim quis voluptate Lorem commodo velit eu aliqua commodo in irure.`,
+        reviewTime: `Feb 1, 2012`,
+      },
+      {
+        reviewId: 46,
+        reviewName: `Stive`,
+        reviewAvatar: `img/avatar-max.jpg`,
+        reviewGrade: 1,
+        reviewText: `Ex incididunt exercitation dolore dolore mollit.`,
+        reviewTime: `March 22, 2020`,
+      },
+    ],
+    nearOffers: [2, 4, 1]
   },
   {
     title: `Nice, cozy, warm big bed apartment`,
@@ -153,6 +210,26 @@ export default [
       name: `Plague`,
       isSuper: false,
     },
-    coords: [52.3809553943508, 4.939309666406198]
+    coords: [52.3809553943508, 4.939309666406198],
+    reviews: [
+      {
+        reviewId: 78,
+        reviewName: `Jim`,
+        reviewAvatar: `img/avatar-max.jpg`,
+        reviewGrade: 4,
+        reviewText: `Ex voluptate eu commodo pariatur irure laboris do. Magna incididunt tempor sunt eu mollit qui.`,
+        reviewTime: `May 13, 2017`,
+      },
+      {
+        reviewId: 69,
+        reviewName: `Mat`,
+        reviewAvatar: `img/avatar-max.jpg`,
+        reviewGrade: 5,
+        reviewText: `Aliquip officia et et fugiat.`,
+        reviewTime: `June 24, 2020`,
+      },
+    ],
+    nearOffers: [1, 2, 4]
   },
 ];
+export default offers;

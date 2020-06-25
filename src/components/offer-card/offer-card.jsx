@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {OfferType} from "../../const.js";
 
 const OfferCard = (props) => {
   const {offer, onCardMouseEnter, onHeaderClick} = props;
@@ -46,29 +47,7 @@ const OfferCard = (props) => {
 OfferCard.propTypes = {
   onCardMouseEnter: PropTypes.func.isRequired,
   onHeaderClick: PropTypes.func.isRequired,
-  offer: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    img: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    isItPremium: PropTypes.bool.isRequired,
-    id: PropTypes.number.isRequired,
-    images: PropTypes.arrayOf(
-        PropTypes.string.isRequired
-    ).isRequired,
-    description: PropTypes.string.isRequired,
-    bedrooms: PropTypes.number.isRequired,
-    guests: PropTypes.number.isRequired,
-    appliances: PropTypes.arrayOf(
-        PropTypes.string.isRequired
-    ).isRequired,
-    owner: PropTypes.shape({
-      avatar: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      isSuper: PropTypes.bool.isRequired,
-    }).isRequired,
-  })
+  offer: OfferType,
 };
 
 export default OfferCard;

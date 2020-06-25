@@ -220,6 +220,7 @@ exports[`Should OfferCard render correctly 1`] = `
             <b
               className="property__price-value"
             >
+              €
               180
             </b>
             <span

@@ -2,6 +2,12 @@ import React from "react";
 import OffersList from "../offers-list/offers-list.jsx";
 import PropTypes from "prop-types";
 import Map from "../map/map.jsx";
+import {OfferType} from "../../const.js";
+import withOfferList from "../../hocs/with-offer-list.js";
+import withMap from "../../hocs/with-map.js";
+
+const OffersListWrapped = withOfferList(OffersList);
+const MapWrapped = withMap(Map);
 
 const MainScreen = (props) => {
   const {offersCount, offers, onHeaderClick} = props;
@@ -85,10 +91,10 @@ const MainScreen = (props) => {
                 <li className="places__option" tabIndex="0">Top rated first</li>
               </ul>
             </form>
-            <OffersList offers={offers} onHeaderClick={onHeaderClick}/>
+            <OffersListWrapped offers={offers} onHeaderClick={onHeaderClick}/>
           </section>
           <div className="cities__right-section">
-            <Map offers={offers}/>
+            <MapWrapped offers={offers}/>
           </div>
         </div>
       </div>
@@ -101,32 +107,7 @@ const MainScreen = (props) => {
 MainScreen.propTypes = {
   offersCount: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        img: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        rating: PropTypes.number.isRequired,
-        type: PropTypes.string.isRequired,
-        isItPremium: PropTypes.bool.isRequired,
-        id: PropTypes.number.isRequired,
-        images: PropTypes.arrayOf(
-            PropTypes.string.isRequired
-        ).isRequired,
-        description: PropTypes.string.isRequired,
-        bedrooms: PropTypes.number.isRequired,
-        guests: PropTypes.number.isRequired,
-        appliances: PropTypes.arrayOf(
-            PropTypes.string.isRequired
-        ).isRequired,
-        owner: PropTypes.shape({
-          avatar: PropTypes.string.isRequired,
-          name: PropTypes.string.isRequired,
-          isSuper: PropTypes.bool.isRequired,
-        }).isRequired,
-        coords: PropTypes.arrayOf(
-            PropTypes.number.isRequired
-        ).isRequired
-      })
+      OfferType
   ).isRequired,
   onHeaderClick: PropTypes.func.isRequired,
 };
