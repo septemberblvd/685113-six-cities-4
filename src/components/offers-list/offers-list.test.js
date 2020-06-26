@@ -6,77 +6,11 @@ const offers = [
   {
     title: `Wood and stone place`,
     img: `src`,
-    price: 180,
-    rating: 5,
-    type: `Hotel`,
-    isItPremium: true,
-    id: 4,
-    images: [
-      `src`,
-      `src`,
-      `src`,
-      `src`,
-      `src`,
-      `src`,
-    ],
-    description: `Some text`,
-    bedrooms: 1,
-    guests: 2,
-    appliances: [
-      `Wi-Fi`,
-      `Baby seat`,
-      `Kitchen`,
-      `Dishwasher`,
-      `Cabel TV`,
-      `Fridge`,
-    ],
-    owner: {
-      avatar: `src`,
-      name: `Death`,
-      isSuper: true,
-    },
-  },
-  {
-    title: `Canal View Prinsengracht`,
-    img: `src`,
-    price: 138,
-    rating: 4,
-    type: `Apartment`,
-    isItPremium: false,
-    id: 3,
-    images: [
-      `src`,
-      `src`,
-      `src`,
-      `src`,
-      `src`,
-      `src`,
-    ],
-    description: `Some text`,
-    bedrooms: 4,
-    guests: 5,
-    appliances: [
-      `Wi-Fi`,
-      `Washing machine`,
-      `Towels`,
-      `Baby seat`,
-      `Kitchen`,
-      `Dishwasher`,
-    ],
-    owner: {
-      avatar: `src`,
-      name: `War`,
-      isSuper: true,
-    },
-  },
-  {
-    title: `Wood and stone place`,
-    img: `src`,
     price: 80,
     rating: 5,
     type: `Apartment`,
     isItPremium: true,
-    id: 4,
+    id: 1,
     images: [
       `src`,
       `src`,
@@ -101,13 +35,41 @@ const offers = [
       name: `Death`,
       isSuper: true,
     },
+    coords: [52.39874984984841, 4.82456445558843],
+    reviews: [
+      {
+        reviewId: 14,
+        reviewName: `Ozzy`,
+        reviewAvatar: `src`,
+        reviewGrade: 4,
+        reviewText: `Id minim labore ut velit sit velit.Magna deserunt reprehenderit consequat elit cupidatat proident nostrud amet minim nulla.`,
+        reviewTime: `May 8, 2016`,
+      },
+      {
+        reviewId: 22,
+        reviewName: `Mick`,
+        reviewAvatar: `src`,
+        reviewGrade: 2,
+        reviewText: `Incididunt fugiat non aliqua eu nisi.Id Lorem cillum non voluptate nulla id fugiat Lorem exercitation irure ullamco enim veniam ullamco.`,
+        reviewTime: `June 5, 2018`,
+      },
+    ],
+    nearOffers: [1]
   },
 ];
 const onHeaderClick = () => {};
-it(`Should OfferCard render correctly`, () => {
+const onCardMouseEnter = () => {};
+
+it(`Should OfferList render correctly`, () => {
   const tree = renderer
       .create(<OffersList offers={offers}
-        onHeaderClick={onHeaderClick} />)
+        onHeaderClick={onHeaderClick}
+        onCardMouseEnter={onCardMouseEnter}/>, {
+        createNodeMock: () => {
+          return document.createElement(`div`);
+        }
+      }
+      )
       .toJSON();
 
   expect(tree).toMatchSnapshot();

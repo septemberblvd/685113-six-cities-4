@@ -5,11 +5,11 @@ import Property from "./property.jsx";
 const offer = {
   title: `Wood and stone place`,
   img: `src`,
-  price: 180,
+  price: 80,
   rating: 5,
-  type: `Hotel`,
+  type: `Apartment`,
   isItPremium: true,
-  id: 4,
+  id: 1,
   images: [
     `src`,
     `src`,
@@ -19,8 +19,8 @@ const offer = {
     `src`,
   ],
   description: `Some text`,
-  bedrooms: 1,
-  guests: 2,
+  bedrooms: 2,
+  guests: 3,
   appliances: [
     `Wi-Fi`,
     `Baby seat`,
@@ -34,11 +34,97 @@ const offer = {
     name: `Death`,
     isSuper: true,
   },
+  coords: [52.39874984984841, 4.82456445558843],
+  reviews: [
+    {
+      reviewId: 14,
+      reviewName: `Ozzy`,
+      reviewAvatar: `src`,
+      reviewGrade: 4,
+      reviewText: `Id minim labore ut velit sit velit.Magna deserunt reprehenderit consequat elit cupidatat proident nostrud amet minim nulla.`,
+      reviewTime: `May 8, 2016`,
+    },
+    {
+      reviewId: 22,
+      reviewName: `Mick`,
+      reviewAvatar: `src`,
+      reviewGrade: 2,
+      reviewText: `Incididunt fugiat non aliqua eu nisi.Id Lorem cillum non voluptate nulla id fugiat Lorem exercitation irure ullamco enim veniam ullamco.`,
+      reviewTime: `June 5, 2018`,
+    },
+  ],
+  nearOffers: [1]
 };
+
+const offers = [
+  {
+    title: `Wood and stone place`,
+    img: `src`,
+    price: 100,
+    rating: 5,
+    type: `Apartment`,
+    isItPremium: false,
+    id: 1,
+    images: [
+      `src`,
+      `src`,
+      `src`,
+      `src`,
+      `src`,
+      `src`,
+    ],
+    description: `Some text`,
+    bedrooms: 2,
+    guests: 3,
+    appliances: [
+      `Wi-Fi`,
+      `Baby seat`,
+      `Kitchen`,
+      `Dishwasher`,
+      `Cabel TV`,
+      `Fridge`,
+    ],
+    owner: {
+      avatar: `src`,
+      name: `Death`,
+      isSuper: true,
+    },
+    coords: [52.2345235432432, 4.2342342343242],
+    reviews: [
+      {
+        reviewId: 14,
+        reviewName: `Ozzy`,
+        reviewAvatar: `src`,
+        reviewGrade: 4,
+        reviewText: `Id minim labore ut velit sit velit.Magna deserunt reprehenderit consequat elit cupidatat proident nostrud amet minim nulla.`,
+        reviewTime: `May 8, 2016`,
+      },
+      {
+        reviewId: 22,
+        reviewName: `Mick`,
+        reviewAvatar: `src`,
+        reviewGrade: 2,
+        reviewText: `Incididunt fugiat non aliqua eu nisi.Id Lorem cillum non voluptate nulla id fugiat Lorem exercitation irure ullamco enim veniam ullamco.`,
+        reviewTime: `June 5, 2018`,
+      },
+    ],
+    nearOffers: [1]
+  },
+];
+
 
 it(`Should OfferCard render correctly`, () => {
   const tree = renderer
-      .create(<Property offer={offer}/>)
+      .create(<Property
+        offer={offer}
+        offers={offers}
+        onHeaderClick = {() => {}}
+      />, {
+        createNodeMock: () => {
+          return document.createElement(`div`);
+        }
+      }
+      )
       .toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -10,7 +10,7 @@ const offers = [
     rating: 5,
     type: `Apartment`,
     isItPremium: true,
-    id: 4,
+    id: 1,
     images: [
       `src`,
       `src`,
@@ -35,41 +35,26 @@ const offers = [
       name: `Death`,
       isSuper: true,
     },
-    coords: [52.39874984984841, 4.82456445558843]
-  },
-  {
-    title: `Canal View Prinsengracht`,
-    img: `src`,
-    price: 138,
-    rating: 4,
-    type: `Apartment`,
-    isItPremium: false,
-    id: 3,
-    images: [
-      `src`,
-      `src`,
-      `src`,
-      `src`,
-      `src`,
-      `src`,
+    coords: [52.39874984984841, 4.82456445558843],
+    reviews: [
+      {
+        reviewId: 14,
+        reviewName: `Ozzy`,
+        reviewAvatar: `src`,
+        reviewGrade: 4,
+        reviewText: `Id minim labore ut velit sit velit.Magna deserunt reprehenderit consequat elit cupidatat proident nostrud amet minim nulla.`,
+        reviewTime: `May 8, 2016`,
+      },
+      {
+        reviewId: 22,
+        reviewName: `Mick`,
+        reviewAvatar: `src`,
+        reviewGrade: 2,
+        reviewText: `Incididunt fugiat non aliqua eu nisi.Id Lorem cillum non voluptate nulla id fugiat Lorem exercitation irure ullamco enim veniam ullamco.`,
+        reviewTime: `June 5, 2018`,
+      },
     ],
-    description: `Some text`,
-    bedrooms: 4,
-    guests: 5,
-    appliances: [
-      `Wi-Fi`,
-      `Washing machine`,
-      `Towels`,
-      `Baby seat`,
-      `Kitchen`,
-      `Dishwasher`,
-    ],
-    owner: {
-      avatar: `src`,
-      name: `War`,
-      isSuper: true,
-    },
-    coords: [52.398749844555489, 4.82456445565458]
+    nearOffers: [1]
   },
 ];
 

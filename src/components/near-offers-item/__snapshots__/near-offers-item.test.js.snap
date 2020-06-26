@@ -1,19 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Should OfferCard render correctly 1`] = `
+exports[`Should NearOfferItem render correctly 1`] = `
 <article
-  className="cities__place-card place-card"
+  className="near-places__card place-card"
   onMouseEnter={[Function]}
 >
   <div
-    className="place-card__mark"
-  >
-    <span>
-      Premium
-    </span>
-  </div>
-  <div
-    className="cities__image-wrapper place-card__image-wrapper"
+    className="near-places__image-wrapper place-card__image-wrapper"
   >
     <a
       href="#"

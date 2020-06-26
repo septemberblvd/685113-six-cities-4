@@ -1,10 +1,8 @@
 import React from "react";
-import Enzyme, {mount} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-import OfferCard from "./offer-card";
+import renderer from "react-test-renderer";
+import ReviewsList from "./reviews-list.jsx";
 
-
-const userChoise = {
+const offer = {
   title: `Wood and stone place`,
   img: `src`,
   price: 80,
@@ -58,29 +56,15 @@ const userChoise = {
   nearOffers: [1]
 };
 
-Enzyme.configure({
-  adapter: new Adapter(),
-});
+it(`Should OfferList render correctly`, () => {
+  const tree = renderer
+      .create(<ReviewsList offer={offer} />, {
+        createNodeMock: () => {
+          return document.createElement(`div`);
+        }
+      }
+      )
+      .toJSON();
 
-describe(`OfferCardComponent`, () => {
-  it(`Should card be hovered`, () => {
-    const onCardMouseEnter = jest.fn();
-    const onHeaderClick = jest.fn();
-
-
-    const offerCard = mount(
-        <OfferCard
-          key={userChoise.id + 1}
-          offer={userChoise}
-          onCardMouseEnter={onCardMouseEnter}
-          onHeaderClick={onHeaderClick} />
-    );
-
-    const offerCardTwo = offerCard.find(`.place-card`);
-
-    offerCardTwo.simulate(`mouseenter`, {preventDefault() {}});
-
-    expect(onCardMouseEnter).toHaveBeenCalledTimes(1);
-    expect(onCardMouseEnter.mock.calls[0][0]).toMatchObject(userChoise);
-  });
+  expect(tree).toMatchSnapshot();
 });

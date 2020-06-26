@@ -1,7 +1,6 @@
 import React from "react";
-import Enzyme, {mount} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-import MainScreen from "./main-screen";
+import renderer from "react-test-renderer";
+import NearOffersItem from "./near-offers-item.jsx";
 
 const offers = [
   {
@@ -59,28 +58,22 @@ const offers = [
   },
 ];
 
-Enzyme.configure({
-  adapter: new Adapter(),
+const onCardMouseEnter = () => {};
+const onHeaderClick = () => {};
+
+it(`Should NearOfferItem render correctly`, () => {
+  const tree = renderer
+      .create(offers.map((it, i) => <NearOffersItem
+        key={it.id + i}
+        nearOffer={it}
+        onCardMouseEnter={onCardMouseEnter}
+        onHeaderClick={onHeaderClick} />),
+      {
+        createNodeMock: () => {
+          return document.createElement(`div`);
+        }
+      })
+      .toJSON();
+
+  expect(tree).toMatchSnapshot();
 });
-
-describe(`MainScreenComponent`, () => {
-  it(`Should header button be pressed`, () => {
-    const onHeaderClick = jest.fn();
-
-    const mainScreen = mount(
-        <MainScreen
-          offersCount = {31}
-          offers = {offers}
-          onHeaderClick = {onHeaderClick}/>
-    );
-
-    const headerButtons = mainScreen.find(`.place-card__name a`);
-    const headerButtonOne = headerButtons.at(0);
-
-    headerButtonOne.simulate(`click`, {preventDefault() {}});
-
-    expect(onHeaderClick).toHaveBeenCalledTimes(1);
-  });
-});
-
-

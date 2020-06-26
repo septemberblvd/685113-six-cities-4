@@ -3,6 +3,7 @@ import MainScreen from "../main-screen/main-screen.jsx";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Property from "../property/property.jsx";
+import {OfferType} from "../../const.js";
 
 class App extends PureComponent {
   constructor(props) {
@@ -22,7 +23,10 @@ class App extends PureComponent {
     const {offersCount, offers} = this.props;
     const offer = this.state;
     if (offer.activeOffer) {
-      return <Property offer={offer.activeOffer}/>;
+      return <Property offer={offer.activeOffer}
+        offers={offers}
+        onHeaderClick = {this._handleCardHeaderClick}
+      />;
     }
 
     return <MainScreen
@@ -56,32 +60,7 @@ class App extends PureComponent {
 App.propTypes = {
   offersCount: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        img: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        rating: PropTypes.number.isRequired,
-        type: PropTypes.string.isRequired,
-        isItPremium: PropTypes.bool.isRequired,
-        id: PropTypes.number.isRequired,
-        images: PropTypes.arrayOf(
-            PropTypes.string.isRequired
-        ).isRequired,
-        description: PropTypes.string.isRequired,
-        bedrooms: PropTypes.number.isRequired,
-        guests: PropTypes.number.isRequired,
-        appliances: PropTypes.arrayOf(
-            PropTypes.string.isRequired
-        ).isRequired,
-        owner: PropTypes.shape({
-          avatar: PropTypes.string.isRequired,
-          name: PropTypes.string.isRequired,
-          isSuper: PropTypes.bool.isRequired,
-        }).isRequired,
-        coords: PropTypes.arrayOf(
-            PropTypes.number.isRequired
-        ).isRequired
-      })
+      OfferType
   ).isRequired,
 };
 
