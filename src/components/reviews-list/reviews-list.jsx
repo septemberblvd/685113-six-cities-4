@@ -9,7 +9,7 @@ const ReviewsList = (props) => {
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offer.reviews.length}</span></h2>
       <ul className="reviews__list">
         {offer.reviews.map((it, i) => <ReviewsItem
-          key={it.id * Math.random() + i}
+          key={it.reviewId + i}
           review={it}
         />)}
       </ul>

@@ -64,13 +64,13 @@ const onHeaderClick = () => {};
 it(`Should NearOfferItem render correctly`, () => {
   const tree = renderer
       .create(offers.map((it, i) => <NearOffersItem
-        key={it.id * Math.random() + i}
-        offer={it}
+        key={it.id + i}
+        nearOffer={it}
         onCardMouseEnter={onCardMouseEnter}
         onHeaderClick={onHeaderClick} />),
       {
         createNodeMock: () => {
-          return {};
+          return document.createElement(`div`);
         }
       })
       .toJSON();

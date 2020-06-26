@@ -25,7 +25,7 @@ const withMap = (Component) => {
 
       const zoom = 12;
 
-      const map = leaflet.map(`map`, {
+      const map = leaflet.map(this._mapRef.current, {
         center: city,
         zoom,
         zoomControl: false,
@@ -46,12 +46,13 @@ const withMap = (Component) => {
     }
 
     componentWillUnmount() {
-
+      this._mapRef.current = null;
     }
 
     render() {
       return <Component
         {...this.props}
+        mapRef={this._mapRef}
       />;
     }
   }

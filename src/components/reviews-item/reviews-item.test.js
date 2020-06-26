@@ -15,12 +15,12 @@ const review = {
 it(`Should OfferCard render correctly`, () => {
   const tree = renderer
       .create(<ReviewsItem
-        key={review.id * Math.random() + 1}
+        key={review.reviewId + 1}
         review={review}
       />,
       {
         createNodeMock: () => {
-          return {};
+          return document.createElement(`div`);
         }
       })
       .toJSON();

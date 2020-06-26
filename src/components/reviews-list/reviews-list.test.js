@@ -60,7 +60,7 @@ it(`Should OfferList render correctly`, () => {
   const tree = renderer
       .create(<ReviewsList offer={offer} />, {
         createNodeMock: () => {
-          return {};
+          return document.createElement(`div`);
         }
       }
       )

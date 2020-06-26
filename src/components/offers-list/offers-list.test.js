@@ -66,7 +66,7 @@ it(`Should OfferList render correctly`, () => {
         onHeaderClick={onHeaderClick}
         onCardMouseEnter={onCardMouseEnter}/>, {
         createNodeMock: () => {
-          return {};
+          return document.createElement(`div`);
         }
       }
       )

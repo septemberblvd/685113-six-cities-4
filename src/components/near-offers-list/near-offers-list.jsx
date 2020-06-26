@@ -10,7 +10,7 @@ const NearOffersList = (props) => {
       <h2 className="near-places__title">Other places in the neighbourhood</h2>
       <div className="near-places__list places__list">
         {offers.map((it, i) => <NearOffersItem
-          key={it.id * Math.random() + i}
+          key={it.id + i}
           nearOffer={it}
           onCardMouseEnter={onCardMouseEnter}
           onHeaderClick={onHeaderClick}

@@ -70,7 +70,7 @@ describe(`OfferCardComponent`, () => {
 
     const offerCard = mount(
         <OfferCard
-          key={userChoise.id * Math.random() + 1}
+          key={userChoise.id + 1}
           offer={userChoise}
           onCardMouseEnter={onCardMouseEnter}
           onHeaderClick={onHeaderClick} />

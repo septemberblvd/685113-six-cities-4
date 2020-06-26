@@ -121,7 +121,7 @@ it(`Should OfferCard render correctly`, () => {
         onHeaderClick = {() => {}}
       />, {
         createNodeMock: () => {
-          return {};
+          return document.createElement(`div`);
         }
       }
       )

@@ -64,13 +64,13 @@ const onHeaderClick = () => {};
 it(`Should OfferCard render correctly`, () => {
   const tree = renderer
       .create(offers.map((it, i) => <OfferCard
-        key={it.id * Math.random() + i}
+        key={it.id + i}
         offer={it}
         onCardMouseEnter={onCardMouseEnter}
         onHeaderClick={onHeaderClick} />),
       {
         createNodeMock: () => {
-          return {};
+          return document.createElement(`div`);
         }
       })
       .toJSON();

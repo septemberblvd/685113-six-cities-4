@@ -10,7 +10,7 @@ const OffersList = (props) => {
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map((it, i) => <OfferCard
-        key={it.id * Math.random() + i}
+        key={it.id + i}
         offer={it}
         onCardMouseEnter={onCardMouseEnter}
         onHeaderClick={onHeaderClick}

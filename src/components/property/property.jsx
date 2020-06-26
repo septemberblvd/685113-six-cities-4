@@ -49,7 +49,7 @@ const Property = (props) => {
           <div className="property__gallery">
             {images.map((image, i) => {
               return (
-                <div key= {image + Math.random() + i} className="property__image-wrapper">
+                <div key= {image + i} className="property__image-wrapper">
                   <img className="property__image" src={image} alt="Photo studio" />
                 </div>
               );
