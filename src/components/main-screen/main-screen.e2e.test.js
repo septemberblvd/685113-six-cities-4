@@ -12,6 +12,7 @@ const offers = [
     type: `Apartment`,
     isItPremium: true,
     id: 1,
+    cityName: `Paris`,
     images: [
       `src`,
       `src`,
@@ -59,6 +60,18 @@ const offers = [
   },
 ];
 
+const cities = [
+  {
+    cityName: `Paris`,
+    cityCoords: [48.85341, 2.3488],
+  },
+];
+
+const currentCity = {
+  cityName: `Paris`,
+  cityCoords: [48.85341, 2.3488],
+};
+
 Enzyme.configure({
   adapter: new Adapter(),
 });
@@ -69,7 +82,8 @@ describe(`MainScreenComponent`, () => {
 
     const mainScreen = mount(
         <MainScreen
-          offersCount = {31}
+          cities={cities}
+          currentCity={currentCity}
           offers = {offers}
           onHeaderClick = {onHeaderClick}/>
     );

@@ -14,9 +14,9 @@ const withMap = (Component) => {
     }
 
     componentDidMount() {
-      const {offers} = this.props;
+      const {offers, currentCity} = this.props;
 
-      const city = [52.38333, 4.9];
+      const city = currentCity.cityCoords;
 
       const icon = leaflet.icon({
         iconUrl: `img/pin.svg`,
@@ -61,9 +61,15 @@ const withMap = (Component) => {
     offers: PropTypes.arrayOf(
         OfferType
     ).isRequired,
+    currentCity: PropTypes.shape({
+      cityName: PropTypes.string.isRequired,
+      cityCoords: PropTypes.array.isRequired,
+    }),
   };
 
   return WithMap;
 };
 
 export default withMap;
+
+

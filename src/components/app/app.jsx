@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Property from "../property/property.jsx";
 import {OfferType} from "../../const.js";
+import {connect} from "react-redux";
 
 class App extends PureComponent {
   constructor(props) {
@@ -20,8 +21,13 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {offersCount, offers} = this.props;
+    const {
+      offers,
+      cities,
+      currentCity} = this.props;
+
     const offer = this.state;
+
     if (offer.activeOffer) {
       return <Property offer={offer.activeOffer}
         offers={offers}
@@ -30,8 +36,9 @@ class App extends PureComponent {
     }
 
     return <MainScreen
-      offersCount = {offersCount}
       offers = {offers}
+      cities = {cities}
+      currentCity={currentCity}
       onHeaderClick = {this._handleCardHeaderClick}
     />;
   }
@@ -58,10 +65,26 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  offersCount: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(
       OfferType
   ).isRequired,
+  cities: PropTypes.arrayOf(
+      PropTypes.shape({
+        cityName: PropTypes.string.isRequired,
+        cityCoords: PropTypes.array.isRequired,
+      })
+  ).isRequired,
+  currentCity: PropTypes.shape({
+    cityName: PropTypes.string.isRequired,
+    cityCoords: PropTypes.array.isRequired,
+  })
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  currentCity: state.city,
+  offers: state.currentOffers,
+});
+
+export {App};
+
+export default connect(mapStateToProps)(App);

@@ -7,6 +7,7 @@ const offers = [
     type: `Apartment`,
     isItPremium: true,
     id: 1,
+    cityName: `Amsterdam`,
     images: [
       `img/apartment-01.jpg`,
       `img/apartment-02.jpg`,
@@ -60,6 +61,7 @@ const offers = [
     type: `Private room`,
     isItPremium: false,
     id: 2,
+    cityName: `Amsterdam`,
     images: [
       `img/apartment-01.jpg`,
       `img/apartment-02.jpg`,
@@ -118,6 +120,7 @@ const offers = [
     type: `Apartment`,
     isItPremium: false,
     id: 3,
+    cityName: `Amsterdam`,
     images: [
       `img/apartment-01.jpg`,
       `img/apartment-01.jpg`,
@@ -179,6 +182,7 @@ const offers = [
     type: `Apartment`,
     isItPremium: true,
     id: 4,
+    cityName: `Amsterdam`,
     images: [
       `img/apartment-03.jpg`,
       `img/apartment-03.jpg`,
@@ -230,6 +234,63 @@ const offers = [
       },
     ],
     nearOffers: [1, 2, 4]
+  },
+  {
+    title: `Warm big bed apartment`,
+    img: `img/apartment-01.jpg`,
+    price: 160,
+    rating: 4,
+    type: `Hotel room`,
+    isItPremium: true,
+    id: 5,
+    cityName: `Paris`,
+    images: [
+      `img/apartment-03.jpg`,
+      `img/apartment-03.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-03.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-01.jpg`,
+    ],
+    description: `Irure enim cillum labore pariatur laboris consectetur. 
+      Magna in do est incididunt ex fugiat velit tempor commodo ad sunt in 
+      fugiat. Laborum nostrud aliqua aute consequat occaecat est amet. Minim 
+      ad cillum consectetur culpa nisi magna exercitation voluptate nostrud 
+      eiusmod cupidatat.`,
+    bedrooms: 1,
+    guests: 2,
+    appliances: [
+      `Wi-Fi`,
+      `Washing machine`,
+      `Towels`,
+      `Heating`,
+      `Coffee machine`,
+    ],
+    owner: {
+      avatar: `img/avatar-angelina.jpg`,
+      name: `Hoose`,
+      isSuper: true,
+    },
+    coords: [48.85312312341, 2.312321388],
+    reviews: [
+      {
+        reviewId: 78,
+        reviewName: `Jim`,
+        reviewAvatar: `img/avatar-max.jpg`,
+        reviewGrade: 4,
+        reviewText: `Ex voluptate eu commodo pariatur irure laboris do. Magna incididunt tempor sunt eu mollit qui.`,
+        reviewTime: `May 13, 2017`,
+      },
+      {
+        reviewId: 69,
+        reviewName: `Mat`,
+        reviewAvatar: `img/avatar-max.jpg`,
+        reviewGrade: 5,
+        reviewText: `Aliquip officia et et fugiat.`,
+        reviewTime: `June 24, 2020`,
+      },
+    ],
+    nearOffers: [5]
   },
 ];
 export default offers;

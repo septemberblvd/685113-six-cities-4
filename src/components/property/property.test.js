@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Property from "./property.jsx";
+import {Property} from "./property.jsx";
 
 const offer = {
   title: `Wood and stone place`,
@@ -10,6 +10,7 @@ const offer = {
   type: `Apartment`,
   isItPremium: true,
   id: 1,
+  cityName: `Paris`,
   images: [
     `src`,
     `src`,
@@ -65,6 +66,7 @@ const offers = [
     type: `Apartment`,
     isItPremium: false,
     id: 1,
+    cityName: `Paris`,
     images: [
       `src`,
       `src`,
@@ -112,12 +114,18 @@ const offers = [
   },
 ];
 
+const currentCity = {
+  cityName: `Paris`,
+  cityCoords: [48.85341, 2.3488],
+};
 
-it(`Should OfferCard render correctly`, () => {
+
+it(`Should PropertyComponent render correctly`, () => {
   const tree = renderer
       .create(<Property
         offer={offer}
         offers={offers}
+        currentCity={currentCity}
         onHeaderClick = {() => {}}
       />, {
         createNodeMock: () => {

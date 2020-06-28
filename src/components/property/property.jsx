@@ -8,9 +8,10 @@ import withMap from "../../hocs/with-map.js";
 import NearOffersMap from "../near-offers-map/near-offers-map.jsx";
 const NearOffersListWrapped = withOfferList(NearOffersList);
 const NearOffersMapWrapped = withMap(NearOffersMap);
+import {connect} from "react-redux";
 
 const Property = (props) => {
-  const {offer, offers, onHeaderClick} = props;
+  const {offer, offers, onHeaderClick, currentCity} = props;
   const {title, price, rating, img, type, isItPremium, id, images, description, bedrooms, guests, appliances, owner, nearOffers} = offer;
   const {avatar, name, isSuper} = owner;
   const nearOffersList = nearOffers.map(
@@ -125,7 +126,7 @@ const Property = (props) => {
             <ReviewsList offer={offer} />
           </div>
         </div>
-        <NearOffersMapWrapped offers={nearOffersList}/>
+        <NearOffersMapWrapped offers={nearOffersList} currentCity={currentCity}/>
       </section>
       <div className="container">
         <NearOffersListWrapped offers={nearOffersList} onHeaderClick={onHeaderClick}/>
@@ -138,6 +139,17 @@ Property.propTypes = {
   offer: OfferType,
   offers: PropTypes.arrayOf(OfferType),
   onHeaderClick: PropTypes.func,
+  currentCity: PropTypes.shape({
+    cityName: PropTypes.string.isRequired,
+    cityCoords: PropTypes.array.isRequired,
+  })
 };
 
-export default Property;
+const mapStateToProps = (state) => ({
+  currentCity: state.city,
+  offers: state.currentOffers,
+});
+
+export {Property};
+
+export default connect(mapStateToProps)(Property);
