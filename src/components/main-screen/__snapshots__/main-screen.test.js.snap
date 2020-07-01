@@ -106,9 +106,7 @@ exports[`Should MainScreen render correctly 1`] = `
           <b
             className="places__found"
           >
-            1
-             places to stay in 
-            Paris
+            1 places to stay in Paris
           </b>
           <form
             action="#"
