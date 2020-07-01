@@ -16,9 +16,9 @@ const ActionType = {
 };
 
 const ActionCreator = {
-  changeLocation: (location) => ({
+  changeLocation: (city) => ({
     type: ActionType.CHANGE_LOCATION,
-    payload: location,
+    payload: city,
   }),
   changeCurrentOffers: (cityName) => ({
     type: ActionType.CHANGE_CURRENT_OFFERS,

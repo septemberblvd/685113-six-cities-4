@@ -11,38 +11,49 @@ const withMap = (Component) => {
         activeCity: 0,
       };
       this._mapRef = React.createRef();
+      this._zoom = 12;
+      this._city = this.props.currentCity.cityCoords;
+      this._map = null;
     }
 
-    componentDidMount() {
-      const {offers, currentCity} = this.props;
-
-      const city = currentCity.cityCoords;
-
+    _createMarkers(offers) {
       const icon = leaflet.icon({
         iconUrl: `img/pin.svg`,
         iconSize: [30, 30]
       });
 
-      const zoom = 12;
+      offers.forEach((offer) => {
+        leaflet.marker(offer.coords, {icon}).addTo(this._map);
+      });
+    }
 
-      const map = leaflet.map(this._mapRef.current, {
-        center: city,
-        zoom,
+    componentDidMount() {
+      const {offers} = this.props;
+
+      this._map = leaflet.map(this._mapRef.current, {
+        center: this._city,
+        zoom: this._zoom,
         zoomControl: false,
         marker: true
       });
-
-      map.setView(city, zoom);
 
       leaflet
              .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
                attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
              })
-              .addTo(map);
+              .addTo(this._map);
 
-      offers.forEach((offer) => {
-        leaflet.marker(offer.coords, {icon}).addTo(map);
-      });
+      this._createMarkers(offers);
+    }
+
+    componentDidUpdate() {
+      const {offers, currentCity} = this.props;
+
+      this._city = currentCity.cityCoords;
+
+      this._createMarkers(offers);
+
+      this._map.setView(this._city, this._zoom);
     }
 
     componentWillUnmount() {

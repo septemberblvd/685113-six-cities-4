@@ -2,6 +2,10 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import MainScreen from "./main-screen.jsx";
+import configureStore from "redux-mock-store";
+import {Provider} from "react-redux";
+
+const mockStore = configureStore([]);
 
 const offers = [
   {
@@ -72,15 +76,24 @@ const currentCity = {
 };
 
 it(`Should MainScreen render correctly`, () => {
+  const store = mockStore({
+    city: {
+      cityName: `Paris`,
+      cityCoords: [48.85341, 2.3488],
+    },
+  });
   const tree = renderer
-      .create(<MainScreen
-        offers = {offers}
-        cities={cities}
-        currentCity={currentCity}
-        onHeaderClick = {() => {}}
-      />, {createNodeMock: () => {
-        return document.createElement(`div`);
-      }})
+      .create(
+          <Provider store={store}>
+            <MainScreen
+              offers = {offers}
+              cities={cities}
+              currentCity={currentCity}
+              onHeaderClick = {() => {}}
+            />
+          </Provider>, {createNodeMock: () => {
+            return document.createElement(`div`);
+          }})
       .toJSON();
 
   expect(tree).toMatchSnapshot();

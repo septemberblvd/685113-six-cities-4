@@ -70,12 +70,7 @@ const offers = [
       `img/apartment-03.jpg`,
       `img/apartment-03.jpg`,
     ],
-    description: `Exercitation exercitation culpa proident occaecat adipisicing aliquip. Aute officia 
-      adipisicing incididunt sint sit nisi nulla aute. Nulla do commodo incididunt aute cillum nulla nisi 
-      id eiusmod dolore esse id cillum consequat. Velit enim sit sint eiusmod ad cillum. Nostrud ipsum esse
-      fugiat irure veniam nisi dolor irure nisi ex aute excepteur duis ut.
-      Aute ea ea eu aliquip ipsum ea. Cillum consectetur sit dolor ad sit non reprehenderit ipsum aliquip. 
-      Velit amet laboris ad eu veniam elit nisi commodo dolore do veniam id dolore est.`,
+    description: `Exercitation exercitation culpa proident occaecat adipisicing aliquip.`,
     bedrooms: 3,
     guests: 3,
     appliances: [
@@ -129,14 +124,7 @@ const offers = [
       `img/apartment-02.jpg`,
       `img/apartment-03.jpg`,
     ],
-    description: `Officia anim fugiat mollit laboris irure ex non ut adipisicing minim
-      reprehenderit qui. Lorem do laboris voluptate aliquip sit ut ipsum. Mollit incididunt
-      occaecat amet culpa duis ut eu cupidatat pariatur ea. Eu incididunt nisi velit cillum
-      sint consectetur. Cillum voluptate Lorem dolore mollit id aute adipisicing sint. Culpa
-      incididunt nulla nostrud aliqua.
-      Adipisicing ex magna enim commodo occaecat tempor reprehenderit aute reprehenderit cillum 
-      est. Reprehenderit id sit magna commodo ut do in officia id aute. Adipisicing eu velit 
-      magna excepteur non minim amet Lorem.`,
+    description: `Officia anim fugiat mollit laboris irure ex non ut adipisicing minim reprehenderit qui.`,
     bedrooms: 1,
     guests: 2,
     appliances: [
@@ -191,15 +179,7 @@ const offers = [
       `img/apartment-02.jpg`,
       `img/apartment-03.jpg`,
     ],
-    description: `Irure enim cillum labore pariatur laboris consectetur. 
-      Magna in do est incididunt ex fugiat velit tempor commodo ad sunt in 
-      fugiat. Laborum nostrud aliqua aute consequat occaecat est amet. Minim 
-      ad cillum consectetur culpa nisi magna exercitation voluptate nostrud 
-      eiusmod cupidatat. Commodo excepteur consectetur reprehenderit incididunt tempor 
-      aute non veniam culpa. Et deserunt esse aliqua occaecat veniam.
-      Exercitation labore ex ea occaecat veniam excepteur nisi tempor eiusmod officia 
-      eiusmod. Deserunt id fugiat eu ex dolor aliqua est eu est ullamco et eu pariatur 
-      aliquip. Elit esse reprehenderit amet veniam non eu.`,
+    description: `Irure enim cillum labore pariatur laboris consectetur.`,
     bedrooms: 3,
     guests: 6,
     appliances: [
@@ -252,11 +232,7 @@ const offers = [
       `img/apartment-02.jpg`,
       `img/apartment-01.jpg`,
     ],
-    description: `Irure enim cillum labore pariatur laboris consectetur. 
-      Magna in do est incididunt ex fugiat velit tempor commodo ad sunt in 
-      fugiat. Laborum nostrud aliqua aute consequat occaecat est amet. Minim 
-      ad cillum consectetur culpa nisi magna exercitation voluptate nostrud 
-      eiusmod cupidatat.`,
+    description: `Irure enim cillum labore pariatur laboris consectetur.`,
     bedrooms: 1,
     guests: 2,
     appliances: [

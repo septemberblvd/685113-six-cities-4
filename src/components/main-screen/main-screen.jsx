@@ -45,7 +45,7 @@ const MainScreen = (props) => {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{offers.length} places to stay in {currentCity.cityName}</b>
+            <b className="places__found">{offers.length > 0 ? `${offers.length} places to stay in ${currentCity.cityName}` : `No places to stay available`}</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex="0">
@@ -62,7 +62,8 @@ const MainScreen = (props) => {
             <OffersListWrapped offers={offers} onHeaderClick={onHeaderClick}/>
           </section>
           <div className="cities__right-section">
-            <MapWrapped offers={offers} currentCity={currentCity}/>
+            {offers.length > 0 && <MapWrapped offers={offers} currentCity={currentCity}/>}
+            {offers.length > 0 || <section className="cities__map map"></section>}
           </div>
         </div>
       </div>
