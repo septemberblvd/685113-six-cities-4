@@ -2,6 +2,10 @@ import React from "react";
 import Enzyme, {mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import MainScreen from "./main-screen";
+import configureStore from "redux-mock-store";
+import {Provider} from "react-redux";
+
+const mockStore = configureStore([]);
 
 const offers = [
   {
@@ -12,6 +16,7 @@ const offers = [
     type: `Apartment`,
     isItPremium: true,
     id: 1,
+    cityName: `Paris`,
     images: [
       `src`,
       `src`,
@@ -59,6 +64,18 @@ const offers = [
   },
 ];
 
+const cities = [
+  {
+    cityName: `Paris`,
+    cityCoords: [48.85341, 2.3488],
+  },
+];
+
+const currentCity = {
+  cityName: `Paris`,
+  cityCoords: [48.85341, 2.3488],
+};
+
 Enzyme.configure({
   adapter: new Adapter(),
 });
@@ -67,11 +84,21 @@ describe(`MainScreenComponent`, () => {
   it(`Should header button be pressed`, () => {
     const onHeaderClick = jest.fn();
 
+    const store = mockStore({
+      city: {
+        cityName: `Paris`,
+        cityCoords: [48.85341, 2.3488],
+      },
+    });
+
     const mainScreen = mount(
-        <MainScreen
-          offersCount = {31}
-          offers = {offers}
-          onHeaderClick = {onHeaderClick}/>
+        <Provider store={store}>
+          <MainScreen
+            cities={cities}
+            currentCity={currentCity}
+            offers = {offers}
+            onHeaderClick = {onHeaderClick}/>
+        </Provider>
     );
 
     const headerButtons = mainScreen.find(`.place-card__name a`);

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Should OfferCard render correctly 1`] = `
+exports[`Should PropertyComponent render correctly 1`] = `
 <div
   className="page"
   id={1}

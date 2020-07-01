@@ -11,6 +11,7 @@ const offers = [
     type: `Apartment`,
     isItPremium: true,
     id: 1,
+    cityName: `Paris`,
     images: [
       `src`,
       `src`,

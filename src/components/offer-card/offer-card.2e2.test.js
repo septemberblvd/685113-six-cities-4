@@ -12,6 +12,7 @@ const userChoise = {
   type: `Apartment`,
   isItPremium: true,
   id: 1,
+  cityName: `Paris`,
   images: [
     `src`,
     `src`,

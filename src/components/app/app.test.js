@@ -1,6 +1,10 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "./app.jsx";
+import {App} from "./app.jsx";
+import configureStore from "redux-mock-store";
+import {Provider} from "react-redux";
+
+const mockStore = configureStore([]);
 
 const offers = [
   {
@@ -11,6 +15,7 @@ const offers = [
     type: `Apartment`,
     isItPremium: true,
     id: 1,
+    cityName: `Paris`,
     images: [
       `src`,
       `src`,
@@ -58,14 +63,38 @@ const offers = [
   },
 ];
 
+const cities = [
+  {
+    cityName: `Paris`,
+    cityCoords: [48.85341, 2.3488],
+  },
+];
+
+const currentCity = {
+  cityName: `Paris`,
+  cityCoords: [48.85341, 2.3488],
+};
+
+
 it(`Render App`, () => {
+  const store = mockStore({
+    city: {
+      cityName: `Paris`,
+      cityCoords: [48.85341, 2.3488],
+    },
+  });
   const tree = renderer
-    .create(<App offersCount = {31}
-      offers = {offers}
-      onHeaderClick = {() => {}}/>,
-    {createNodeMock: () => {
-      return document.createElement(`div`);
-    }})
+    .create(
+        <Provider store={store}>
+          <App
+            offers = {offers}
+            cities = {cities}
+            currentCity={currentCity}
+            onHeaderClick = {() => {}}/>
+        </Provider>,
+        {createNodeMock: () => {
+          return document.createElement(`div`);
+        }})
     .toJSON();
 
   expect(tree).toMatchSnapshot();

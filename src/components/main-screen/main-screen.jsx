@@ -5,12 +5,13 @@ import Map from "../map/map.jsx";
 import {OfferType} from "../../const.js";
 import withOfferList from "../../hocs/with-offer-list.js";
 import withMap from "../../hocs/with-map.js";
+import CitiesList from "../cities-list/cities-list.jsx";
 
 const OffersListWrapped = withOfferList(OffersList);
 const MapWrapped = withMap(Map);
 
 const MainScreen = (props) => {
-  const {offersCount, offers, onHeaderClick} = props;
+  const {cities, offers, currentCity, onHeaderClick} = props;
 
   return <div className="page page--gray page--main">
     <header className="header">
@@ -38,46 +39,13 @@ const MainScreen = (props) => {
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
-        <section className="locations container">
-          <ul className="locations__list tabs__list">
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Paris</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Cologne</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Brussels</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item tabs__item--active">
-                <span>Amsterdam</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Hamburg</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Dusseldorf</span>
-              </a>
-            </li>
-          </ul>
-        </section>
+        <CitiesList cities={cities}/>
       </div>
       <div className="cities">
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{offersCount} places to stay in Amsterdam</b>
+            <b className="places__found">{offers.length > 0 ? `${offers.length} places to stay in ${currentCity.cityName}` : `No places to stay available`}</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex="0">
@@ -94,7 +62,8 @@ const MainScreen = (props) => {
             <OffersListWrapped offers={offers} onHeaderClick={onHeaderClick}/>
           </section>
           <div className="cities__right-section">
-            <MapWrapped offers={offers}/>
+            {offers.length > 0 && <MapWrapped offers={offers} currentCity={currentCity}/>}
+            {offers.length > 0 || <section className="cities__map map"></section>}
           </div>
         </div>
       </div>
@@ -105,11 +74,21 @@ const MainScreen = (props) => {
 };
 
 MainScreen.propTypes = {
-  offersCount: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(
       OfferType
   ).isRequired,
   onHeaderClick: PropTypes.func.isRequired,
+  cities: PropTypes.arrayOf(
+      PropTypes.shape({
+        cityName: PropTypes.string.isRequired,
+        cityCoords: PropTypes.array.isRequired,
+      })
+  ).isRequired,
+  currentCity: PropTypes.shape({
+    cityName: PropTypes.string.isRequired,
+    cityCoords: PropTypes.array.isRequired,
+  })
 };
+
 
 export default MainScreen;

@@ -9,6 +9,7 @@ const OfferType = PropTypes.shape({
   type: PropTypes.string.isRequired,
   isItPremium: PropTypes.bool.isRequired,
   id: PropTypes.number.isRequired,
+  cityName: PropTypes.string.isRequired,
   images: PropTypes.arrayOf(
       PropTypes.string.isRequired
   ).isRequired,

@@ -7,6 +7,7 @@ const offers = [
     type: `Apartment`,
     isItPremium: true,
     id: 1,
+    cityName: `Amsterdam`,
     images: [
       `img/apartment-01.jpg`,
       `img/apartment-02.jpg`,
@@ -60,6 +61,7 @@ const offers = [
     type: `Private room`,
     isItPremium: false,
     id: 2,
+    cityName: `Amsterdam`,
     images: [
       `img/apartment-01.jpg`,
       `img/apartment-02.jpg`,
@@ -68,12 +70,7 @@ const offers = [
       `img/apartment-03.jpg`,
       `img/apartment-03.jpg`,
     ],
-    description: `Exercitation exercitation culpa proident occaecat adipisicing aliquip. Aute officia 
-      adipisicing incididunt sint sit nisi nulla aute. Nulla do commodo incididunt aute cillum nulla nisi 
-      id eiusmod dolore esse id cillum consequat. Velit enim sit sint eiusmod ad cillum. Nostrud ipsum esse
-      fugiat irure veniam nisi dolor irure nisi ex aute excepteur duis ut.
-      Aute ea ea eu aliquip ipsum ea. Cillum consectetur sit dolor ad sit non reprehenderit ipsum aliquip. 
-      Velit amet laboris ad eu veniam elit nisi commodo dolore do veniam id dolore est.`,
+    description: `Exercitation exercitation culpa proident occaecat adipisicing aliquip.`,
     bedrooms: 3,
     guests: 3,
     appliances: [
@@ -118,6 +115,7 @@ const offers = [
     type: `Apartment`,
     isItPremium: false,
     id: 3,
+    cityName: `Amsterdam`,
     images: [
       `img/apartment-01.jpg`,
       `img/apartment-01.jpg`,
@@ -126,14 +124,7 @@ const offers = [
       `img/apartment-02.jpg`,
       `img/apartment-03.jpg`,
     ],
-    description: `Officia anim fugiat mollit laboris irure ex non ut adipisicing minim
-      reprehenderit qui. Lorem do laboris voluptate aliquip sit ut ipsum. Mollit incididunt
-      occaecat amet culpa duis ut eu cupidatat pariatur ea. Eu incididunt nisi velit cillum
-      sint consectetur. Cillum voluptate Lorem dolore mollit id aute adipisicing sint. Culpa
-      incididunt nulla nostrud aliqua.
-      Adipisicing ex magna enim commodo occaecat tempor reprehenderit aute reprehenderit cillum 
-      est. Reprehenderit id sit magna commodo ut do in officia id aute. Adipisicing eu velit 
-      magna excepteur non minim amet Lorem.`,
+    description: `Officia anim fugiat mollit laboris irure ex non ut adipisicing minim reprehenderit qui.`,
     bedrooms: 1,
     guests: 2,
     appliances: [
@@ -179,6 +170,7 @@ const offers = [
     type: `Apartment`,
     isItPremium: true,
     id: 4,
+    cityName: `Amsterdam`,
     images: [
       `img/apartment-03.jpg`,
       `img/apartment-03.jpg`,
@@ -187,15 +179,7 @@ const offers = [
       `img/apartment-02.jpg`,
       `img/apartment-03.jpg`,
     ],
-    description: `Irure enim cillum labore pariatur laboris consectetur. 
-      Magna in do est incididunt ex fugiat velit tempor commodo ad sunt in 
-      fugiat. Laborum nostrud aliqua aute consequat occaecat est amet. Minim 
-      ad cillum consectetur culpa nisi magna exercitation voluptate nostrud 
-      eiusmod cupidatat. Commodo excepteur consectetur reprehenderit incididunt tempor 
-      aute non veniam culpa. Et deserunt esse aliqua occaecat veniam.
-      Exercitation labore ex ea occaecat veniam excepteur nisi tempor eiusmod officia 
-      eiusmod. Deserunt id fugiat eu ex dolor aliqua est eu est ullamco et eu pariatur 
-      aliquip. Elit esse reprehenderit amet veniam non eu.`,
+    description: `Irure enim cillum labore pariatur laboris consectetur.`,
     bedrooms: 3,
     guests: 6,
     appliances: [
@@ -230,6 +214,59 @@ const offers = [
       },
     ],
     nearOffers: [1, 2, 4]
+  },
+  {
+    title: `Warm big bed apartment`,
+    img: `img/apartment-01.jpg`,
+    price: 160,
+    rating: 4,
+    type: `Hotel room`,
+    isItPremium: true,
+    id: 5,
+    cityName: `Paris`,
+    images: [
+      `img/apartment-03.jpg`,
+      `img/apartment-03.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-03.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-01.jpg`,
+    ],
+    description: `Irure enim cillum labore pariatur laboris consectetur.`,
+    bedrooms: 1,
+    guests: 2,
+    appliances: [
+      `Wi-Fi`,
+      `Washing machine`,
+      `Towels`,
+      `Heating`,
+      `Coffee machine`,
+    ],
+    owner: {
+      avatar: `img/avatar-angelina.jpg`,
+      name: `Hoose`,
+      isSuper: true,
+    },
+    coords: [48.85312312341, 2.312321388],
+    reviews: [
+      {
+        reviewId: 78,
+        reviewName: `Jim`,
+        reviewAvatar: `img/avatar-max.jpg`,
+        reviewGrade: 4,
+        reviewText: `Ex voluptate eu commodo pariatur irure laboris do. Magna incididunt tempor sunt eu mollit qui.`,
+        reviewTime: `May 13, 2017`,
+      },
+      {
+        reviewId: 69,
+        reviewName: `Mat`,
+        reviewAvatar: `img/avatar-max.jpg`,
+        reviewGrade: 5,
+        reviewText: `Aliquip officia et et fugiat.`,
+        reviewTime: `June 24, 2020`,
+      },
+    ],
+    nearOffers: [5]
   },
 ];
 export default offers;
