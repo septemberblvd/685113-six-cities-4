@@ -7,10 +7,11 @@ import {OfferType} from "../../const.js";
 const OffersList = (props) => {
 
   const {offers, onHeaderClick, onCardMouseEnter} = props;
+
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map((it, i) => <OfferCard
-        key={it.id + i}
+        key={it.id + i * Math.random()}
         offer={it}
         onCardMouseEnter={onCardMouseEnter}
         onHeaderClick={onHeaderClick}

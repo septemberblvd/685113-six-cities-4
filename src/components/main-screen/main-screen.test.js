@@ -86,6 +86,8 @@ it(`Should MainScreen render correctly`, () => {
       .create(
           <Provider store={store}>
             <MainScreen
+              isOpened={true}
+              currentSortType={`Popular`}
               offers = {offers}
               cities={cities}
               currentCity={currentCity}

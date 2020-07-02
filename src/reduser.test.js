@@ -558,6 +558,8 @@ it(`Reducer without parameters return initial state`, () => {
     },
     allOffers: offers,
     currentOffers: offersInAmsterdam,
+    currentSortType: ``,
+    showSortMenu: false,
   });
 });
 

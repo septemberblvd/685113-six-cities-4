@@ -94,6 +94,8 @@ describe(`MainScreenComponent`, () => {
     const mainScreen = mount(
         <Provider store={store}>
           <MainScreen
+            isOpened={true}
+            currentSortType={`Popular`}
             cities={cities}
             currentCity={currentCity}
             offers = {offers}
