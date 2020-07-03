@@ -3,15 +3,16 @@ import {OfferType} from "../../const";
 import PropTypes from "prop-types";
 import ReviewsList from "../reviews-list/reviews-list.jsx";
 import NearOffersList from "../near-offers-list/near-offers-list.jsx";
-import withOfferList from "../../hocs/with-offer-list.js";
+import composedWithOfferList from "../../hocs/with-offer-list.js";
 import withMap from "../../hocs/with-map.js";
 import NearOffersMap from "../near-offers-map/near-offers-map.jsx";
-const NearOffersListWrapped = withOfferList(NearOffersList);
-const NearOffersMapWrapped = withMap(NearOffersMap);
 import {connect} from "react-redux";
 
+const NearOffersListWrapped = composedWithOfferList(NearOffersList);
+const NearOffersMapWrapped = withMap(NearOffersMap);
+
 const Property = (props) => {
-  const {offer, offers, onHeaderClick, currentCity} = props;
+  const {offer, offers, onHeaderClick, currentCity, activeOfferId} = props;
   const {title, price, rating, img, type, isItPremium, id, images, description, bedrooms, guests, appliances, owner, nearOffers} = offer;
   const {avatar, name, isSuper} = owner;
   const nearOffersList = nearOffers.map(
@@ -126,7 +127,7 @@ const Property = (props) => {
             <ReviewsList offer={offer} />
           </div>
         </div>
-        <NearOffersMapWrapped offers={nearOffersList} currentCity={currentCity}/>
+        <NearOffersMapWrapped offers={nearOffersList} currentCity={currentCity} activeOfferId={activeOfferId}/>
       </section>
       <div className="container">
         <NearOffersListWrapped offers={nearOffersList} onHeaderClick={onHeaderClick}/>
@@ -142,7 +143,8 @@ Property.propTypes = {
   currentCity: PropTypes.shape({
     cityName: PropTypes.string.isRequired,
     cityCoords: PropTypes.array.isRequired,
-  })
+  }),
+  activeOfferId: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({

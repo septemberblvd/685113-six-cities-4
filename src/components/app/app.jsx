@@ -24,7 +24,8 @@ class App extends PureComponent {
     const {
       offers,
       cities,
-      currentCity} = this.props;
+      currentCity,
+      activeOfferId} = this.props;
 
     const offer = this.state;
 
@@ -32,6 +33,7 @@ class App extends PureComponent {
       return <Property offer={offer.activeOffer}
         offers={offers}
         onHeaderClick = {this._handleCardHeaderClick}
+        activeOfferId = {activeOfferId}
       />;
     }
 
@@ -40,6 +42,7 @@ class App extends PureComponent {
       cities = {cities}
       currentCity={currentCity}
       onHeaderClick = {this._handleCardHeaderClick}
+      activeOfferId = {activeOfferId}
     />;
   }
 
@@ -77,12 +80,14 @@ App.propTypes = {
   currentCity: PropTypes.shape({
     cityName: PropTypes.string.isRequired,
     cityCoords: PropTypes.array.isRequired,
-  })
+  }),
+  activeOfferId: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currentCity: state.city,
   offers: state.currentOffers,
+  activeOfferId: state.activeOfferId,
 });
 
 export {App};

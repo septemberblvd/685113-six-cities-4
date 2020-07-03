@@ -17,13 +17,23 @@ const withMap = (Component) => {
     }
 
     _createMarkers(offers) {
+      const {activeOfferId} = this.props;
+
       const icon = leaflet.icon({
         iconUrl: `img/pin.svg`,
         iconSize: [30, 30]
       });
+      const iconActive = leaflet.icon({
+        iconUrl: `/img/pin-active.svg`,
+        iconSize: [30, 30]
+      });
 
       offers.forEach((offer) => {
-        leaflet.marker(offer.coords, {icon}).addTo(this._map);
+        leaflet.marker(offer.coords, {
+          icon: offer.id === activeOfferId
+            ? iconActive
+            : icon
+        }).addTo(this._map);
       });
     }
 
@@ -76,6 +86,7 @@ const withMap = (Component) => {
       cityName: PropTypes.string.isRequired,
       cityCoords: PropTypes.array.isRequired,
     }),
+    activeOfferId: PropTypes.number.isRequired,
   };
 
   return WithMap;

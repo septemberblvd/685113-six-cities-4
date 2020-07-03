@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import {OfferType} from "../../const.js";
 
 const OfferCard = (props) => {
-  const {offer, onCardMouseEnter, onHeaderClick} = props;
+  const {offer, onCardMouseEnter, onCardMouseLeave, onHeaderClick} = props;
 
-  return <article className="cities__place-card place-card" onMouseEnter={() => onCardMouseEnter(offer)}>
+  return <article className="cities__place-card place-card" onMouseEnter={() => onCardMouseEnter(offer)} onMouseLeave={() => onCardMouseLeave()}>
     {offer.isItPremium ? <div className="place-card__mark">
       <span>Premium</span>
     </div> : ``}
@@ -46,6 +46,7 @@ const OfferCard = (props) => {
 
 OfferCard.propTypes = {
   onCardMouseEnter: PropTypes.func.isRequired,
+  onCardMouseLeave: PropTypes.func.isRequired,
   onHeaderClick: PropTypes.func.isRequired,
   offer: OfferType,
 };

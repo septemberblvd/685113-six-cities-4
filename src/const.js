@@ -40,10 +40,10 @@ const OfferType = PropTypes.shape({
 }).isRequired;
 
 const SortType = {
-  POPULAR: `popular`,
-  PRICE_LOW_TO_HIGH: `price_low_to_high`,
-  PRICE_HIGH_TO_LOW: `price_high_to_low`,
-  TOP_RATED: `top_rated_first`,
+  POPULAR: `Popular`,
+  PRICE_LOW_TO_HIGH: `Price low to high`,
+  PRICE_HIGH_TO_LOW: `Price high to low`,
+  TOP_RATED: `Top rated first`,
 };
 
 export {OfferType, SortType};

@@ -3,16 +3,16 @@ import OffersList from "../offers-list/offers-list.jsx";
 import PropTypes from "prop-types";
 import Map from "../map/map.jsx";
 import {OfferType} from "../../const.js";
-import withOfferList from "../../hocs/with-offer-list.js";
+import composedWithOfferList from "../../hocs/with-offer-list.js";
 import withMap from "../../hocs/with-map.js";
 import CitiesList from "../cities-list/cities-list.jsx";
 import Sort from "../sort/sort.jsx";
 
-const OffersListWrapped = withOfferList(OffersList);
+const OffersListWrapped = composedWithOfferList(OffersList);
 const MapWrapped = withMap(Map);
 
 const MainScreen = (props) => {
-  const {cities, offers, currentCity, onHeaderClick} = props;
+  const {cities, offers, currentCity, onHeaderClick, activeOfferId} = props;
 
   return <div className="page page--gray page--main">
     <header className="header">
@@ -51,7 +51,7 @@ const MainScreen = (props) => {
             <OffersListWrapped offers={offers} onHeaderClick={onHeaderClick}/>
           </section>
           <div className="cities__right-section">
-            {offers.length > 0 && <MapWrapped offers={offers} currentCity={currentCity}/>}
+            {offers.length > 0 && <MapWrapped offers={offers} currentCity={currentCity} activeOfferId={activeOfferId}/>}
             {offers.length > 0 || <section className="cities__map map"></section>}
           </div>
         </div>
@@ -76,7 +76,8 @@ MainScreen.propTypes = {
   currentCity: PropTypes.shape({
     cityName: PropTypes.string.isRequired,
     cityCoords: PropTypes.array.isRequired,
-  })
+  }),
+  activeOfferId: PropTypes.number.isRequired,
 };
 
 

@@ -9,8 +9,8 @@ const initialState = {
   },
   allOffers: offers,
   currentOffers: getOffersInCity(`Amsterdam`, offers),
-  currentSortType: ``,
-  activeOfferLocation: null,
+  currentSortType: `Popular`,
+  activeOfferId: null,
   showSortMenu: false,
 };
 
@@ -35,9 +35,9 @@ const ActionCreator = {
     type: ActionType.SORT_OFFERS,
     payload: sortType,
   }),
-  activeOfferLocation: (offer) => ({
+  setActiveOffer: (offer) => ({
     type: ActionType.SET_ACTIVE_OFFER,
-    payload: offer
+    payload: offer,
   }),
   showSortMenu: (isShown) => ({
     type: ActionType.SHOW_SORT_MENU,
@@ -62,7 +62,7 @@ const reducer = (state = initialState, action) => {
       });
     case ActionType.SET_ACTIVE_OFFER:
       return extend(state, {
-        activeOfferLocation: action.payload,
+        activeOfferId: action.payload,
       });
 
     case ActionType.SHOW_SORT_MENU:
