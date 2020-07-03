@@ -630,6 +630,7 @@ exports[`Should PropertyComponent render correctly 1`] = `
           <article
             className="near-places__card place-card"
             onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
           >
             <div
               className="near-places__image-wrapper place-card__image-wrapper"

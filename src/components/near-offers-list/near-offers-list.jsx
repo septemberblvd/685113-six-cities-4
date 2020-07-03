@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import NearOffersItem from "../near-offers-item/near-offers-item.jsx";
 
 const NearOffersList = (props) => {
-  const {offers, onCardMouseEnter, onHeaderClick} = props;
+  const {offers, onCardMouseEnter, onHeaderClick, onCardMouseLeave} = props;
   return (
     <section className="near-places places">
       <h2 className="near-places__title">Other places in the neighbourhood</h2>
@@ -13,6 +13,7 @@ const NearOffersList = (props) => {
           key={it.id + i}
           nearOffer={it}
           onCardMouseEnter={onCardMouseEnter}
+          onCardMouseLeave={onCardMouseLeave}
           onHeaderClick={onHeaderClick}
         />)}
       </div>
@@ -26,6 +27,7 @@ NearOffersList.propTypes = {
   ).isRequired,
   onHeaderClick: PropTypes.func.isRequired,
   onCardMouseEnter: PropTypes.func.isRequired,
+  onCardMouseLeave: PropTypes.func.isRequired,
 };
 
 export default NearOffersList;

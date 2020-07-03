@@ -1,6 +1,10 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {Property} from "./property.jsx";
+import configureStore from "redux-mock-store";
+import {Provider} from "react-redux";
+
+const mockStore = configureStore([]);
 
 const offer = {
   title: `Wood and stone place`,
@@ -121,17 +125,26 @@ const currentCity = {
 
 
 it(`Should PropertyComponent render correctly`, () => {
+  const store = mockStore({
+    city: {
+      cityName: `Paris`,
+      cityCoords: [48.85341, 2.3488],
+    },
+  });
   const tree = renderer
-      .create(<Property
-        offer={offer}
-        offers={offers}
-        currentCity={currentCity}
-        onHeaderClick = {() => {}}
-      />, {
-        createNodeMock: () => {
-          return document.createElement(`div`);
-        }
-      }
+      .create(
+          <Provider store={store}>
+            <Property
+              offer={offer}
+              offers={offers}
+              currentCity={currentCity}
+              onHeaderClick = {() => {}}
+            />
+          </Provider>, {
+            createNodeMock: () => {
+              return document.createElement(`div`);
+            }
+          }
       )
       .toJSON();
 

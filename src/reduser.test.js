@@ -558,7 +558,8 @@ it(`Reducer without parameters return initial state`, () => {
     },
     allOffers: offers,
     currentOffers: offersInAmsterdam,
-    currentSortType: ``,
+    currentSortType: `Popular`,
+    activeOfferId: null,
     showSortMenu: false,
   });
 });

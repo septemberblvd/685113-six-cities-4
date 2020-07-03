@@ -59,8 +59,9 @@ const offers = [
   },
 ];
 
-const onCardMouseEnter = () => {};
-const onHeaderClick = () => {};
+const onCardMouseEnter = jest.fn();
+const onCardMouseLeave = jest.fn();
+const onHeaderClick = jest.fn();
 
 it(`Should NearOfferItem render correctly`, () => {
   const tree = renderer
@@ -68,6 +69,7 @@ it(`Should NearOfferItem render correctly`, () => {
         key={it.id + i}
         nearOffer={it}
         onCardMouseEnter={onCardMouseEnter}
+        onCardMouseLeave={onCardMouseLeave}
         onHeaderClick={onHeaderClick} />),
       {
         createNodeMock: () => {

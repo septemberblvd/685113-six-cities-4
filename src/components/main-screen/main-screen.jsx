@@ -77,7 +77,7 @@ MainScreen.propTypes = {
     cityName: PropTypes.string.isRequired,
     cityCoords: PropTypes.array.isRequired,
   }),
-  activeOfferId: PropTypes.number.isRequired,
+  activeOfferId: PropTypes.number,
 };
 
 

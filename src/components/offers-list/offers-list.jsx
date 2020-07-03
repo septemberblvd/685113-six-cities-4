@@ -6,7 +6,7 @@ import {OfferType} from "../../const.js";
 
 const OffersList = (props) => {
 
-  const {offers, onHeaderClick, onCardMouseEnter} = props;
+  const {offers, onHeaderClick, onCardMouseEnter, onCardMouseLeave} = props;
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -14,6 +14,7 @@ const OffersList = (props) => {
         key={it.id + i}
         offer={it}
         onCardMouseEnter={onCardMouseEnter}
+        onCardMouseLeave={onCardMouseLeave}
         onHeaderClick={onHeaderClick}
       />)}
     </div>
@@ -26,6 +27,7 @@ OffersList.propTypes = {
   ).isRequired,
   onHeaderClick: PropTypes.func.isRequired,
   onCardMouseEnter: PropTypes.func.isRequired,
+  onCardMouseLeave: PropTypes.func.isRequired,
 };
 
 export default OffersList;
