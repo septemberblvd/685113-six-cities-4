@@ -87,6 +87,8 @@ it(`Render App`, () => {
     .create(
         <Provider store={store}>
           <App
+            isOpened={true}
+            currentSortType={`Popular`}
             offers = {offers}
             cities = {cities}
             currentCity={currentCity}

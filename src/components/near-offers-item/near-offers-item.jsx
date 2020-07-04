@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import {OfferType} from "../../const.js";
 
 const NearOffersItem = (props) => {
-  const {nearOffer, onCardMouseEnter, onHeaderClick} = props;
+  const {nearOffer, onCardMouseEnter, onCardMouseLeave, onHeaderClick} = props;
   const {img, price, rating, title, type} = nearOffer;
   return (
-    <article className="near-places__card place-card" onMouseEnter={() => onCardMouseEnter(nearOffer)}>
+    <article className="near-places__card place-card" onMouseEnter={() => onCardMouseEnter(nearOffer)} onMouseLeave={() => onCardMouseLeave()}>
       <div className="near-places__image-wrapper place-card__image-wrapper">
         <a href="#">
           <img className="place-card__image" src={img} width="260" height="200" alt="Place image" />
@@ -46,6 +46,7 @@ const NearOffersItem = (props) => {
 
 NearOffersItem.propTypes = {
   onCardMouseEnter: PropTypes.func.isRequired,
+  onCardMouseLeave: PropTypes.func.isRequired,
   onHeaderClick: PropTypes.func.isRequired,
   nearOffer: OfferType,
 };

@@ -1,32 +1,48 @@
 import React, {PureComponent} from 'react';
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
+import {ActionCreator} from "../reducer";
+import {compose} from "redux";
 
 const withOfferList = (Component) => {
   class WithOfferList extends PureComponent {
     constructor(props) {
       super(props);
 
-      this._handleCardMouseEnter = this._handleCardMouseEnter.bind(this);
-
-      this.state = {
-        activeCardId: ``,
-      };
     }
 
-    _handleCardMouseEnter(offer) {
-      this.setState({activeCardId: offer.id});
-    }
 
     render() {
+      const {onCardMouseEnter, onCardMouseLeave} = this.props;
       return <Component
         {...this.props}
-        onCardMouseEnter={this._handleCardMouseEnter}
+        onCardMouseLeave={onCardMouseLeave}
+        onCardMouseEnter={onCardMouseEnter}
       />;
     }
   }
 
-  WithOfferList.propTypes = {};
+  WithOfferList.propTypes = {
+    onCardMouseEnter: PropTypes.func.isRequired,
+    onCardMouseLeave: PropTypes.func.isRequired,
+  };
 
   return WithOfferList;
 };
 
-export default withOfferList;
+const mapDispatchToProps = (dispatch) => ({
+  onCardMouseEnter(offer) {
+    dispatch(ActionCreator.setActiveOffer(offer.id));
+  },
+  onCardMouseLeave() {
+    dispatch(ActionCreator.setActiveOffer(null));
+  }
+});
+
+const composedWithOfferList = compose(
+    connect(null, mapDispatchToProps), withOfferList
+);
+
+export {withOfferList};
+
+export default composedWithOfferList;

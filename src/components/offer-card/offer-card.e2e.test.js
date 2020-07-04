@@ -66,6 +66,7 @@ Enzyme.configure({
 describe(`OfferCardComponent`, () => {
   it(`Should card be hovered`, () => {
     const onCardMouseEnter = jest.fn();
+    const onCardMouseLeave = jest.fn();
     const onHeaderClick = jest.fn();
 
 
@@ -74,6 +75,7 @@ describe(`OfferCardComponent`, () => {
           key={userChoise.id + 1}
           offer={userChoise}
           onCardMouseEnter={onCardMouseEnter}
+          onCardMouseLeave={onCardMouseLeave}
           onHeaderClick={onHeaderClick} />
     );
 
