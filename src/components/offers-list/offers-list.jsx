@@ -10,8 +10,8 @@ const OffersList = (props) => {
 
   return (
     <div className="cities__places-list places__list tabs__content">
-      {offers.map((it, i) => <OfferCard
-        key={it.id + i}
+      {offers.map((it) => <OfferCard
+        key={it.id }
         offer={it}
         onCardMouseEnter={onCardMouseEnter}
         onCardMouseLeave={onCardMouseLeave}
