@@ -1216,6 +1216,7 @@ it(`Reducer without parameters return initial state`, () => {
     currentOffers: offersInAmsterdam,
     currentSortType: `Popular`,
     activeOfferId: null,
+    activeOffer: null,
     showSortMenu: false,
   });
 });
@@ -1347,7 +1348,7 @@ it(`Reducer should sort offers`, () => {
 it(`Reducer should set activeOffer`, () => {
   expect(reducer(
       {},
-      ActionCreator.setActiveOffer(`1`))
+      ActionCreator.setActiveOfferId(`1`))
   ).toEqual({activeOfferId: `1`});
 });
 

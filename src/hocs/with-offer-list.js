@@ -32,10 +32,10 @@ const withOfferList = (Component) => {
 
 const mapDispatchToProps = (dispatch) => ({
   onCardMouseEnter(offer) {
-    dispatch(ActionCreator.setActiveOffer(offer.id));
+    dispatch(ActionCreator.setActiveOfferId(offer.id));
   },
   onCardMouseLeave() {
-    dispatch(ActionCreator.setActiveOffer(null));
+    dispatch(ActionCreator.setActiveOfferId(null));
   }
 });
 
