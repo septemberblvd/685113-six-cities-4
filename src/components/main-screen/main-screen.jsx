@@ -7,6 +7,7 @@ import composedWithOfferList from "../../hocs/with-offer-list.js";
 import withMap from "../../hocs/with-map.js";
 import CitiesList from "../cities-list/cities-list.jsx";
 import Sort from "../sort/sort.jsx";
+import NoOffers from '../no-offers/no-offers.jsx';
 
 const OffersListWrapped = composedWithOfferList(OffersList);
 const MapWrapped = withMap(Map);
@@ -43,18 +44,20 @@ const MainScreen = (props) => {
         <CitiesList cities={cities}/>
       </div>
       <div className="cities">
-        <div className="cities__places-container container">
-          <section className="cities__places places">
-            <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{offers.length > 0 ? `${offers.length} places to stay in ${currentCity.cityName}` : `No places to stay available`}</b>
-            <Sort />
-            <OffersListWrapped offers={offers} onHeaderClick={onHeaderClick}/>
-          </section>
-          <div className="cities__right-section">
-            {offers.length > 0 && <MapWrapped offers={offers} currentCity={currentCity} activeOfferId={activeOfferId}/>}
-            {offers.length > 0 || <section className="cities__map map"></section>}
-          </div>
-        </div>
+        {offers.length ?
+          (<div className="cities__places-container container">
+            <section className="cities__places places">
+              <h2 className="visually-hidden">Places</h2>
+              <b className="places__found">{offers.length > 0 ? `${offers.length} places to stay in ${currentCity.cityName}` : `No places to stay available`}</b>
+              <Sort />
+              <OffersListWrapped offers={offers} onHeaderClick={onHeaderClick}/>
+            </section>
+            <div className="cities__right-section">
+              {offers.length > 0 && <MapWrapped offers={offers} currentCity={currentCity} activeOfferId={activeOfferId}/>}
+              {offers.length > 0 || <section className="cities__map map"></section>}
+            </div>
+          </div>)
+          : <NoOffers />}
       </div>
     </main>
   </div>;
