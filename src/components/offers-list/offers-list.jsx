@@ -23,7 +23,7 @@ const OffersList = (props) => {
 
 OffersList.propTypes = {
   offers: PropTypes.arrayOf(
-      OfferType
+      OfferType.isRequired
   ).isRequired,
   onHeaderClick: PropTypes.func.isRequired,
   onCardMouseEnter: PropTypes.func.isRequired,

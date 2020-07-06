@@ -64,7 +64,7 @@ const ReviewsList = (props) => {
 };
 
 ReviewsList.propTypes = {
-  offer: OfferType,
+  offer: OfferType.isRequired,
 };
 
 export default ReviewsList;

@@ -92,7 +92,8 @@ it(`Render App`, () => {
             offers = {offers}
             cities = {cities}
             currentCity={currentCity}
-            onHeaderClick = {() => {}}/>
+            onHeaderClick = {() => {}}
+            onCardHeaderClick = {() => {}}/>
         </Provider>,
         {createNodeMock: () => {
           return document.createElement(`div`);

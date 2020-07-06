@@ -48,7 +48,7 @@ OfferCard.propTypes = {
   onCardMouseEnter: PropTypes.func.isRequired,
   onCardMouseLeave: PropTypes.func.isRequired,
   onHeaderClick: PropTypes.func.isRequired,
-  offer: OfferType,
+  offer: OfferType.isRequired,
 };
 
 export default OfferCard;

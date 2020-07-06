@@ -5,19 +5,19 @@ import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Property from "../property/property.jsx";
 import {OfferType} from "../../const.js";
 import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer";
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
 
     this._handleCardHeaderClick = this._handleCardHeaderClick.bind(this);
-    this.state = {
-      activeOffer: null,
-    };
   }
 
   _handleCardHeaderClick(offer) {
-    this.setState({activeOffer: offer});
+    const {onCardHeaderClick} = this.props;
+
+    onCardHeaderClick(offer);
   }
 
   _renderApp() {
@@ -25,12 +25,11 @@ class App extends PureComponent {
       offers,
       cities,
       currentCity,
-      activeOfferId} = this.props;
+      activeOfferId,
+      activeOffer} = this.props;
 
-    const offer = this.state;
-
-    if (offer.activeOffer) {
-      return <Property offer={offer.activeOffer}
+    if (activeOffer) {
+      return <Property offer={activeOffer}
         offers={offers}
         onHeaderClick = {this._handleCardHeaderClick}
         activeOfferId = {activeOfferId}
@@ -82,14 +81,23 @@ App.propTypes = {
     cityCoords: PropTypes.array.isRequired,
   }),
   activeOfferId: PropTypes.number,
+  onCardHeaderClick: PropTypes.func.isRequired,
+  activeOffer: OfferType,
 };
 
 const mapStateToProps = (state) => ({
   currentCity: state.city,
   offers: state.currentOffers,
   activeOfferId: state.activeOfferId,
+  activeOffer: state.activeOffer,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onCardHeaderClick(offer) {
+    dispatch(ActionCreator.setActiveOffer(offer));
+  },
 });
 
 export {App};
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
