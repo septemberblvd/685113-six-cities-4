@@ -137,8 +137,8 @@ const Property = (props) => {
 };
 
 Property.propTypes = {
-  offer: OfferType,
-  offers: PropTypes.arrayOf(OfferType),
+  offer: OfferType.isRequired,
+  offers: PropTypes.arrayOf(OfferType.isRequired),
   onHeaderClick: PropTypes.func,
   currentCity: PropTypes.shape({
     cityName: PropTypes.string.isRequired,

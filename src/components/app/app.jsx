@@ -82,7 +82,7 @@ App.propTypes = {
   }),
   activeOfferId: PropTypes.number,
   onCardHeaderClick: PropTypes.func.isRequired,
-  activeOffer: PropTypes.oneOf([OfferType, null]),
+  activeOffer: OfferType,
 };
 
 const mapStateToProps = (state) => ({

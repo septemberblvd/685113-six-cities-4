@@ -64,7 +64,7 @@ const MainScreen = (props) => {
 
 MainScreen.propTypes = {
   offers: PropTypes.arrayOf(
-      OfferType
+      OfferType.isRequired
   ).isRequired,
   onHeaderClick: PropTypes.func.isRequired,
   cities: PropTypes.arrayOf(

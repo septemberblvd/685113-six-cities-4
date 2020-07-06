@@ -80,7 +80,7 @@ const withMap = (Component) => {
 
   WithMap.propTypes = {
     offers: PropTypes.arrayOf(
-        OfferType
+        OfferType.isRequired
     ).isRequired,
     currentCity: PropTypes.shape({
       cityName: PropTypes.string.isRequired,

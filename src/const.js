@@ -37,7 +37,7 @@ const OfferType = PropTypes.shape({
   nearOffers: PropTypes.arrayOf(
       PropTypes.number.isRequired
   ).isRequired,
-}).isRequired;
+});
 
 const SortType = {
   POPULAR: `Popular`,

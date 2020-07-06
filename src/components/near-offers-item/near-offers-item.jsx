@@ -48,7 +48,7 @@ NearOffersItem.propTypes = {
   onCardMouseEnter: PropTypes.func.isRequired,
   onCardMouseLeave: PropTypes.func.isRequired,
   onHeaderClick: PropTypes.func.isRequired,
-  nearOffer: OfferType,
+  nearOffer: OfferType.isRequired,
 };
 
 export default NearOffersItem;
