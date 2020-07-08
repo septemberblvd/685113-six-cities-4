@@ -21,6 +21,7 @@ class App extends PureComponent {
   }
 
   _renderApp() {
+
     const {
       offers,
       cities,
