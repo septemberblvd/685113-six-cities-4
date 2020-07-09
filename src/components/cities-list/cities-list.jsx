@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer";
+import {ActionCreator} from "../../reducer/data/data.js";
+import NameSpace from "../../reducer/name-space";
 
 const CitiesList = (props) => {
   const {cities, currentCity, onCityClick} = props;
@@ -40,7 +41,7 @@ CitiesList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  currentCity: state.city,
+  currentCity: state[NameSpace.DATA].city,
 });
 
 const mapDispatchToProps = (dispatch) => ({

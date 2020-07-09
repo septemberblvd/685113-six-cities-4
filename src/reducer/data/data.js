@@ -1,13 +1,14 @@
 import {getOffersInCity, extend} from '../../utils';
-import offers from '../../mock/offers';
+import {adaptOffersAll} from '../../mock/offers';
+// import offers from '../../mock/offers';
 
 const initialState = {
   city: {
     cityName: `Amsterdam`,
     cityCoords: [52.38333, 4.9],
   },
-  allOffers: offers,
-  currentOffers: getOffersInCity(`Amsterdam`, offers),
+  allOffers: [],
+  currentOffers: [],
 };
 
 const ActionType = {
@@ -17,6 +18,12 @@ const ActionType = {
 };
 
 const ActionCreator = {
+  loadOffers: (offersAll) => {
+    return {
+      type: ActionType.LOAD_OFFERS,
+      payload: offersAll,
+    };
+  },
   changeLocation: (city) => ({
     type: ActionType.CHANGE_LOCATION,
     payload: city,
@@ -27,8 +34,19 @@ const ActionCreator = {
   }),
 };
 
+const Operation = {
+  loadOffers: () => (dispatch, getState, api) => {
+    return api.get(`/hotels`)
+      .then((response) => {
+        dispatch(ActionCreator.loadOffers(adaptOffersAll(response.data)));
+      });
+  },
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case ActionType.LOAD_OFFERS:
+      return extend(state, {offersAll: action.payload});
     case ActionType.CHANGE_LOCATION:
       return extend(state, {city: action.payload});
     case ActionType.CHANGE_CURRENT_OFFERS:
@@ -40,4 +58,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export {reducer, ActionType, ActionCreator};
+export {reducer, Operation, ActionType, ActionCreator};

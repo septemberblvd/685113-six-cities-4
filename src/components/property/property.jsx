@@ -7,6 +7,7 @@ import composedWithOfferList from "../../hocs/with-offer-list.js";
 import withMap from "../../hocs/with-map.js";
 import NearOffersMap from "../near-offers-map/near-offers-map.jsx";
 import {connect} from "react-redux";
+import NameSpace from "../../reducer/name-space";
 
 const NearOffersListWrapped = composedWithOfferList(NearOffersList);
 const NearOffersMapWrapped = withMap(NearOffersMap);
@@ -148,8 +149,8 @@ Property.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  currentCity: state.city,
-  offers: state.currentOffers,
+  currentCity: state[NameSpace.DATA].city,
+  offers: state[NameSpace.DATA].currentOffers,
 });
 
 export {Property};

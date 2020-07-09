@@ -5,7 +5,10 @@ import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Property from "../property/property.jsx";
 import {OfferType} from "../../const.js";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer";
+import {ActionCreator} from "../../reducer/ui/ui.js";
+import {getCurrentCity, getCurrentOffers} from "../../reducer/data/selectors.js";
+import {getActiveOffer, getActiveOfferId} from "../../reducer/ui/selectors.js";
+
 
 class App extends PureComponent {
   constructor(props) {
@@ -21,6 +24,7 @@ class App extends PureComponent {
   }
 
   _renderApp() {
+    debugger;
 
     const {
       offers,
@@ -87,10 +91,10 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  currentCity: state.city,
-  offers: state.currentOffers,
-  activeOfferId: state.activeOfferId,
-  activeOffer: state.activeOffer,
+  currentCity: getCurrentCity(state),
+  offers: getCurrentOffers(state),
+  activeOfferId: getActiveOfferId(state),
+  activeOffer: getActiveOffer(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

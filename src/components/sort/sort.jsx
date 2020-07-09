@@ -2,8 +2,9 @@ import React, {PureComponent} from 'react';
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 
-import {ActionCreator} from "../../reducer";
+import {ActionCreator} from "../../reducer/ui/ui.js";
 import {SortType} from '../../const.js';
+import NameSpace from '../../reducer/name-space';
 
 const menuItems = [
   {
@@ -84,8 +85,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  currentSortType: state.currentSortType,
-  isOpened: state.showSortMenu,
+  currentSortType: state[NameSpace.UI].currentSortType,
+  isOpened: state[NameSpace.UI].showSortMenu,
 });
 
 Sort.propTypes = {
