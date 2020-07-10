@@ -6,6 +6,7 @@ export const adaptOffer = (offer) => {
     rating: offer.rating,
     type: offer.type,
     isItPremium: offer.is_premium,
+    isItFavorite: offer.is_favorite,
     id: offer.id,
     cityName: offer.city.name,
     images: offer.images,
@@ -37,10 +38,10 @@ export const adaptOffer = (offer) => {
         reviewTime: `June 5, 2018`,
       },
     ],
-    nearOffers: [2, 3, 4]
   };
 };
 
 export const adaptOffersAll = (offers) => {
-  return offers.forEach((offer) => adaptOffer(offer));
+  const allOffers = offers.map((offer) => adaptOffer(offer));
+  return allOffers;
 };

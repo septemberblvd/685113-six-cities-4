@@ -4,7 +4,7 @@ import {OfferType} from "../../const.js";
 
 const NearOffersItem = (props) => {
   const {nearOffer, onCardMouseEnter, onCardMouseLeave, onHeaderClick} = props;
-  const {img, price, rating, title, type} = nearOffer;
+  const {img, price, rating, title, type, isItFavorite} = nearOffer;
   return (
     <article className="near-places__card place-card" onMouseEnter={() => onCardMouseEnter(nearOffer)} onMouseLeave={() => onCardMouseLeave()}>
       <div className="near-places__image-wrapper place-card__image-wrapper">
@@ -18,7 +18,9 @@ const NearOffersItem = (props) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
+          <button className={isItFavorite ?
+            `place-card__bookmark-button place-card__bookmark-button--active button`
+            : `place-card__bookmark-button button`} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -48,7 +50,7 @@ NearOffersItem.propTypes = {
   onCardMouseEnter: PropTypes.func.isRequired,
   onCardMouseLeave: PropTypes.func.isRequired,
   onHeaderClick: PropTypes.func.isRequired,
-  nearOffer: OfferType.isRequired,
+  nearOffer: OfferType,
 };
 
 export default NearOffersItem;

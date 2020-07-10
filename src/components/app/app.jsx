@@ -24,7 +24,6 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    debugger;
 
     const {
       offers,
@@ -36,6 +35,7 @@ class App extends PureComponent {
     if (activeOffer) {
       return <Property offer={activeOffer}
         offers={offers}
+        currentCity={currentCity}
         onHeaderClick = {this._handleCardHeaderClick}
         activeOfferId = {activeOfferId}
       />;

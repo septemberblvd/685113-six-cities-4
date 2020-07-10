@@ -56,16 +56,18 @@ const offer = {
   ],
   nearOffers: [1]
 };
-
-it(`Should OfferList render correctly`, () => {
-  const tree = renderer
-      .create(<ReviewsList offer={offer} />, {
-        createNodeMock: () => {
-          return document.createElement(`div`);
+describe(`ReviewsList`, () => {
+  it(`Should ReviewsList render correctly`, () => {
+    const tree = renderer
+        .create(<ReviewsList offer={offer} />, {
+          createNodeMock: () => {
+            return document.createElement(`div`);
+          }
         }
-      }
-      )
-      .toJSON();
+        )
+        .toJSON();
 
-  expect(tree).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
+  });
 });
+

@@ -6,24 +6,19 @@ import NearOffersList from "../near-offers-list/near-offers-list.jsx";
 import composedWithOfferList from "../../hocs/with-offer-list.js";
 import withMap from "../../hocs/with-map.js";
 import NearOffersMap from "../near-offers-map/near-offers-map.jsx";
-import {connect} from "react-redux";
-import NameSpace from "../../reducer/name-space";
 
 const NearOffersListWrapped = composedWithOfferList(NearOffersList);
 const NearOffersMapWrapped = withMap(NearOffersMap);
 
 const Property = (props) => {
   const {offer, offers, onHeaderClick, currentCity, activeOfferId} = props;
-  const {title, price, rating, img, type, isItPremium, id, images, description, bedrooms, guests, appliances, owner, nearOffers} = offer;
+  const {title, price, rating, img, type, isItPremium, isItFavorite, id, images, description, bedrooms, guests, appliances, owner} = offer;
   const {avatar, name, isSuper} = owner;
-  const nearOffersList = nearOffers.map(
+  const nearOffersList = offers.slice(0, offers.length).filter(
       (it) => {
-        const ind = offers.findIndex((elem) => {
-          return elem.id === it;
-        });
-        return offers[ind];
+        return it.id !== offer.id;
       }
-  );
+  ).slice(0, 3);
   return <div className="page" id={id}>
     <header className="header">
       <div className="container">
@@ -68,7 +63,9 @@ const Property = (props) => {
               <h1 className="property__name">
                 {title}
               </h1>
-              <button className="property__bookmark-button button" type="button">
+              <button className={isItFavorite ?
+                `property__bookmark-button property__bookmark-button--active button`
+                : `property__bookmark-button button`} type="button">
                 <svg className="property__bookmark-icon" width="31" height="33">
                   <use xlinkHref="#icon-bookmark"></use>
                 </svg>
@@ -138,8 +135,8 @@ const Property = (props) => {
 };
 
 Property.propTypes = {
-  offer: OfferType.isRequired,
-  offers: PropTypes.arrayOf(OfferType.isRequired),
+  offer: OfferType,
+  offers: PropTypes.arrayOf(OfferType),
   onHeaderClick: PropTypes.func,
   currentCity: PropTypes.shape({
     cityName: PropTypes.string.isRequired,
@@ -148,11 +145,5 @@ Property.propTypes = {
   activeOfferId: PropTypes.number,
 };
 
-const mapStateToProps = (state) => ({
-  currentCity: state[NameSpace.DATA].city,
-  offers: state[NameSpace.DATA].currentOffers,
-});
 
-export {Property};
-
-export default connect(mapStateToProps)(Property);
+export default Property;

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Should OfferList render correctly 1`] = `
+exports[`OffersList Should OffersList render correctly 1`] = `
 <div
   className="cities__places-list places__list tabs__content"
 >
@@ -53,7 +53,7 @@ exports[`Should OfferList render correctly 1`] = `
           </span>
         </div>
         <button
-          className="place-card__bookmark-button place-card__bookmark-button--active button"
+          className="place-card__bookmark-button button"
           type="button"
         >
           <svg

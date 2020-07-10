@@ -7,9 +7,6 @@ const withMap = (Component) => {
   class WithMap extends PureComponent {
     constructor(props) {
       super(props);
-      this.state = {
-        activeCity: 0,
-      };
       this._mapRef = React.createRef();
       this._zoom = 12;
       this._city = this.props.currentCity.cityCoords;
@@ -80,7 +77,7 @@ const withMap = (Component) => {
 
   WithMap.propTypes = {
     offers: PropTypes.arrayOf(
-        OfferType.isRequired
+        OfferType
     ).isRequired,
     currentCity: PropTypes.shape({
       cityName: PropTypes.string.isRequired,

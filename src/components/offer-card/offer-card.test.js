@@ -62,21 +62,23 @@ const offers = [
 const onCardMouseEnter = jest.fn();
 const onCardMouseLeave = jest.fn();
 const onHeaderClick = jest.fn();
+describe(`OfferCard`, () => {
+  it(`Should OfferCard render correctly`, () => {
+    const tree = renderer
+        .create(offers.map((it, i) => <OfferCard
+          key={it.id + i}
+          offer={it}
+          onCardMouseEnter={onCardMouseEnter}
+          onCardMouseLeave={onCardMouseLeave}
+          onHeaderClick={onHeaderClick} />),
+        {
+          createNodeMock: () => {
+            return document.createElement(`div`);
+          }
+        })
+        .toJSON();
 
-it(`Should OfferCard render correctly`, () => {
-  const tree = renderer
-      .create(offers.map((it, i) => <OfferCard
-        key={it.id + i}
-        offer={it}
-        onCardMouseEnter={onCardMouseEnter}
-        onCardMouseLeave={onCardMouseLeave}
-        onHeaderClick={onHeaderClick} />),
-      {
-        createNodeMock: () => {
-          return document.createElement(`div`);
-        }
-      })
-      .toJSON();
-
-  expect(tree).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
+  });
 });
+

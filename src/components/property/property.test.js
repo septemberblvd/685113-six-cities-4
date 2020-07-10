@@ -1,8 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {Property} from "./property.jsx";
+import Property from "./property.jsx";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
+import NameSpace from "../../reducer/name-space.js";
 
 const mockStore = configureStore([]);
 
@@ -123,30 +124,39 @@ const currentCity = {
   cityCoords: [48.85341, 2.3488],
 };
 
-
-it(`Should PropertyComponent render correctly`, () => {
-  const store = mockStore({
-    city: {
-      cityName: `Paris`,
-      cityCoords: [48.85341, 2.3488],
-    },
-  });
-  const tree = renderer
-      .create(
-          <Provider store={store}>
-            <Property
-              offer={offer}
-              offers={offers}
-              currentCity={currentCity}
-              onHeaderClick = {() => {}}
-            />
-          </Provider>, {
-            createNodeMock: () => {
-              return document.createElement(`div`);
+describe(`Property`, () => {
+  it(`Should Property render correctly`, () => {
+    const store = mockStore({
+      [NameSpace.DATA]: {
+        currentSortType: `Popular`,
+        city: {
+          cityName: `Paris`,
+          cityCoords: [48.85341, 2.3488],
+        },
+      },
+      [NameSpace.UI]: {
+        showSortMenu: false,
+      }
+    });
+    const tree = renderer
+        .create(
+            <Provider store={store}>
+              <Property
+                offer={offer}
+                offers={offers}
+                currentCity={currentCity}
+                onHeaderClick = {() => {}}
+              />
+            </Provider>
+            , {
+              createNodeMock: () => {
+                return document.createElement(`div`);
+              }
             }
-          }
-      )
-      .toJSON();
+        )
+        .toJSON();
 
-  expect(tree).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
+  });
 });
+

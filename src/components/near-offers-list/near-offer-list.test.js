@@ -63,18 +63,21 @@ const onCardMouseEnter = jest.fn();
 const onCardMouseLeave = jest.fn();
 const onHeaderClick = jest.fn();
 
-it(`Should NearOffersList render correctly`, () => {
-  const tree = renderer
-      .create(<NearOffersList offers={offers}
-        onHeaderClick={onHeaderClick}
-        onCardMouseLeave={onCardMouseLeave}
-        onCardMouseEnter={onCardMouseEnter}/>, {
-        createNodeMock: () => {
-          return document.createElement(`div`);
+describe(`NearOffersList`, () => {
+  it(`Should NearOffersList render correctly`, () => {
+    const tree = renderer
+        .create(<NearOffersList offers={offers}
+          onHeaderClick={onHeaderClick}
+          onCardMouseLeave={onCardMouseLeave}
+          onCardMouseEnter={onCardMouseEnter}/>, {
+          createNodeMock: () => {
+            return document.createElement(`div`);
+          }
         }
-      }
-      )
-      .toJSON();
+        )
+        .toJSON();
 
-  expect(tree).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
+  });
 });
+

@@ -4,6 +4,7 @@ import renderer from "react-test-renderer";
 import MainScreen from "./main-screen.jsx";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
+import NameSpace from "../../reducer/name-space.js";
 
 const mockStore = configureStore([]);
 
@@ -74,29 +75,37 @@ const currentCity = {
   cityName: `Paris`,
   cityCoords: [48.85341, 2.3488],
 };
+describe(`MainScreen`, () => {
+  it(`Should MainScreen render correctly`, () => {
+    const store = mockStore({
+      [NameSpace.DATA]: {
+        currentSortType: `Popular`,
+        city: {
+          cityName: `Paris`,
+          cityCoords: [48.85341, 2.3488],
+        },
+      },
+      [NameSpace.UI]: {
+        showSortMenu: false,
+      }
+    });
+    const tree = renderer
+        .create(
+            <Provider store={store}>
+              <MainScreen
+                isOpened={true}
+                currentSortType={`Popular`}
+                offers = {offers}
+                cities={cities}
+                currentCity={currentCity}
+                onHeaderClick = {() => {}}
+              />
+            </Provider>, {createNodeMock: () => {
+              return document.createElement(`div`);
+            }})
+        .toJSON();
 
-it(`Should MainScreen render correctly`, () => {
-  const store = mockStore({
-    city: {
-      cityName: `Paris`,
-      cityCoords: [48.85341, 2.3488],
-    },
+    expect(tree).toMatchSnapshot();
   });
-  const tree = renderer
-      .create(
-          <Provider store={store}>
-            <MainScreen
-              isOpened={true}
-              currentSortType={`Popular`}
-              offers = {offers}
-              cities={cities}
-              currentCity={currentCity}
-              onHeaderClick = {() => {}}
-            />
-          </Provider>, {createNodeMock: () => {
-            return document.createElement(`div`);
-          }})
-      .toJSON();
-
-  expect(tree).toMatchSnapshot();
 });
+

@@ -11,19 +11,20 @@ const review = {
   reviewTime: `May 8, 2016`,
 };
 
+describe(`ReviewsItem`, () => {
+  it(`Should ReviewsItem render correctly`, () => {
+    const tree = renderer
+        .create(<ReviewsItem
+          key={review.reviewId + 1}
+          review={review}
+        />,
+        {
+          createNodeMock: () => {
+            return document.createElement(`div`);
+          }
+        })
+        .toJSON();
 
-it(`Should OfferCard render correctly`, () => {
-  const tree = renderer
-      .create(<ReviewsItem
-        key={review.reviewId + 1}
-        review={review}
-      />,
-      {
-        createNodeMock: () => {
-          return document.createElement(`div`);
-        }
-      })
-      .toJSON();
-
-  expect(tree).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
+  });
 });
