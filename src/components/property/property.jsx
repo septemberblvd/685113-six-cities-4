@@ -1,5 +1,5 @@
 import React from "react";
-import {OfferType} from "../../const";
+import {OfferType, CommentType} from "../../const";
 import PropTypes from "prop-types";
 import ReviewsList from "../reviews-list/reviews-list.jsx";
 import NearOffersList from "../near-offers-list/near-offers-list.jsx";
@@ -11,7 +11,7 @@ const NearOffersListWrapped = composedWithOfferList(NearOffersList);
 const NearOffersMapWrapped = withMap(NearOffersMap);
 
 const Property = (props) => {
-  const {offer, offers, onHeaderClick, currentCity, activeOfferId} = props;
+  const {offer, offers, onHeaderClick, currentCity, activeOfferId, comments} = props;
   const {title, price, rating, img, type, isItPremium, isItFavorite, id, images, description, bedrooms, guests, appliances, owner} = offer;
   const {avatar, name, isSuper} = owner;
   const nearOffersList = offers.slice(0, offers.length).filter(
@@ -122,7 +122,7 @@ const Property = (props) => {
                 </p>
               </div>
             </div>
-            <ReviewsList offer={offer} />
+            <ReviewsList comments={comments} />
           </div>
         </div>
         <NearOffersMapWrapped offers={nearOffersList} currentCity={currentCity} activeOfferId={activeOfferId}/>
@@ -136,6 +136,7 @@ const Property = (props) => {
 
 Property.propTypes = {
   offer: OfferType,
+  comments: CommentType,
   offers: PropTypes.arrayOf(OfferType),
   onHeaderClick: PropTypes.func,
   currentCity: PropTypes.shape({

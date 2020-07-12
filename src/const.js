@@ -24,19 +24,22 @@ const Offer = PropTypes.shape({
     name: PropTypes.string.isRequired,
     isSuper: PropTypes.bool.isRequired,
   }).isRequired,
-  reviews: PropTypes.arrayOf(
-      PropTypes.shape({
-        reviewId: PropTypes.number.isRequired,
-        reviewName: PropTypes.string.isRequired,
-        reviewAvatar: PropTypes.string.isRequired,
-        reviewGrade: PropTypes.number.isRequired,
-        reviewText: PropTypes.string.isRequired,
-        reviewTime: PropTypes.string.isRequired
-      }).isRequired
-  ).isRequired,
 });
 
 const OfferType = PropTypes.oneOfType([Offer, () => null]);
+
+const CommentType = PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.shape(
+    {
+      reviewId: PropTypes.number.isRequired,
+      authorId: PropTypes.number.isRequired,
+      reviewName: PropTypes.string.isRequired,
+      reviewAvatar: PropTypes.string.isRequired,
+      reviewGrade: PropTypes.number.isRequired,
+      reviewText: PropTypes.string.isRequired,
+      reviewTime: PropTypes.string.isRequired,
+      isPro: PropTypes.bool.isRequired,
+    }
+)), () => null]);
 
 const SortType = {
   POPULAR: `Popular`,
@@ -72,4 +75,4 @@ const cities = [
   },
 ];
 
-export {OfferType, SortType, cities};
+export {OfferType, SortType, cities, CommentType};

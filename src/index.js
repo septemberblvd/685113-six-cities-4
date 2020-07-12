@@ -9,6 +9,7 @@ import {composeWithDevTools} from "redux-devtools-extension";
 import {Provider} from "react-redux";
 import thunk from "redux-thunk";
 import {createAPI} from "./api.js";
+import {adaptOffersAll} from "./adapter/offers.js";
 
 const api = createAPI(() => {});
 
@@ -20,7 +21,7 @@ const store = createStore(
     )
 );
 
-store.dispatch(DataOperation.loadOffers());
+store.dispatch(DataOperation.loadOffers(adaptOffersAll));
 
 ReactDOM.render(
     <Provider store={store}>

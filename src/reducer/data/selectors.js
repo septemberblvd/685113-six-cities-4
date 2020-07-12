@@ -14,6 +14,9 @@ export const getCurrentSortType = (state) => {
 export const getCurrentCity = (state) => {
   return state[NAME_SPACE].city;
 };
+export const getCurrentComments = (state) => {
+  return state[NAME_SPACE].currentComments;
+};
 
 export const getCurrentCityName = (state) => {
   return state[NAME_SPACE].city.cityName;

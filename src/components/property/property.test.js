@@ -124,6 +124,19 @@ const currentCity = {
   cityCoords: [48.85341, 2.3488],
 };
 
+const comments = [
+  {
+    reviewId: 14,
+    authorId: 21,
+    reviewName: `Ozzy`,
+    reviewAvatar: `src`,
+    reviewGrade: 4,
+    reviewText: `Id minim labore ut velit sit velit.Magna deserunt reprehenderit consequat elit cupidatat proident nostrud amet minim nulla.`,
+    reviewTime: `May 8, 2016`,
+    isPro: false,
+  },
+];
+
 describe(`Property`, () => {
   it(`Should Property render correctly`, () => {
     const store = mockStore({
@@ -142,6 +155,7 @@ describe(`Property`, () => {
         .create(
             <Provider store={store}>
               <Property
+                comments={comments}
                 offer={offer}
                 offers={offers}
                 currentCity={currentCity}

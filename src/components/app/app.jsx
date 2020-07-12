@@ -3,11 +3,13 @@ import MainScreen from "../main-screen/main-screen.jsx";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Property from "../property/property.jsx";
-import {OfferType} from "../../const.js";
+import {OfferType, CommentType} from "../../const.js";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/ui/ui.js";
-import {getCurrentCity, getCurrentOffers} from "../../reducer/data/selectors.js";
+import {getCurrentCity, getCurrentOffers, getCurrentComments} from "../../reducer/data/selectors.js";
 import {getActiveOffer, getActiveOfferId} from "../../reducer/ui/selectors.js";
+import {Operation as DataOperation} from "../../reducer/data/data.js";
+import {adaptComments} from "../../adapter/comments.js";
 
 
 class App extends PureComponent {
@@ -15,12 +17,19 @@ class App extends PureComponent {
     super(props);
 
     this._handleCardHeaderClick = this._handleCardHeaderClick.bind(this);
+    this._getComments = this._getComments.bind(this);
   }
 
   _handleCardHeaderClick(offer) {
     const {onCardHeaderClick} = this.props;
 
     onCardHeaderClick(offer);
+  }
+
+  _getComments() {
+    const {loadComments, activeOffer} = this.props;
+
+    loadComments(activeOffer.id);
   }
 
   _renderApp() {
@@ -30,10 +39,13 @@ class App extends PureComponent {
       cities,
       currentCity,
       activeOfferId,
-      activeOffer} = this.props;
+      activeOffer,
+      currentComments} = this.props;
 
     if (activeOffer) {
+      this._getComments();
       return <Property offer={activeOffer}
+        comments={currentComments}
         offers={offers}
         currentCity={currentCity}
         onHeaderClick = {this._handleCardHeaderClick}
@@ -88,6 +100,8 @@ App.propTypes = {
   activeOfferId: PropTypes.number,
   onCardHeaderClick: PropTypes.func.isRequired,
   activeOffer: OfferType,
+  loadComments: PropTypes.func.isRequired,
+  currentComments: CommentType,
 };
 
 const mapStateToProps = (state) => ({
@@ -95,12 +109,16 @@ const mapStateToProps = (state) => ({
   offers: getCurrentOffers(state),
   activeOfferId: getActiveOfferId(state),
   activeOffer: getActiveOffer(state),
+  currentComments: getCurrentComments(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onCardHeaderClick(offer) {
     dispatch(ActionCreator.setActiveOffer(offer));
   },
+  loadComments(id) {
+    dispatch(DataOperation.loadComments(adaptComments, id));
+  }
 });
 
 export {App};

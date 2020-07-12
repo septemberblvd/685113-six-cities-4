@@ -11,7 +11,7 @@ exports[`ReviewsList Should ReviewsList render correctly 1`] = `
     <span
       className="reviews__amount"
     >
-      2
+      1
     </span>
   </h2>
   <ul
@@ -73,65 +73,6 @@ exports[`ReviewsList Should ReviewsList render correctly 1`] = `
           dateTime="2019-04-24"
         >
           May 8, 2016
-        </time>
-      </div>
-    </li>
-    <li
-      className="reviews__item"
-    >
-      <div
-        className="reviews__user user"
-      >
-        <div
-          className="reviews__avatar-wrapper user__avatar-wrapper"
-        >
-          <img
-            alt="Reviews avatar"
-            className="reviews__avatar user__avatar"
-            height="54"
-            src="src"
-            width="54"
-          />
-        </div>
-        <span
-          className="reviews__user-name"
-        >
-          Mick
-        </span>
-      </div>
-      <div
-        className="reviews__info"
-      >
-        <div
-          className="reviews__rating rating"
-        >
-          <div
-            className="reviews__stars rating__stars"
-          >
-            <span
-              style={
-                Object {
-                  "width": "40%",
-                }
-              }
-            />
-            <span
-              className="visually-hidden"
-            >
-              Rating
-            </span>
-          </div>
-        </div>
-        <p
-          className="reviews__text"
-        >
-          Incididunt fugiat non aliqua eu nisi.Id Lorem cillum non voluptate nulla id fugiat Lorem exercitation irure ullamco enim veniam ullamco.
-        </p>
-        <time
-          className="reviews__time"
-          dateTime="2019-04-24"
-        >
-          June 5, 2018
         </time>
       </div>
     </li>

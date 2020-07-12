@@ -1,5 +1,4 @@
 import {getOffersInCity, extend, getSortedOffers} from '../../utils';
-import {adaptOffersAll} from '../../adapter/offers';
 import {SortType} from '../../const.js';
 
 const initialState = {
@@ -10,10 +9,12 @@ const initialState = {
   currentSortType: `Popular`,
   allOffers: [],
   currentOffers: [],
+  currentComments: [],
 };
 
 const ActionType = {
   LOAD_OFFERS: `LOAD_OFFERS`,
+  LOAD_COMMENTS: `LOAD_COMMENTS`,
   CHANGE_LOCATION: `CHANGE_LOCATION`,
   CHANGE_CURRENT_OFFERS: `CHANGE_CURRENT_OFFERS`,
   SORT_OFFERS: `SORT_OFFERS`,
@@ -24,6 +25,12 @@ const ActionCreator = {
     return {
       type: ActionType.LOAD_OFFERS,
       payload: offersAll,
+    };
+  },
+  loadComments: (commentsAll) => {
+    return {
+      type: ActionType.LOAD_COMMENTS,
+      payload: commentsAll,
     };
   },
   changeLocation: (city) => ({
@@ -41,11 +48,22 @@ const ActionCreator = {
 };
 
 const Operation = {
-  loadOffers: () => (dispatch, getState, api) => {
+  loadOffers: (adaptCallback) => (dispatch, getState, api) => {
     return api.get(`/hotels`)
       .then((response) => {
-        dispatch(ActionCreator.loadOffers(adaptOffersAll(response.data)));
+        const data = adaptCallback ? adaptCallback(response.data) : response.data;
+        dispatch(ActionCreator.loadOffers(data));
       });
+  },
+  loadComments: (adaptCallback, id) => (dispatch, getState, api) => {
+    if (id) {
+      return api.get(`/comments/${id}`)
+      .then((response) => {
+        const data = adaptCallback ? adaptCallback(response.data) : response.data;
+        dispatch(ActionCreator.loadComments(data));
+      });
+    }
+    return null;
   },
 };
 
@@ -55,6 +73,8 @@ const reducer = (state = initialState, action) => {
       return extend(state, {allOffers: action.payload,
         currentOffers: getOffersInCity(state.city.cityName, action.payload)}
       );
+    case ActionType.LOAD_COMMENTS:
+      return extend(state, {currentComments: action.payload});
     case ActionType.CHANGE_LOCATION:
       return extend(state, {city: action.payload});
     case ActionType.CHANGE_CURRENT_OFFERS:

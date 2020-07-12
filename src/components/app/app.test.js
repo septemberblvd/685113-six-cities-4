@@ -100,6 +100,7 @@ describe(`App`, () => {
             cities = {cities}
             currentCity={currentCity}
             onHeaderClick = {() => {}}
+            loadComments = {() => {}}
             onCardHeaderClick = {() => {}}/>
         </Provider>,
         {createNodeMock: () => {

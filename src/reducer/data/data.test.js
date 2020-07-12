@@ -1220,6 +1220,7 @@ it(`Reducer without parameters return initial state`, () => {
     allOffers: [],
     currentOffers: [],
     currentSortType: `Popular`,
+    currentComments: [],
   });
 });
 
@@ -1371,6 +1372,25 @@ describe(`Operation work correctly`, () => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_OFFERS,
+          payload: [{fake: true}],
+        });
+      });
+  });
+  it(`Should make a correct API call to /comments`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const getState = jest.fn();
+    const commentsLoader = Operation.loadComments(null, 1);
+
+    apiMock
+      .onGet(`/comments/1`)
+      .reply(200, [{fake: true}]);
+
+    return commentsLoader(dispatch, getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_COMMENTS,
           payload: [{fake: true}],
         });
       });

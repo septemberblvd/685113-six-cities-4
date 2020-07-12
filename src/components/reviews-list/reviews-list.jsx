@@ -1,14 +1,14 @@
 import React from "react";
-import {OfferType} from "../../const";
+import {CommentType} from "../../const";
 import ReviewsItem from "../reviews-item/reviews-item.jsx";
 
 const ReviewsList = (props) => {
-  const {offer} = props;
+  const {comments} = props;
   return (
     <section className="property__reviews reviews">
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offer.reviews.length}</span></h2>
+      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
       <ul className="reviews__list">
-        {offer.reviews.map((it, i) => <ReviewsItem
+        {comments.map((it, i) => <ReviewsItem
           key={it.reviewId + i}
           review={it}
         />)}
@@ -64,7 +64,7 @@ const ReviewsList = (props) => {
 };
 
 ReviewsList.propTypes = {
-  offer: OfferType,
+  comments: CommentType,
 };
 
 export default ReviewsList;
