@@ -1,5 +1,8 @@
-import {reducer, ActionCreator, ActionType, AuthorizationStatus} from "./user.js";
+import {reducer, ActionCreator, ActionType, Operation, AuthorizationStatus} from "./user.js";
+import {createAPI} from "../../api.js";
+import MockAdapter from "axios-mock-adapter";
 
+const api = createAPI(() => {});
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
@@ -59,3 +62,49 @@ describe(`Action creators work correctly`, () => {
     });
   });
 });
+
+describe(`Operation work correctly`, () => {
+  it(`Should make a correct API call to /login`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const getState = jest.fn();
+    const authChecker = Operation.checkAuth();
+
+    apiMock
+      .onGet(`/login`)
+      .reply(200, `AUTH`);
+
+    return authChecker(dispatch, getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.REQUIRED_AUTHORIZATION,
+          payload: AuthorizationStatus.AUTH,
+        });
+      });
+  });
+  it(`Should make a correct API post to /login`, function () {
+    const userAuthData = {
+      login: `FooFooFoo@gmail.com`,
+      password: `1234`,
+    };
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const getState = jest.fn();
+    const login = Operation.login(userAuthData);
+
+    apiMock
+      .onPost(`/login`)
+      .reply(200, `AUTH`);
+
+    return login(dispatch, getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.REQUIRED_AUTHORIZATION,
+          payload: `AUTH`,
+        });
+      });
+  });
+});
+

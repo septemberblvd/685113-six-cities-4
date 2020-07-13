@@ -33,8 +33,9 @@ const ActionCreator = {
 const Operation = {
   checkAuth: () => (dispatch, getState, api) => {
     return api.get(`/login`)
-      .then(() => {
+      .then((loginData) => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(ActionCreator.getEmail(loginData.data.email));
       })
       .catch((err) => {
         throw err;
@@ -47,7 +48,6 @@ const Operation = {
     })
       .then(() => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
-        dispatch(ActionCreator.getEmail(authData.login));
       });
   },
 };
