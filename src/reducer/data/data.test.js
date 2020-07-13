@@ -1,4 +1,9 @@
-import {reducer, ActionCreator, ActionType} from "./reducer.js";
+/* eslint-disable max-nested-callbacks */
+import {reducer, ActionCreator, ActionType, Operation} from "./data.js";
+import {createAPI} from "../../api.js";
+import MockAdapter from "axios-mock-adapter";
+
+const api = createAPI(() => {});
 
 const offers = [
   {
@@ -1212,12 +1217,10 @@ it(`Reducer without parameters return initial state`, () => {
       cityName: `Amsterdam`,
       cityCoords: [52.38333, 4.9],
     },
-    allOffers: offers,
-    currentOffers: offersInAmsterdam,
+    allOffers: [],
+    currentOffers: [],
     currentSortType: `Popular`,
-    activeOfferId: null,
-    activeOffer: null,
-    showSortMenu: false,
+    currentComments: [],
   });
 });
 
@@ -1227,8 +1230,6 @@ it(`Reducer should change city`, () => {
       cityName: `Amsterdam`,
       cityCoords: [52.38333, 4.9],
     },
-    allOffers: offers,
-    currentOffers: offersInAmsterdam,
   }, {
     type: ActionType.CHANGE_LOCATION,
     payload: {
@@ -1240,8 +1241,6 @@ it(`Reducer should change city`, () => {
       cityName: `Paris`,
       cityCoords: [48.85341, 2.3488],
     },
-    allOffers: offers,
-    currentOffers: offersInAmsterdam,
   });
 
   expect(reducer({
@@ -1249,8 +1248,6 @@ it(`Reducer should change city`, () => {
       cityName: `Amsterdam`,
       cityCoords: [52.38333, 4.9],
     },
-    allOffers: offers,
-    currentOffers: offersInAmsterdam,
   }, {
     type: ActionType.CHANGE_LOCATION,
     payload: {
@@ -1262,8 +1259,6 @@ it(`Reducer should change city`, () => {
       cityName: `Hamburg`,
       cityCoords: [53.5753, 10.0153],
     },
-    allOffers: offers,
-    currentOffers: offersInAmsterdam,
   });
 });
 
@@ -1308,57 +1303,35 @@ it(`Reducer should change offers in current city`, () => {
 
 it(`Reducer should sort offers`, () => {
   expect(reducer({
-    allOffers: offers,
-    currentOffers: offersInAmsterdam,
+    allOffers: offersInAmsterdam,
     currentSortType: `Popular`,
   }, {
     type: ActionType.SORT_OFFERS,
     payload: `Price low to high`,
   })).toEqual({
-    allOffers: offers,
-    currentOffers: lowToHighOffersSorted,
+    allOffers: lowToHighOffersSorted,
     currentSortType: `Price low to high`,
   });
   expect(reducer({
-    allOffers: offers,
-    currentOffers: offersInAmsterdam,
+    allOffers: offersInAmsterdam,
     currentSortType: `Popular`,
   }, {
     type: ActionType.SORT_OFFERS,
     payload: `Price high to low`,
   })).toEqual({
-    allOffers: offers,
-    currentOffers: highToLowOffersSorted,
+    allOffers: highToLowOffersSorted,
     currentSortType: `Price high to low`,
   });
   expect(reducer({
-    allOffers: offers,
-    currentOffers: offersInAmsterdam,
+    allOffers: offersInAmsterdam,
     currentSortType: `Popular`,
   }, {
     type: ActionType.SORT_OFFERS,
     payload: `Top rated first`,
   })).toEqual({
-    allOffers: offers,
-    currentOffers: topRatedOffersSorted,
+    allOffers: topRatedOffersSorted,
     currentSortType: `Top rated first`,
   });
-});
-
-it(`Reducer should set activeOffer`, () => {
-  expect(reducer(
-      {},
-      ActionCreator.setActiveOfferId(`1`))
-  ).toEqual({activeOfferId: `1`});
-});
-
-it(`Reducer: showSortMenu`, () => {
-  expect(reducer(
-      {
-        showSortMenu: false,
-      },
-      ActionCreator.showSortMenu(true))
-  ).toEqual({showSortMenu: true});
 });
 
 describe(`Action creators work correctly`, () => {
@@ -1380,5 +1353,46 @@ describe(`Action creators work correctly`, () => {
       type: ActionType.CHANGE_CURRENT_OFFERS,
       payload: `Paris`
     });
+  });
+});
+
+describe(`Operation work correctly`, () => {
+  it(`Should make a correct API call to /hotels`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const getState = jest.fn();
+    const offersLoader = Operation.loadOffers();
+
+    apiMock
+      .onGet(`/hotels`)
+      .reply(200, [{fake: true}]);
+
+    return offersLoader(dispatch, getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_OFFERS,
+          payload: [{fake: true}],
+        });
+      });
+  });
+  it(`Should make a correct API call to /comments`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const getState = jest.fn();
+    const commentsLoader = Operation.loadComments(null, 1);
+
+    apiMock
+      .onGet(`/comments/1`)
+      .reply(200, [{fake: true}]);
+
+    return commentsLoader(dispatch, getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_COMMENTS,
+          payload: [{fake: true}],
+        });
+      });
   });
 });

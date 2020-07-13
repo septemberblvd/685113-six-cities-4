@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {ActionCreator} from "../reducer";
+import {ActionCreator} from "../reducer/ui/ui.js";
 import {compose} from "redux";
 
 const withOfferList = (Component) => {

@@ -1,13 +1,13 @@
 // import React from "react";
 import PropTypes from "prop-types";
-
-const OfferType = PropTypes.shape({
+const Offer = PropTypes.shape({
   title: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
   isItPremium: PropTypes.bool.isRequired,
+  isItFavorite: PropTypes.bool.isRequired,
   id: PropTypes.number.isRequired,
   cityName: PropTypes.string.isRequired,
   images: PropTypes.arrayOf(
@@ -24,20 +24,22 @@ const OfferType = PropTypes.shape({
     name: PropTypes.string.isRequired,
     isSuper: PropTypes.bool.isRequired,
   }).isRequired,
-  reviews: PropTypes.arrayOf(
-      PropTypes.shape({
-        reviewId: PropTypes.number.isRequired,
-        reviewName: PropTypes.string.isRequired,
-        reviewAvatar: PropTypes.string.isRequired,
-        reviewGrade: PropTypes.number.isRequired,
-        reviewText: PropTypes.string.isRequired,
-        reviewTime: PropTypes.string.isRequired
-      }).isRequired
-  ).isRequired,
-  nearOffers: PropTypes.arrayOf(
-      PropTypes.number.isRequired
-  ).isRequired,
 });
+
+const OfferType = PropTypes.oneOfType([Offer, () => null]);
+
+const CommentType = PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.shape(
+    {
+      reviewId: PropTypes.number.isRequired,
+      authorId: PropTypes.number.isRequired,
+      reviewName: PropTypes.string.isRequired,
+      reviewAvatar: PropTypes.string.isRequired,
+      reviewGrade: PropTypes.number.isRequired,
+      reviewText: PropTypes.string.isRequired,
+      reviewTime: PropTypes.string.isRequired,
+      isPro: PropTypes.bool.isRequired,
+    }
+)), () => null]);
 
 const SortType = {
   POPULAR: `Popular`,
@@ -46,4 +48,31 @@ const SortType = {
   TOP_RATED: `Top rated first`,
 };
 
-export {OfferType, SortType};
+const cities = [
+  {
+    cityName: `Paris`,
+    cityCoords: [48.85341, 2.3488],
+  },
+  {
+    cityName: `Cologne`,
+    cityCoords: [50.9381, 6.95],
+  },
+  {
+    cityName: `Brussels`,
+    cityCoords: [50.8504, 4.34878],
+  },
+  {
+    cityName: `Amsterdam`,
+    cityCoords: [52.38333, 4.9],
+  },
+  {
+    cityName: `Hamburg`,
+    cityCoords: [53.5753, 10.0153],
+  },
+  {
+    cityName: `Dusseldorf`,
+    cityCoords: [51.2217, 6.77616],
+  },
+];
+
+export {OfferType, SortType, cities, CommentType};

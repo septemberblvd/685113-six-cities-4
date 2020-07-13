@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Should OfferCard render correctly 1`] = `
+exports[`ReviewsItem Should ReviewsItem render correctly 1`] = `
 <li
   className="reviews__item"
 >

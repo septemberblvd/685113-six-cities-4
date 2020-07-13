@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Should NearOffersList render correctly 1`] = `
+exports[`NearOffersList Should NearOffersList render correctly 1`] = `
 <section
   className="near-places places"
 >
@@ -54,7 +54,7 @@ exports[`Should NearOffersList render correctly 1`] = `
             </span>
           </div>
           <button
-            className="place-card__bookmark-button place-card__bookmark-button--active button"
+            className="place-card__bookmark-button button"
             type="button"
           >
             <svg

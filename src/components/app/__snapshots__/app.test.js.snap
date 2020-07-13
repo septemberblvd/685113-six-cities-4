@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render App 1`] = `
+exports[`App Render App 1`] = `
 <div
   className="page page--gray page--main"
 >
@@ -47,7 +47,7 @@ exports[`Render App 1`] = `
                 <span
                   className="header__user-name user__name"
                 >
-                  Oliver.conner@gmail.com
+                  Sing in
                 </span>
               </a>
             </li>
@@ -123,6 +123,7 @@ exports[`Render App 1`] = `
               onClick={[Function]}
               tabIndex="0"
             >
+              Popular
               <svg
                 className="places__sorting-arrow"
                 height="4"
@@ -134,10 +135,10 @@ exports[`Render App 1`] = `
               </svg>
             </span>
             <ul
-              className="places__options places__options--custom undefined"
+              className="places__options places__options--custom false"
             >
               <li
-                className="places__option false"
+                className="places__option places__option--active"
                 onClick={[Function]}
                 tabIndex="0"
               >
@@ -218,7 +219,7 @@ exports[`Render App 1`] = `
                     </span>
                   </div>
                   <button
-                    className="place-card__bookmark-button place-card__bookmark-button--active button"
+                    className="place-card__bookmark-button button"
                     type="button"
                   >
                     <svg

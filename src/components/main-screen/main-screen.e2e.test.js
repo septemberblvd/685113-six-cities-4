@@ -4,6 +4,7 @@ import Adapter from "enzyme-adapter-react-16";
 import MainScreen from "./main-screen";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
+import NameSpace from "../../reducer/name-space.js";
 
 const mockStore = configureStore([]);
 
@@ -85,10 +86,16 @@ describe(`MainScreenComponent`, () => {
     const onHeaderClick = jest.fn();
 
     const store = mockStore({
-      city: {
-        cityName: `Paris`,
-        cityCoords: [48.85341, 2.3488],
+      [NameSpace.DATA]: {
+        currentSortType: `Popular`,
+        city: {
+          cityName: `Paris`,
+          cityCoords: [48.85341, 2.3488],
+        },
       },
+      [NameSpace.UI]: {
+        showSortMenu: false,
+      }
     });
 
     const mainScreen = mount(

@@ -63,20 +63,24 @@ const onCardMouseEnter = jest.fn();
 const onCardMouseLeave = jest.fn();
 const onHeaderClick = jest.fn();
 
-it(`Should NearOfferItem render correctly`, () => {
-  const tree = renderer
-      .create(offers.map((it, i) => <NearOffersItem
-        key={it.id + i}
-        nearOffer={it}
-        onCardMouseEnter={onCardMouseEnter}
-        onCardMouseLeave={onCardMouseLeave}
-        onHeaderClick={onHeaderClick} />),
-      {
-        createNodeMock: () => {
-          return document.createElement(`div`);
-        }
-      })
-      .toJSON();
 
-  expect(tree).toMatchSnapshot();
+describe(`NearOfferItem`, () => {
+  it(`Should NearOfferItem render correctly`, () => {
+    const tree = renderer
+        .create(offers.map((it, i) => <NearOffersItem
+          key={it.id + i}
+          nearOffer={it}
+          onCardMouseEnter={onCardMouseEnter}
+          onCardMouseLeave={onCardMouseLeave}
+          onHeaderClick={onHeaderClick} />),
+        {
+          createNodeMock: () => {
+            return document.createElement(`div`);
+          }
+        })
+        .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
 });
+

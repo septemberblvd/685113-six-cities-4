@@ -23,7 +23,7 @@ const NearOffersList = (props) => {
 
 NearOffersList.propTypes = {
   offers: PropTypes.arrayOf(
-      OfferType.isRequired
+      OfferType
   ).isRequired,
   onHeaderClick: PropTypes.func.isRequired,
   onCardMouseEnter: PropTypes.func.isRequired,
