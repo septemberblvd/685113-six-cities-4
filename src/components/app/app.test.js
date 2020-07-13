@@ -95,10 +95,13 @@ describe(`App`, () => {
         <Provider store={store}>
           <App
             isOpened={true}
+            authorizationStatus={`NO_AUTH`}
             currentSortType={`Popular`}
             offers = {offers}
             cities = {cities}
             currentCity={currentCity}
+            login = {() => {}}
+            returnToMain = {() => {}}
             onHeaderClick = {() => {}}
             loadComments = {() => {}}
             onCardHeaderClick = {() => {}}/>

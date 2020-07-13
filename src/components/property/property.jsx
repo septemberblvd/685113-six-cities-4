@@ -11,7 +11,7 @@ const NearOffersListWrapped = composedWithOfferList(NearOffersList);
 const NearOffersMapWrapped = withMap(NearOffersMap);
 
 const Property = (props) => {
-  const {offer, offers, onHeaderClick, currentCity, activeOfferId} = props;
+  const {offer, offers, onHeaderClick, currentCity, activeOfferId, userEmail} = props;
   const {title, price, rating, img, type, isItPremium, isItFavorite, id, images, description, bedrooms, guests, appliances, owner} = offer;
   const {avatar, name, isSuper} = owner;
   const nearOffersList = offers.slice(0, offers.length).filter(
@@ -32,7 +32,7 @@ const Property = (props) => {
                 <a className="header__nav-link header__nav-link--profile" href="#">
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
-                  <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                  <span className="header__user-name user__name">{userEmail ? userEmail : `Sing in`}</span>
                 </a>
               </li>
             </ul>
@@ -135,6 +135,7 @@ const Property = (props) => {
 };
 
 Property.propTypes = {
+  userEmail: PropTypes.string,
   offer: OfferType,
   offers: PropTypes.arrayOf(OfferType),
   onHeaderClick: PropTypes.func,

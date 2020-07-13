@@ -7,10 +7,12 @@ const AuthorizationStatus = {
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
+  userEmail: null,
 };
 
 const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
+  GET_EMAIL: `GET_EMAIL`,
 };
 
 const ActionCreator = {
@@ -18,6 +20,12 @@ const ActionCreator = {
     return {
       type: ActionType.REQUIRED_AUTHORIZATION,
       payload: status,
+    };
+  },
+  getEmail: (email) => {
+    return {
+      type: ActionType.GET_EMAIL,
+      payload: email,
     };
   },
 };
@@ -32,7 +40,6 @@ const Operation = {
         throw err;
       });
   },
-
   login: (authData) => (dispatch, getState, api) => {
     return api.post(`/login`, {
       email: authData.login,
@@ -40,6 +47,7 @@ const Operation = {
     })
       .then(() => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(ActionCreator.getEmail(authData.login));
       });
   },
 };
@@ -49,6 +57,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.REQUIRED_AUTHORIZATION:
       return extend(state, {
         authorizationStatus: action.payload,
+      });
+    case ActionType.GET_EMAIL:
+      return extend(state, {
+        userEmail: action.payload,
       });
   }
 

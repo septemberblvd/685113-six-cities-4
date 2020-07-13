@@ -8,7 +8,7 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/ui/ui.js";
 import {getCurrentCity, getCurrentOffers, getCurrentComments} from "../../reducer/data/selectors.js";
 import {getActiveOffer, getActiveOfferId} from "../../reducer/ui/selectors.js";
-import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import {getAuthorizationStatus, getUserEmail} from "../../reducer/user/selectors.js";
 import {Operation as UserOperation, AuthorizationStatus} from "../../reducer/user/user.js";
 import SingIn from "../sing-in/sing-in.jsx";
 
@@ -31,6 +31,7 @@ class App extends PureComponent {
     const {
       authorizationStatus,
       login,
+      userEmail,
       returnToMain,
       offers,
       cities,
@@ -41,6 +42,7 @@ class App extends PureComponent {
     if (activeOffer) {
       if (authorizationStatus === AuthorizationStatus.AUTH) {
         return <Property
+          userEmail={userEmail}
           offer={activeOffer}
           offers={offers}
           currentCity={currentCity}
@@ -57,6 +59,7 @@ class App extends PureComponent {
     }
 
     return <MainScreen
+      userEmail={userEmail}
       offers = {offers}
       cities = {cities}
       currentCity={currentCity}
@@ -89,6 +92,7 @@ class App extends PureComponent {
 App.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
+  userEmail: PropTypes.string,
   returnToMain: PropTypes.func.isRequired,
   offers: PropTypes.arrayOf(
       OfferType
@@ -109,6 +113,7 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  userEmail: getUserEmail(state),
   authorizationStatus: getAuthorizationStatus(state),
   currentCity: getCurrentCity(state),
   offers: getCurrentOffers(state),
