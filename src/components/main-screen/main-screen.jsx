@@ -13,7 +13,7 @@ const OffersListWrapped = composedWithOfferList(OffersList);
 const MapWrapped = withMap(Map);
 
 const MainScreen = (props) => {
-  const {cities, offers, currentCity, onHeaderClick, activeOfferId} = props;
+  const {cities, offers, currentCity, onHeaderClick, activeOfferId, userEmail} = props;
 
   return <div className="page page--gray page--main">
     <header className="header">
@@ -30,7 +30,7 @@ const MainScreen = (props) => {
                 <a className="header__nav-link header__nav-link--profile" href="#">
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
-                  <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                  <span className="header__user-name user__name">{userEmail ? userEmail : `Sing in`}</span>
                 </a>
               </li>
             </ul>
@@ -67,7 +67,7 @@ const MainScreen = (props) => {
 
 MainScreen.propTypes = {
   offers: PropTypes.arrayOf(
-      OfferType.isRequired
+      OfferType
   ).isRequired,
   onHeaderClick: PropTypes.func.isRequired,
   cities: PropTypes.arrayOf(
@@ -81,6 +81,7 @@ MainScreen.propTypes = {
     cityCoords: PropTypes.array.isRequired,
   }),
   activeOfferId: PropTypes.number,
+  userEmail: PropTypes.string,
 };
 
 

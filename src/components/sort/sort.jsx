@@ -1,9 +1,11 @@
 import React, {PureComponent} from 'react';
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-
-import {ActionCreator} from "../../reducer";
+import {ActionCreator as ActionCreatorData} from "../../reducer/data/data.js";
+import {ActionCreator as ActionCreatorUi} from "../../reducer/ui/ui.js";
 import {SortType} from '../../const.js';
+import {getCurrentSortType} from '../../reducer/data/selectors.js';
+import {getShowSortMenu} from '../../reducer/ui/selectors.js';
 
 const menuItems = [
   {
@@ -76,16 +78,16 @@ class Sort extends PureComponent {
 
 const mapDispatchToProps = (dispatch) => ({
   onSort(sortType) {
-    dispatch(ActionCreator.sortOffers(sortType));
+    dispatch(ActionCreatorData.sortOffers(sortType));
   },
   onShowSortMenu(isOpened) {
-    dispatch(ActionCreator.showSortMenu(isOpened));
+    dispatch(ActionCreatorUi.showSortMenu(isOpened));
   }
 });
 
 const mapStateToProps = (state) => ({
-  currentSortType: state.currentSortType,
-  isOpened: state.showSortMenu,
+  currentSortType: getCurrentSortType(state),
+  isOpened: getShowSortMenu(state),
 });
 
 Sort.propTypes = {

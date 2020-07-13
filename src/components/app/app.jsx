@@ -5,7 +5,13 @@ import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Property from "../property/property.jsx";
 import {OfferType} from "../../const.js";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer";
+import {ActionCreator} from "../../reducer/ui/ui.js";
+import {getCurrentCity, getCurrentOffers, getCurrentComments} from "../../reducer/data/selectors.js";
+import {getActiveOffer, getActiveOfferId} from "../../reducer/ui/selectors.js";
+import {getAuthorizationStatus, getUserEmail} from "../../reducer/user/selectors.js";
+import {Operation as UserOperation, AuthorizationStatus} from "../../reducer/user/user.js";
+import SingIn from "../sing-in/sing-in.jsx";
+
 
 class App extends PureComponent {
   constructor(props) {
@@ -21,7 +27,12 @@ class App extends PureComponent {
   }
 
   _renderApp() {
+
     const {
+      authorizationStatus,
+      login,
+      userEmail,
+      returnToMain,
       offers,
       cities,
       currentCity,
@@ -29,14 +40,26 @@ class App extends PureComponent {
       activeOffer} = this.props;
 
     if (activeOffer) {
-      return <Property offer={activeOffer}
-        offers={offers}
-        onHeaderClick = {this._handleCardHeaderClick}
-        activeOfferId = {activeOfferId}
-      />;
+      if (authorizationStatus === AuthorizationStatus.AUTH) {
+        return <Property
+          userEmail={userEmail}
+          offer={activeOffer}
+          offers={offers}
+          currentCity={currentCity}
+          onHeaderClick = {this._handleCardHeaderClick}
+          activeOfferId = {activeOfferId}
+        />;
+      } else if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+        return <SingIn
+          onReturnButtonClick={returnToMain}
+          onSubmit={login}
+        />;
+      }
+
     }
 
     return <MainScreen
+      userEmail={userEmail}
       offers = {offers}
       cities = {cities}
       currentCity={currentCity}
@@ -67,6 +90,10 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
+  login: PropTypes.func.isRequired,
+  userEmail: PropTypes.string,
+  returnToMain: PropTypes.func.isRequired,
   offers: PropTypes.arrayOf(
       OfferType
   ).isRequired,
@@ -86,16 +113,25 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  currentCity: state.city,
-  offers: state.currentOffers,
-  activeOfferId: state.activeOfferId,
-  activeOffer: state.activeOffer,
+  userEmail: getUserEmail(state),
+  authorizationStatus: getAuthorizationStatus(state),
+  currentCity: getCurrentCity(state),
+  offers: getCurrentOffers(state),
+  activeOfferId: getActiveOfferId(state),
+  activeOffer: getActiveOffer(state),
+  currentComments: getCurrentComments(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  login(authData) {
+    dispatch(UserOperation.login(authData));
+  },
   onCardHeaderClick(offer) {
     dispatch(ActionCreator.setActiveOffer(offer));
   },
+  returnToMain() {
+    dispatch(ActionCreator.setActiveOffer(null));
+  }
 });
 
 export {App};

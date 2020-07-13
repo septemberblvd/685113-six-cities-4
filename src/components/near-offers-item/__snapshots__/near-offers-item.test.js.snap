@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Should NearOfferItem render correctly 1`] = `
+exports[`NearOfferItem Should NearOfferItem render correctly 1`] = `
 <article
   className="near-places__card place-card"
   onMouseEnter={[Function]}
@@ -43,7 +43,7 @@ exports[`Should NearOfferItem render correctly 1`] = `
         </span>
       </div>
       <button
-        className="place-card__bookmark-button place-card__bookmark-button--active button"
+        className="place-card__bookmark-button button"
         type="button"
       >
         <svg

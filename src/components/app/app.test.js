@@ -3,6 +3,7 @@ import renderer from "react-test-renderer";
 import {App} from "./app.jsx";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
+import NameSpace from "../../reducer/name-space.js";
 
 const mockStore = configureStore([]);
 
@@ -14,6 +15,7 @@ const offers = [
     rating: 5,
     type: `Apartment`,
     isItPremium: true,
+    isItFavorite: false,
     id: 1,
     cityName: `Paris`,
     images: [
@@ -59,7 +61,6 @@ const offers = [
         reviewTime: `June 5, 2018`,
       },
     ],
-    nearOffers: [1]
   },
 ];
 
@@ -75,24 +76,34 @@ const currentCity = {
   cityCoords: [48.85341, 2.3488],
 };
 
-
-it(`Render App`, () => {
-  const store = mockStore({
-    city: {
-      cityName: `Paris`,
-      cityCoords: [48.85341, 2.3488],
-    },
-  });
-  const tree = renderer
+describe(`App`, () => {
+  it(`Render App`, () => {
+    const store = mockStore({
+      [NameSpace.DATA]: {
+        currentSortType: `Popular`,
+        city: {
+          cityName: `Paris`,
+          cityCoords: [48.85341, 2.3488],
+        },
+      },
+      [NameSpace.UI]: {
+        showSortMenu: false,
+      }
+    });
+    const tree = renderer
     .create(
         <Provider store={store}>
           <App
             isOpened={true}
+            authorizationStatus={`NO_AUTH`}
             currentSortType={`Popular`}
             offers = {offers}
             cities = {cities}
             currentCity={currentCity}
+            login = {() => {}}
+            returnToMain = {() => {}}
             onHeaderClick = {() => {}}
+            loadComments = {() => {}}
             onCardHeaderClick = {() => {}}/>
         </Provider>,
         {createNodeMock: () => {
@@ -100,5 +111,6 @@ it(`Render App`, () => {
         }})
     .toJSON();
 
-  expect(tree).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
+  });
 });
