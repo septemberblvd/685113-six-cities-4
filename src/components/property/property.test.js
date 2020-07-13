@@ -4,8 +4,12 @@ import Property from "./property.jsx";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import NameSpace from "../../reducer/name-space.js";
-
-const mockStore = configureStore([]);
+import thunk from 'redux-thunk';
+import {Operation} from '../../reducer/data/data';
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares);
+jest.mock(`../../reducer/data/data`);
+Operation.loadComments = () => (dispatch) => dispatch(jest.fn());
 
 const offer = {
   title: `Wood and stone place`,

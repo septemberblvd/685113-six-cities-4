@@ -49,7 +49,7 @@ exports[`Property Should Property render correctly 1`] = `
                 <span
                   className="header__user-name user__name"
                 >
-                  Oliver.conner@gmail.com
+                  Sing in
                 </span>
               </a>
             </li>
