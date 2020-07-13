@@ -3,13 +3,14 @@ import MainScreen from "../main-screen/main-screen.jsx";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Property from "../property/property.jsx";
-import {OfferType, CommentType} from "../../const.js";
+import {OfferType} from "../../const.js";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/ui/ui.js";
 import {getCurrentCity, getCurrentOffers, getCurrentComments} from "../../reducer/data/selectors.js";
 import {getActiveOffer, getActiveOfferId} from "../../reducer/ui/selectors.js";
-import {Operation as DataOperation} from "../../reducer/data/data.js";
-import {adaptComments} from "../../adapter/comments.js";
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import {Operation as UserOperation, AuthorizationStatus} from "../../reducer/user/user.js";
+import SingIn from "../sing-in/sing-in.jsx";
 
 
 class App extends PureComponent {
@@ -17,7 +18,6 @@ class App extends PureComponent {
     super(props);
 
     this._handleCardHeaderClick = this._handleCardHeaderClick.bind(this);
-    this._getComments = this._getComments.bind(this);
   }
 
   _handleCardHeaderClick(offer) {
@@ -26,31 +26,34 @@ class App extends PureComponent {
     onCardHeaderClick(offer);
   }
 
-  _getComments() {
-    const {loadComments, activeOffer} = this.props;
-
-    loadComments(activeOffer.id);
-  }
-
   _renderApp() {
 
     const {
+      authorizationStatus,
+      login,
+      returnToMain,
       offers,
       cities,
       currentCity,
       activeOfferId,
-      activeOffer,
-      currentComments} = this.props;
+      activeOffer} = this.props;
 
     if (activeOffer) {
-      this._getComments();
-      return <Property offer={activeOffer}
-        comments={currentComments}
-        offers={offers}
-        currentCity={currentCity}
-        onHeaderClick = {this._handleCardHeaderClick}
-        activeOfferId = {activeOfferId}
-      />;
+      if (authorizationStatus === AuthorizationStatus.AUTH) {
+        return <Property
+          offer={activeOffer}
+          offers={offers}
+          currentCity={currentCity}
+          onHeaderClick = {this._handleCardHeaderClick}
+          activeOfferId = {activeOfferId}
+        />;
+      } else if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+        return <SingIn
+          onReturnButtonClick={returnToMain}
+          onSubmit={login}
+        />;
+      }
+
     }
 
     return <MainScreen
@@ -84,6 +87,9 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
+  login: PropTypes.func.isRequired,
+  returnToMain: PropTypes.func.isRequired,
   offers: PropTypes.arrayOf(
       OfferType
   ).isRequired,
@@ -100,11 +106,10 @@ App.propTypes = {
   activeOfferId: PropTypes.number,
   onCardHeaderClick: PropTypes.func.isRequired,
   activeOffer: OfferType,
-  loadComments: PropTypes.func.isRequired,
-  currentComments: CommentType,
 };
 
 const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
   currentCity: getCurrentCity(state),
   offers: getCurrentOffers(state),
   activeOfferId: getActiveOfferId(state),
@@ -113,11 +118,14 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  login(authData) {
+    dispatch(UserOperation.login(authData));
+  },
   onCardHeaderClick(offer) {
     dispatch(ActionCreator.setActiveOffer(offer));
   },
-  loadComments(id) {
-    dispatch(DataOperation.loadComments(adaptComments, id));
+  returnToMain() {
+    dispatch(ActionCreator.setActiveOffer(null));
   }
 });
 

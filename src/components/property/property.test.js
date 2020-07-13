@@ -41,25 +41,6 @@ const offer = {
     isSuper: true,
   },
   coords: [52.39874984984841, 4.82456445558843],
-  reviews: [
-    {
-      reviewId: 14,
-      reviewName: `Ozzy`,
-      reviewAvatar: `src`,
-      reviewGrade: 4,
-      reviewText: `Id minim labore ut velit sit velit.Magna deserunt reprehenderit consequat elit cupidatat proident nostrud amet minim nulla.`,
-      reviewTime: `May 8, 2016`,
-    },
-    {
-      reviewId: 22,
-      reviewName: `Mick`,
-      reviewAvatar: `src`,
-      reviewGrade: 2,
-      reviewText: `Incididunt fugiat non aliqua eu nisi.Id Lorem cillum non voluptate nulla id fugiat Lorem exercitation irure ullamco enim veniam ullamco.`,
-      reviewTime: `June 5, 2018`,
-    },
-  ],
-  nearOffers: [1]
 };
 
 const offers = [
@@ -124,19 +105,6 @@ const currentCity = {
   cityCoords: [48.85341, 2.3488],
 };
 
-const comments = [
-  {
-    reviewId: 14,
-    authorId: 21,
-    reviewName: `Ozzy`,
-    reviewAvatar: `src`,
-    reviewGrade: 4,
-    reviewText: `Id minim labore ut velit sit velit.Magna deserunt reprehenderit consequat elit cupidatat proident nostrud amet minim nulla.`,
-    reviewTime: `May 8, 2016`,
-    isPro: false,
-  },
-];
-
 describe(`Property`, () => {
   it(`Should Property render correctly`, () => {
     const store = mockStore({
@@ -146,6 +114,18 @@ describe(`Property`, () => {
           cityName: `Paris`,
           cityCoords: [48.85341, 2.3488],
         },
+        currentComments: [
+          {
+            reviewId: 14,
+            authorId: 21,
+            reviewName: `Ozzy`,
+            reviewAvatar: `src`,
+            reviewGrade: 4,
+            reviewText: `Id minim labore ut velit sit velit.Magna deserunt reprehenderit consequat elit cupidatat proident nostrud amet minim nulla.`,
+            reviewTime: `May 8, 2016`,
+            isPro: false,
+          },
+        ],
       },
       [NameSpace.UI]: {
         showSortMenu: false,
@@ -155,11 +135,12 @@ describe(`Property`, () => {
         .create(
             <Provider store={store}>
               <Property
-                comments={comments}
                 offer={offer}
                 offers={offers}
                 currentCity={currentCity}
                 onHeaderClick = {() => {}}
+                activeOfferId= {26}
+                onLoadComments={() => {}}
               />
             </Provider>
             , {
