@@ -104,7 +104,9 @@ const Operation = {
       .then((response) => {
         const data = adaptCallback ? adaptCallback(response.data) : response.data;
         dispatch(ActionCreator.loadComments(data));
-        form.reset();
+        if (form) {
+          form.reset();
+        }
       });
     }
     return null;

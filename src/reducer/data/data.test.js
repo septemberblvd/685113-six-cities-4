@@ -1221,6 +1221,9 @@ it(`Reducer without parameters return initial state`, () => {
     currentOffers: [],
     currentSortType: `Popular`,
     currentComments: [],
+    nearOffers: [],
+    newComment: null,
+    newRating: null,
   });
 });
 
@@ -1387,6 +1390,48 @@ describe(`Operation work correctly`, () => {
       .reply(200, [{fake: true}]);
 
     return commentsLoader(dispatch, getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_COMMENTS,
+          payload: [{fake: true}],
+        });
+      });
+  });
+  it(`Should make a correct API call to /hotels/id/nearby`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const getState = jest.fn();
+    const nearOffersLoader = Operation.loadNearOffers(null, 1);
+
+    apiMock
+      .onGet(`/hotels/1/nearby`)
+      .reply(200, [{fake: true}]);
+
+    return nearOffersLoader(dispatch, getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_NEAR_OFFERS,
+          payload: [{fake: true}],
+        });
+      });
+  });
+  it(`Should make a correct API post to /comments/id`, function () {
+    const userComment = {
+      comment: `FooFooFoo`,
+      rating: 4,
+    };
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const getState = jest.fn();
+    const commentUploader = Operation.uploadComment(userComment, null, 1, null);
+
+    apiMock
+      .onPost(`/comments/1`)
+      .reply(200, [{fake: true}]);
+
+    return commentUploader(dispatch, getState, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {

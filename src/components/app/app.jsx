@@ -69,7 +69,7 @@ class App extends PureComponent {
   render() {
 
     const {
-      offers,
+      // offers,
       login,
       returnToMain,
     } = this.props;
@@ -80,9 +80,9 @@ class App extends PureComponent {
           <Route exact path="/">
             {this._renderApp()}
           </Route>
-          <Route exact path="/dev-offer">
+          {/* <Route exact path="/dev-offer">
             <Property offer={offers[0]}/>
-          </Route>
+          </Route> */}
           <Route exact path="/dev-sing-in">
             <SingIn
               onReturnButtonClick={returnToMain}
@@ -100,7 +100,7 @@ App.propTypes = {
   login: PropTypes.func.isRequired,
   userEmail: PropTypes.string,
   returnToMain: PropTypes.func.isRequired,
-  onLoadNearOffers: PropTypes.func.isRequired,
+  onLoadNearOffers: PropTypes.func,
   nearOffers: PropTypes.arrayOf(
       OfferType
   ).isRequired,

@@ -45,7 +45,8 @@ describe(`ReviewsList`, () => {
           <ReviewsList
             comments={comments}
             id={1}
-            onLoadComments={onLoadComments} />
+            onLoadComments={onLoadComments}
+            authorizationStatus={`NO_AUTH`} />
         </Provider>, {
           createNodeMock: () => {
             return document.createElement(`div`);

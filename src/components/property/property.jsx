@@ -174,7 +174,7 @@ Property.propTypes = {
   userEmail: PropTypes.string,
   offer: OfferType,
   offers: PropTypes.arrayOf(OfferType),
-  onLoadNearOffers: PropTypes.number,
+  onLoadNearOffers: PropTypes.func.isRequired,
   nearOffers: PropTypes.arrayOf(
       OfferType
   ),
