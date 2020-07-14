@@ -14,12 +14,25 @@ export const getCurrentSortType = (state) => {
 export const getCurrentCity = (state) => {
   return state[NAME_SPACE].city;
 };
+
+export const getNearOffers = (state) => {
+  return state[NAME_SPACE].nearOffers;
+};
+
 export const getCurrentComments = (state) => {
   return state[NAME_SPACE].currentComments;
 };
 
 export const getCurrentCityName = (state) => {
   return state[NAME_SPACE].city.cityName;
+};
+
+export const getNewComment = (state) => {
+  return state[NAME_SPACE].newComment;
+};
+
+export const getNewRating = (state) => {
+  return state[NAME_SPACE].newRating;
 };
 
 export const getCurrentOffers = createSelector(
