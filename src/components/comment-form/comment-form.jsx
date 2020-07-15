@@ -2,8 +2,9 @@ import React, {PureComponent, createRef} from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {Operation as DataOperation, ActionCreator} from "../../reducer/data/data.js";
-import {getNewComment, getNewRating} from "../../reducer/data/selectors";
+import {getNewComment, getNewRating, getSendStatus, getErrorStatus} from "../../reducer/data/selectors";
 import {adaptComments} from "../../adapter/comments.js";
+import Error from "../error/error.jsx";
 
 const ratingFields = [
   {
@@ -35,10 +36,13 @@ class CommentForm extends PureComponent {
 
     this.commentRef = createRef();
     this.ratingRef = createRef();
+    this.formRef = createRef();
+    this.buttonRef = createRef();
 
     this._handleChangeComment = this._handleChangeComment.bind(this);
     this._handleChangeRating = this._handleChangeRating.bind(this);
     this._handleCommentSubmit = this._handleCommentSubmit.bind(this);
+    this._changeFormAccess = this._changeFormAccess.bind(this);
     this._isItValid = this._isItValid.bind(this);
   }
   _handleChangeComment(evt) {
@@ -46,7 +50,7 @@ class CommentForm extends PureComponent {
 
     evt.preventDefault();
     if (this._isItValid()) {
-      evt.target.querySelector(`.reviews__textarea`).style.backgroundColor = ``;
+      this.commentRef.current.style.backgroundColor = ``;
     }
     onCommentChange(this.commentRef.current.value);
   }
@@ -58,9 +62,11 @@ class CommentForm extends PureComponent {
   }
 
   _handleCommentSubmit(evt) {
-    const {onCommentUpload, newComment, newRating, id, onCommentChange, onRatingChange} = this.props;
+    const {onCommentUpload, newComment, newRating, id, sendStatus} = this.props;
 
     evt.preventDefault();
+    this._changeFormAccess(true);
+
     if (this._isItValid()) {
 
       onCommentUpload(
@@ -70,13 +76,8 @@ class CommentForm extends PureComponent {
           },
           adaptComments,
           id,
-          evt.target
+          sendStatus
       );
-      onRatingChange(null);
-      onCommentChange(null);
-      evt.target.querySelector(`.reviews__textarea`).style.backgroundColor = ``;
-    } else {
-      evt.target.querySelector(`.reviews__textarea`).style.backgroundColor = `rgb(255, 96, 96)`;
     }
   }
 
@@ -91,10 +92,35 @@ class CommentForm extends PureComponent {
     return false;
   }
 
+  _changeFormAccess(status) {
+    if (status) {
+      this.commentRef.current.setAttribute(`disabled`, `disabled`);
+      this.buttonRef.current.setAttribute(`disabled`, `disabled`);
+    } else {
+      this.commentRef.current.removeAttribute(`disabled`);
+      this.buttonRef.current.removeAttribute(`disabled`);
+    }
+
+  }
+
+  componentDidUpdate() {
+    const {sendStatus, onCommentChange, onRatingChange, onChangeSendStatus} = this.props;
+    if (sendStatus) {
+      onRatingChange(null);
+      onCommentChange(null);
+      this.commentRef.current.style.backgroundColor = ``;
+      this.formRef.current.reset();
+      this._changeFormAccess(false);
+      onChangeSendStatus(sendStatus);
+    }
+  }
+
   render() {
-    const {newComment, newRating} = this.props;
+    const {isError} = this.props;
+
     return (
-      <form className="reviews__form form" action="#" method="post" onSubmit={this._handleCommentSubmit}>
+      <form className="reviews__form form" action="#" ref={this.formRef} method="post" onSubmit={this._handleCommentSubmit}>
+        {isError && <Error />}
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
         <div className="reviews__rating-form form__rating">
           {ratingFields.map((it) => {
@@ -131,7 +157,7 @@ class CommentForm extends PureComponent {
             and describe your stay with at least
             <b className="reviews__text-amount">50 characters</b>.
           </p>
-          <button className="reviews__submit form__submit button" type="submit" disabled={!newComment || !newRating ? true : ``}>Submit</button>
+          <button className="reviews__submit form__submit button" ref={this.buttonRef} type="submit" disabled={!this._isItValid()}>Submit</button>
         </div>
       </form>
     );
@@ -144,11 +170,16 @@ CommentForm.propTypes = {
   onCommentChange: PropTypes.func.isRequired,
   onRatingChange: PropTypes.func.isRequired,
   onCommentUpload: PropTypes.func.isRequired,
+  sendStatus: PropTypes.bool.isRequired,
+  onChangeSendStatus: PropTypes.func.isRequired,
+  isError: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   newComment: getNewComment(state),
   newRating: getNewRating(state),
+  sendStatus: getSendStatus(state),
+  isError: getErrorStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -158,9 +189,12 @@ const mapDispatchToProps = (dispatch) => ({
   onRatingChange(rating) {
     dispatch(ActionCreator.changeNewRating(rating));
   },
-  onCommentUpload(commentData, adaptCallback, id, form) {
-    dispatch(DataOperation.uploadComment(commentData, adaptCallback, id, form));
+  onCommentUpload(commentData, adaptCallback, id, sendStatus) {
+    dispatch(DataOperation.uploadComment(commentData, adaptCallback, id, sendStatus));
   },
+  onChangeSendStatus(sendStatus) {
+    dispatch(ActionCreator.changeSendStatus(sendStatus));
+  }
 });
 
 export {CommentForm};

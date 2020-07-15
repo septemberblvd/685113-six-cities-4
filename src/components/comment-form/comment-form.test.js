@@ -22,6 +22,9 @@ describe(`CommentForm`, () => {
             newComment={null}
             newRating={null}
             id={1}
+            sendStatus={false}
+            isError={false}
+            onChangeSendStatus={() => {}}
             onCommentChange={() => {}}
             onRatingChange={() => {}}
             onCommentUpload={() => {}}/>

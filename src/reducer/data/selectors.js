@@ -35,6 +35,14 @@ export const getNewRating = (state) => {
   return state[NAME_SPACE].newRating;
 };
 
+export const getSendStatus = (state) => {
+  return state[NAME_SPACE].sendStatus;
+};
+
+export const getErrorStatus = (state) => {
+  return state[NAME_SPACE].isError;
+};
+
 export const getCurrentOffers = createSelector(
     getOffers,
 

@@ -1217,13 +1217,15 @@ it(`Reducer without parameters return initial state`, () => {
       cityName: `Amsterdam`,
       cityCoords: [52.38333, 4.9],
     },
+    currentSortType: `Popular`,
     allOffers: [],
     currentOffers: [],
-    currentSortType: `Popular`,
     currentComments: [],
     nearOffers: [],
     newComment: null,
     newRating: null,
+    sendStatus: false,
+    isError: false,
   });
 });
 
@@ -1433,7 +1435,7 @@ describe(`Operation work correctly`, () => {
 
     return commentUploader(dispatch, getState, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(3);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_COMMENTS,
           payload: [{fake: true}],

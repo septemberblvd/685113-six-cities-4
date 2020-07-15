@@ -26,6 +26,8 @@ describe(`ReviewsList`, () => {
   it(`Should ReviewsList render correctly`, () => {
     const store = mockStore({
       [NameSpace.DATA]: {
+        sendStatus: false,
+        isError: false,
         comments: [
           {
             reviewId: 14,

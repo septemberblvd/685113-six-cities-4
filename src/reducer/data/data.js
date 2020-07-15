@@ -13,6 +13,8 @@ const initialState = {
   nearOffers: [],
   newComment: null,
   newRating: null,
+  sendStatus: false,
+  isError: false,
 };
 
 const ActionType = {
@@ -24,6 +26,8 @@ const ActionType = {
   SORT_OFFERS: `SORT_OFFERS`,
   CHANGE_NEW_COMMENT: `CHANGE_NEW_COMMENT`,
   CHANGE_NEW_RATING: `CHANGE_NEW_RATING`,
+  CHANGE_SEND_STATUS: `CHANGE_SEND_STATUS`,
+  SET_ERROR: `SET_ERROR`,
 };
 
 const ActionCreator = {
@@ -65,6 +69,14 @@ const ActionCreator = {
     type: ActionType.CHANGE_NEW_RATING,
     payload: rating,
   }),
+  changeSendStatus: (stat) => ({
+    type: ActionType.CHANGE_SEND_STATUS,
+    payload: !stat,
+  }),
+  setError: (isError) => ({
+    type: ActionType.SET_ERROR,
+    payload: isError,
+  }),
 };
 
 const Operation = {
@@ -95,7 +107,7 @@ const Operation = {
     }
     return null;
   },
-  uploadComment: (commentData, adaptCallback, id, form) => (dispatch, getState, api) => {
+  uploadComment: (commentData, adaptCallback, id, status) => (dispatch, getState, api) => {
     if (id) {
       return api.post(`/comments/${id}`, {
         comment: commentData.comment,
@@ -104,9 +116,12 @@ const Operation = {
       .then((response) => {
         const data = adaptCallback ? adaptCallback(response.data) : response.data;
         dispatch(ActionCreator.loadComments(data));
-        if (form) {
-          form.reset();
-        }
+        dispatch(ActionCreator.changeSendStatus(status));
+        dispatch(ActionCreator.setError(false));
+      })
+      .catch((err) => {
+        dispatch(ActionCreator.setError(true));
+        throw err;
       });
     }
     return null;
@@ -143,6 +158,14 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_NEW_RATING:
       return extend(state, {
         newRating: action.payload,
+      });
+    case ActionType.CHANGE_SEND_STATUS:
+      return extend(state, {
+        sendStatus: action.payload,
+      });
+    case ActionType.SET_ERROR:
+      return extend(state, {
+        isError: action.payload,
       });
     default:
       return state;

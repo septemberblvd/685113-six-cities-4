@@ -102,6 +102,8 @@ describe(`Property`, () => {
           cityName: `Paris`,
           cityCoords: [48.85341, 2.3488],
         },
+        sendStatus: false,
+        isError: false,
         currentComments: [
           {
             reviewId: 14,
