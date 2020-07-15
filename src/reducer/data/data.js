@@ -10,14 +10,24 @@ const initialState = {
   allOffers: [],
   currentOffers: [],
   currentComments: [],
+  nearOffers: [],
+  newComment: null,
+  newRating: null,
+  sendStatus: false,
+  isError: false,
 };
 
 const ActionType = {
   LOAD_OFFERS: `LOAD_OFFERS`,
+  LOAD_NEAR_OFFERS: `LOAD_NEAR_OFFERS`,
   LOAD_COMMENTS: `LOAD_COMMENTS`,
   CHANGE_LOCATION: `CHANGE_LOCATION`,
   CHANGE_CURRENT_OFFERS: `CHANGE_CURRENT_OFFERS`,
   SORT_OFFERS: `SORT_OFFERS`,
+  CHANGE_NEW_COMMENT: `CHANGE_NEW_COMMENT`,
+  CHANGE_NEW_RATING: `CHANGE_NEW_RATING`,
+  CHANGE_SEND_STATUS: `CHANGE_SEND_STATUS`,
+  SET_ERROR: `SET_ERROR`,
 };
 
 const ActionCreator = {
@@ -33,6 +43,12 @@ const ActionCreator = {
       payload: commentsAll,
     };
   },
+  loadNearOffers: (nearOffers) => {
+    return {
+      type: ActionType.LOAD_NEAR_OFFERS,
+      payload: nearOffers,
+    };
+  },
   changeLocation: (city) => ({
     type: ActionType.CHANGE_LOCATION,
     payload: city,
@@ -44,6 +60,22 @@ const ActionCreator = {
   sortOffers: (sortType) => ({
     type: ActionType.SORT_OFFERS,
     payload: sortType,
+  }),
+  changeNewComment: (comment) => ({
+    type: ActionType.CHANGE_NEW_COMMENT,
+    payload: comment,
+  }),
+  changeNewRating: (rating) => ({
+    type: ActionType.CHANGE_NEW_RATING,
+    payload: rating,
+  }),
+  changeSendStatus: (stat) => ({
+    type: ActionType.CHANGE_SEND_STATUS,
+    payload: !stat,
+  }),
+  setError: (isError) => ({
+    type: ActionType.SET_ERROR,
+    payload: isError,
   }),
 };
 
@@ -65,6 +97,35 @@ const Operation = {
     }
     return null;
   },
+  loadNearOffers: (adaptCallback, id) => (dispatch, getState, api) => {
+    if (id) {
+      return api.get(`/hotels/${id}/nearby`)
+      .then((response) => {
+        const data = adaptCallback ? adaptCallback(response.data) : response.data;
+        dispatch(ActionCreator.loadNearOffers(data));
+      });
+    }
+    return null;
+  },
+  uploadComment: (commentData, adaptCallback, id, status) => (dispatch, getState, api) => {
+    if (id) {
+      return api.post(`/comments/${id}`, {
+        comment: commentData.comment,
+        rating: commentData.rating,
+      })
+      .then((response) => {
+        const data = adaptCallback ? adaptCallback(response.data) : response.data;
+        dispatch(ActionCreator.loadComments(data));
+        dispatch(ActionCreator.changeSendStatus(status));
+        dispatch(ActionCreator.setError(false));
+      })
+      .catch((err) => {
+        dispatch(ActionCreator.setError(true));
+        throw err;
+      });
+    }
+    return null;
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -75,6 +136,8 @@ const reducer = (state = initialState, action) => {
       );
     case ActionType.LOAD_COMMENTS:
       return extend(state, {currentComments: action.payload});
+    case ActionType.LOAD_NEAR_OFFERS:
+      return extend(state, {nearOffers: action.payload});
     case ActionType.CHANGE_LOCATION:
       return extend(state, {city: action.payload});
     case ActionType.CHANGE_CURRENT_OFFERS:
@@ -87,6 +150,22 @@ const reducer = (state = initialState, action) => {
         allOffers: action.payload === SortType.POPULAR
           ? state.allOffers
           : getSortedOffers(state.allOffers, action.payload),
+      });
+    case ActionType.CHANGE_NEW_COMMENT:
+      return extend(state, {
+        newComment: action.payload,
+      });
+    case ActionType.CHANGE_NEW_RATING:
+      return extend(state, {
+        newRating: action.payload,
+      });
+    case ActionType.CHANGE_SEND_STATUS:
+      return extend(state, {
+        sendStatus: action.payload,
+      });
+    case ActionType.SET_ERROR:
+      return extend(state, {
+        isError: action.payload,
       });
     default:
       return state;

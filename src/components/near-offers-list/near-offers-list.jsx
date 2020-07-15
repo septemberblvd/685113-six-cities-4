@@ -3,13 +3,15 @@ import {OfferType} from "../../const";
 import PropTypes from "prop-types";
 import NearOffersItem from "../near-offers-item/near-offers-item.jsx";
 
+
 const NearOffersList = (props) => {
-  const {offers, onCardMouseEnter, onHeaderClick, onCardMouseLeave} = props;
+
+  const {nearOffers, onCardMouseEnter, onHeaderClick, onCardMouseLeave} = props;
   return (
     <section className="near-places places">
       <h2 className="near-places__title">Other places in the neighbourhood</h2>
       <div className="near-places__list places__list">
-        {offers.map((it) => <NearOffersItem
+        {nearOffers.map((it) => <NearOffersItem
           key={it.id}
           nearOffer={it}
           onCardMouseEnter={onCardMouseEnter}
@@ -22,7 +24,7 @@ const NearOffersList = (props) => {
 };
 
 NearOffersList.propTypes = {
-  offers: PropTypes.arrayOf(
+  nearOffers: PropTypes.arrayOf(
       OfferType
   ).isRequired,
   onHeaderClick: PropTypes.func.isRequired,

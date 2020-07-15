@@ -100,6 +100,7 @@ describe(`App`, () => {
             offers = {offers}
             cities = {cities}
             currentCity={currentCity}
+            nearOffers={[]}
             login = {() => {}}
             returnToMain = {() => {}}
             onHeaderClick = {() => {}}

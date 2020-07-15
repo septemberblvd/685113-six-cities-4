@@ -26,6 +26,8 @@ describe(`ReviewsList`, () => {
   it(`Should ReviewsList render correctly`, () => {
     const store = mockStore({
       [NameSpace.DATA]: {
+        sendStatus: false,
+        isError: false,
         comments: [
           {
             reviewId: 14,
@@ -45,7 +47,8 @@ describe(`ReviewsList`, () => {
           <ReviewsList
             comments={comments}
             id={1}
-            onLoadComments={onLoadComments} />
+            onLoadComments={onLoadComments}
+            authorizationStatus={`NO_AUTH`} />
         </Provider>, {
           createNodeMock: () => {
             return document.createElement(`div`);

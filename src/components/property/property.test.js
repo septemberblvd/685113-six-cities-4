@@ -93,12 +93,17 @@ const currentCity = {
 describe(`Property`, () => {
   it(`Should Property render correctly`, () => {
     const store = mockStore({
+      [NameSpace.USER]: {
+        authorizationStatus: `NO_AUTH`,
+      },
       [NameSpace.DATA]: {
         currentSortType: `Popular`,
         city: {
           cityName: `Paris`,
           cityCoords: [48.85341, 2.3488],
         },
+        sendStatus: false,
+        isError: false,
         currentComments: [
           {
             reviewId: 14,
@@ -121,11 +126,12 @@ describe(`Property`, () => {
             <Provider store={store}>
               <Property
                 offer={offer}
-                offers={offers}
+                nearOffers={offers}
                 currentCity={currentCity}
                 onHeaderClick = {() => {}}
                 activeOfferId= {26}
                 onLoadComments={() => {}}
+                onLoadNearOffers={() => {}}
               />
             </Provider>
             , {
