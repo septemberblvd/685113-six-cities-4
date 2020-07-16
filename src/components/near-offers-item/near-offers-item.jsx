@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {OfferType} from "../../const.js";
+import {Link} from "react-router-dom";
 
 const NearOffersItem = (props) => {
   const {nearOffer, onCardMouseEnter, onCardMouseLeave, onHeaderClick} = props;
@@ -34,11 +35,11 @@ const NearOffersItem = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#"
+          <Link to={`offer/${nearOffer.id}`}
             onClick={(evt) => {
               evt.preventDefault();
               onHeaderClick(nearOffer);
-            }}>{title}</a>
+            }}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

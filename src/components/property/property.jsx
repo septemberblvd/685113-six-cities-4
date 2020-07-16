@@ -1,11 +1,12 @@
 import React, {PureComponent} from "react";
-import {OfferType} from "../../const";
+import {OfferType, AppRoute} from "../../const";
 import PropTypes from "prop-types";
 import ReviewsList from "../reviews-list/reviews-list.jsx";
 import NearOffersList from "../near-offers-list/near-offers-list.jsx";
 import composedWithOfferList from "../../hocs/with-offer-list.js";
 import withMap from "../../hocs/with-map.js";
 import NearOffersMap from "../near-offers-map/near-offers-map.jsx";
+import {Link} from "react-router-dom";
 
 const NearOffersListWrapped = composedWithOfferList(NearOffersList);
 const NearOffersMapWrapped = withMap(NearOffersMap);
@@ -14,10 +15,22 @@ class Property extends PureComponent {
   constructor(props) {
     super(props);
 
+    this._handleChangeFavorite = this._handleChangeFavorite.bind(this);
+
   }
   componentDidMount() {
     const {offer, onLoadNearOffers} = this.props;
     onLoadNearOffers(offer.id);
+  }
+
+  _handleChangeFavorite() {
+    debugger;
+    const {changeFavoriteStatus, offer} = this.props;
+    const id = offer.id;
+    const status = +!offer.isItFavorite;
+
+    changeFavoriteStatus(id, status);
+
   }
 
   render() {
@@ -59,16 +72,18 @@ class Property extends PureComponent {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html"><img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" /></a>
+              <Link to={AppRoute.ROOT} className="header__logo-link">
+                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
+              </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <Link className="header__nav-link header__nav-link--profile" to={AppRoute.SING_IN}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">{userEmail ? userEmail : `Sing in`}</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -100,7 +115,8 @@ class Property extends PureComponent {
                 </h1>
                 <button className={isItFavorite ?
                   `property__bookmark-button property__bookmark-button--active button`
-                  : `property__bookmark-button button`} type="button">
+                  : `property__bookmark-button button`} type="button"
+                onClick={this._handleChangeFavorite}>
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -184,6 +200,7 @@ Property.propTypes = {
     cityCoords: PropTypes.array.isRequired,
   }),
   activeOfferId: PropTypes.number,
+  changeFavoriteStatus: PropTypes.func.isRequired,
 };
 
 

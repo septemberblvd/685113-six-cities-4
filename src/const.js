@@ -75,4 +75,11 @@ const cities = [
   },
 ];
 
-export {OfferType, SortType, cities, CommentType};
+const AppRoute = {
+  SING_IN: `/sing-in`,
+  OFFER: `/offer/:id`,
+  FAVORITE: `/favorite`,
+  ROOT: `/`,
+};
+
+export {OfferType, SortType, cities, CommentType, AppRoute};
