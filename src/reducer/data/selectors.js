@@ -43,6 +43,10 @@ export const getErrorStatus = (state) => {
   return state[NAME_SPACE].isError;
 };
 
+export const getFavoriteOffers = (state) => {
+  return state[NAME_SPACE].favoriteOffers;
+};
+
 export const getCurrentOffers = createSelector(
     getOffers,
 

@@ -2,9 +2,9 @@ import React, {PureComponent} from "react";
 import {OfferType} from "../../const";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {Operation as FavoriteOperation} from "../../reducer/favorite/favorite.js";
+import {Operation as DataOperation} from "../../reducer/data/data.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
-import {getFavoriteOffers} from "../../reducer/favorite/selectors";
+import {getFavoriteOffers} from "../../reducer/data/selectors";
 import {adaptOffersAll} from "../../adapter/offers";
 import {AuthorizationStatus} from "../../reducer/user/user";
 
@@ -81,7 +81,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadFavoriteOffers() {
-    dispatch(FavoriteOperation.loadFavoriteOffers(adaptOffersAll));
+    dispatch(DataOperation.loadFavoriteOffers(adaptOffersAll));
   },
 });
 

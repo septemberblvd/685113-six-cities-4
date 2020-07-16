@@ -24,13 +24,11 @@ class Property extends PureComponent {
   }
 
   _handleChangeFavorite() {
-    debugger;
     const {changeFavoriteStatus, offer} = this.props;
     const id = offer.id;
     const status = +!offer.isItFavorite;
 
     changeFavoriteStatus(id, status);
-
   }
 
   render() {

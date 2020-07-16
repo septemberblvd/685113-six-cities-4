@@ -6,16 +6,14 @@ import Property from "../property/property.jsx";
 import {OfferType, AppRoute} from "../../const.js";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/ui/ui.js";
-import {getCurrentCity, getCurrentOffers, getCurrentComments, getNearOffers} from "../../reducer/data/selectors.js";
+import {getCurrentCity, getCurrentOffers, getCurrentComments, getNearOffers, getFavoriteOffers} from "../../reducer/data/selectors.js";
 import {getActiveOffer, getActiveOfferId} from "../../reducer/ui/selectors.js";
 import {getAuthorizationStatus, getUserEmail} from "../../reducer/user/selectors.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
-import {Operation as FavoriteOperation} from "../../reducer/favorite/favorite.js";
-import {adaptOffersAll} from "../../adapter/offers.js";
+import {adaptOffersAll, adaptOffer} from "../../adapter/offers.js";
 import SingIn from "../sing-in/sing-in.jsx";
 import history from "../../history.js";
-import {getFavoriteOffers} from "../../reducer/favorite/selectors.js";
 import {Favorites} from "../favorites/favorites.jsx";
 import PrivateRoute from "../private-route/private-route.jsx";
 
@@ -164,7 +162,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(DataOperation.loadNearOffers(adaptOffersAll, id));
   },
   onLoadFavoriteOffers() {
-    dispatch(FavoriteOperation.loadFavoriteOffers(adaptOffersAll));
+    dispatch(DataOperation.loadFavoriteOffers(adaptOffersAll));
   },
   onCardHeaderClick(offer) {
     dispatch(ActionCreator.setActiveOffer(offer));
@@ -173,7 +171,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.setActiveOffer(null));
   },
   changeFavoriteStatus(id, status) {
-    dispatch(FavoriteOperation.changeFavoriteStatus(adaptOffersAll, id, status));
+    dispatch(DataOperation.changeFavoriteStatus(adaptOffer, id, status));
   },
 });
 

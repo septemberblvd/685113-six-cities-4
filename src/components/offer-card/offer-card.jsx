@@ -4,7 +4,7 @@ import {OfferType} from "../../const.js";
 import {Link} from "react-router-dom";
 
 const OfferCard = (props) => {
-  const {offer, onCardMouseEnter, onCardMouseLeave, onHeaderClick} = props;
+  const {offer, onCardMouseEnter, onCardMouseLeave, onHeaderClick, changeFavoriteStatus} = props;
   const {isItPremium, img, price, rating, title, type, isItFavorite} = offer;
 
   return <article className="cities__place-card place-card" onMouseEnter={() => onCardMouseEnter(offer)} onMouseLeave={() => onCardMouseLeave()}>
@@ -24,7 +24,7 @@ const OfferCard = (props) => {
         </div>
         <button className={isItFavorite ?
           `place-card__bookmark-button place-card__bookmark-button--active button`
-          : `place-card__bookmark-button button`} type="button">
+          : `place-card__bookmark-button button`} type="button" onClick={() => changeFavoriteStatus(offer.id, +!isItFavorite)}>
           <svg className="place-card__bookmark-icon" width="18" height="19">
             <use xlinkHref="#icon-bookmark"></use>
           </svg>
@@ -53,6 +53,7 @@ OfferCard.propTypes = {
   onCardMouseLeave: PropTypes.func.isRequired,
   onHeaderClick: PropTypes.func.isRequired,
   offer: OfferType,
+  changeFavoriteStatus: PropTypes.func.isRequired,
 };
 
 export default OfferCard;

@@ -10,6 +10,12 @@ const getOffersInCity = (cityName, offers) => {
   return offersInCity;
 };
 
+const updateArrayWithNewElement = (arr, item) => {
+  const replacedIndex = arr.findIndex((it) => it.id === item.id);
+  arr.splice(replacedIndex, 1, item);
+  return arr;
+};
+
 const getSortedOffers = (offers, sortType) => {
   switch (sortType) {
     case SortType.PRICE_LOW_TO_HIGH:
@@ -23,4 +29,4 @@ const getSortedOffers = (offers, sortType) => {
   }
 };
 
-export {extend, getOffersInCity, getSortedOffers};
+export {extend, getOffersInCity, getSortedOffers, updateArrayWithNewElement};

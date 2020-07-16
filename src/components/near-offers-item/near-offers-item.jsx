@@ -4,8 +4,9 @@ import {OfferType} from "../../const.js";
 import {Link} from "react-router-dom";
 
 const NearOffersItem = (props) => {
-  const {nearOffer, onCardMouseEnter, onCardMouseLeave, onHeaderClick} = props;
+  const {nearOffer, onCardMouseEnter, onCardMouseLeave, onHeaderClick, changeFavoriteStatus} = props;
   const {img, price, rating, title, type, isItFavorite} = nearOffer;
+  debugger;
   return (
     <article className="near-places__card place-card" onMouseEnter={() => onCardMouseEnter(nearOffer)} onMouseLeave={() => onCardMouseLeave()}>
       <div className="near-places__image-wrapper place-card__image-wrapper">
@@ -21,7 +22,7 @@ const NearOffersItem = (props) => {
           </div>
           <button className={isItFavorite ?
             `place-card__bookmark-button place-card__bookmark-button--active button`
-            : `place-card__bookmark-button button`} type="button">
+            : `place-card__bookmark-button button`} type="button" onClick={() => changeFavoriteStatus(nearOffer.id, +!isItFavorite)}>
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -52,6 +53,7 @@ NearOffersItem.propTypes = {
   onCardMouseLeave: PropTypes.func.isRequired,
   onHeaderClick: PropTypes.func.isRequired,
   nearOffer: OfferType,
+  changeFavoriteStatus: PropTypes.func.isRequired,
 };
 
 export default NearOffersItem;
