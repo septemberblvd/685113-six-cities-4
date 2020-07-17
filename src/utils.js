@@ -12,8 +12,9 @@ const getOffersInCity = (cityName, offers) => {
 
 const updateArrayWithNewElement = (arr, item) => {
   const replacedIndex = arr.findIndex((it) => it.id === item.id);
-  arr.splice(replacedIndex, 1, item);
-  return arr;
+  const newArr = arr.slice(0, arr.length);
+  newArr.splice(replacedIndex, 1, item);
+  return newArr;
 };
 
 const getSortedOffers = (offers, sortType) => {

@@ -15,32 +15,39 @@ class Property extends PureComponent {
   constructor(props) {
     super(props);
 
-    this._handleChangeFavorite = this._handleChangeFavorite.bind(this);
+    this.offer = this.props.allOffers.find((it) => it.id === +this.props.openedOfferId);
 
+    this._handleChangeFavorite = this._handleChangeFavorite.bind(this);
   }
+
   componentDidMount() {
-    const {offer, onLoadNearOffers} = this.props;
-    onLoadNearOffers(offer.id);
+    const {onLoadNearOffers} = this.props;
+
+    onLoadNearOffers(this.offer.id);
   }
 
   _handleChangeFavorite() {
-    const {changeFavoriteStatus, offer} = this.props;
-    const id = offer.id;
-    const status = +!offer.isItFavorite;
+    const {changeFavoriteStatus} = this.props;
+    const id = this.offer.id;
+    const status = +!this.offer.isItFavorite;
 
     changeFavoriteStatus(id, status);
   }
 
   render() {
     const {
-      offer,
+      allOffers,
       onHeaderClick,
       currentCity,
       activeOfferId,
       userEmail,
       nearOffers,
       onLoadNearOffers,
+      openedOfferId,
     } = this.props;
+
+    const offer = allOffers.find((it) => it.id === +openedOfferId);
+
     const {
       title,
       price,
@@ -115,7 +122,7 @@ class Property extends PureComponent {
                   `property__bookmark-button property__bookmark-button--active button`
                   : `property__bookmark-button button`} type="button"
                 onClick={this._handleChangeFavorite}>
-                  <svg className="property__bookmark-icon" width="31" height="33">
+                  <svg className="place-card__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
                   <span className="visually-hidden">To bookmarks</span>
@@ -189,7 +196,11 @@ Property.propTypes = {
   offer: OfferType,
   offers: PropTypes.arrayOf(OfferType),
   onLoadNearOffers: PropTypes.func.isRequired,
+  openedOfferId: PropTypes.string.isRequired,
   nearOffers: PropTypes.arrayOf(
+      OfferType
+  ),
+  allOffers: PropTypes.arrayOf(
       OfferType
   ),
   onHeaderClick: PropTypes.func,

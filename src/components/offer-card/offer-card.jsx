@@ -38,8 +38,7 @@ const OfferCard = (props) => {
         </div>
       </div>
       <h2 className="place-card__name">
-        <Link to={`offer/${offer.id}`} onClick={(evt) => {
-          evt.preventDefault();
+        <Link to={`/offer/${offer.id}`} onClick={() => {
           onHeaderClick(offer);
         }}>{title}</Link>
       </h2>

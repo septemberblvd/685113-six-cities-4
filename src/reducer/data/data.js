@@ -1,5 +1,5 @@
 import {getOffersInCity, extend, getSortedOffers, updateArrayWithNewElement} from '../../utils';
-// import {ActionCreator as ActionCreatorUI} from '../ui/ui.js';
+import {ActionCreator as ActionCreatorUI} from '../ui/ui.js';
 import {SortType} from '../../const.js';
 
 const initialState = {
@@ -156,7 +156,7 @@ const Operation = {
       .then((response) => {
         const data = adaptCallback ? adaptCallback(response.data) : response.data;
         dispatch(ActionCreator.updateOffers(data));
-        // dispatch(ActionCreatorUI.setActiveOffer(data));
+        dispatch(ActionCreatorUI.setActiveOffer(data));
       });
     }
     return null;
@@ -205,7 +205,8 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_FAVORITE_OFFERS:
       return extend(state, {favoriteOffers: action.payload});
     case ActionType.UPDATE_OFFERS:
-      return extend(state, {allOffers: updateArrayWithNewElement(state.allOffers, action.payload)});
+      return extend(state, {currentOffers: updateArrayWithNewElement(state.currentOffers, action.payload),
+        allOffers: updateArrayWithNewElement(state.allOffers, action.payload)});
     default:
       return state;
   }

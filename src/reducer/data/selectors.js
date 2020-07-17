@@ -1,4 +1,3 @@
-import {createSelector} from "reselect";
 import NameSpace from "../name-space.js";
 
 const NAME_SPACE = NameSpace.DATA;
@@ -47,12 +46,6 @@ export const getFavoriteOffers = (state) => {
   return state[NAME_SPACE].favoriteOffers;
 };
 
-export const getCurrentOffers = createSelector(
-    getOffers,
-
-    getCurrentCityName,
-
-    (resultOne, resultTwo) => {
-      return resultOne.filter((it) => it.cityName === resultTwo);
-    }
-);
+export const getCurrentOffers = (state) => {
+  return state[NAME_SPACE].currentOffers;
+};
