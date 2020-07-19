@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 
 const OfferCard = (props) => {
   const {offer, onCardMouseEnter, onCardMouseLeave, onHeaderClick, changeFavoriteStatus} = props;
-  const {isItPremium, img, price, rating, title, type, isItFavorite} = offer;
+  const {isItPremium, img, price, rating, title, type, isItFavorite, id} = offer;
 
   return <article className="cities__place-card place-card" onMouseEnter={() => onCardMouseEnter(offer)} onMouseLeave={() => onCardMouseLeave()}>
     {isItPremium ? <div className="place-card__mark">
@@ -24,7 +24,7 @@ const OfferCard = (props) => {
         </div>
         <button className={isItFavorite ?
           `place-card__bookmark-button place-card__bookmark-button--active button`
-          : `place-card__bookmark-button button`} type="button" onClick={() => changeFavoriteStatus(offer.id, +!isItFavorite)}>
+          : `place-card__bookmark-button button`} type="button" onClick={() => changeFavoriteStatus(id, +!isItFavorite)}>
           <svg className="place-card__bookmark-icon" width="18" height="19">
             <use xlinkHref="#icon-bookmark"></use>
           </svg>
@@ -33,7 +33,7 @@ const OfferCard = (props) => {
       </div>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">
-          <span style={{width: `${rating * 20}%`}}></span>
+          <span style={{width: `${Math.round(rating) * 20}%`}}></span>
           <span className="visually-hidden">Rating</span>
         </div>
       </div>

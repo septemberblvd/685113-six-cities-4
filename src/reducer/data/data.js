@@ -1,6 +1,6 @@
 import {getOffersInCity, extend, getSortedOffers, updateArrayWithNewElement} from '../../utils';
 import {ActionCreator as ActionCreatorUI} from '../ui/ui.js';
-import {SortType} from '../../const.js';
+import {SortType} from '../../const';
 
 const initialState = {
   city: {
@@ -177,14 +177,13 @@ const reducer = (state = initialState, action) => {
       return extend(state, {city: action.payload});
     case ActionType.CHANGE_CURRENT_OFFERS:
       return extend(state, {
+        currentSortType: SortType.POPULAR,
         currentOffers: getOffersInCity(action.payload, state.allOffers),
       });
     case ActionType.SORT_OFFERS:
       return extend(state, {
         currentSortType: action.payload,
-        allOffers: action.payload === SortType.POPULAR
-          ? state.allOffers
-          : getSortedOffers(state.allOffers, action.payload),
+        currentOffers: getSortedOffers(state.allOffers, action.payload, state.city.cityName),
       });
     case ActionType.CHANGE_NEW_COMMENT:
       return extend(state, {
@@ -205,8 +204,12 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_FAVORITE_OFFERS:
       return extend(state, {favoriteOffers: action.payload});
     case ActionType.UPDATE_OFFERS:
-      return extend(state, {currentOffers: updateArrayWithNewElement(state.currentOffers, action.payload),
-        allOffers: updateArrayWithNewElement(state.allOffers, action.payload)});
+      return extend(state, {
+        currentOffers: updateArrayWithNewElement(state.currentOffers, action.payload),
+        allOffers: updateArrayWithNewElement(state.allOffers, action.payload),
+        nearOffers: updateArrayWithNewElement(state.nearOffers, action.payload),
+        favoriteOffers: updateArrayWithNewElement(state.favoriteOffers, action.payload),
+      });
     default:
       return state;
   }

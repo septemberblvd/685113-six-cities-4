@@ -5,6 +5,7 @@ import MainScreen from "./main-screen.jsx";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import NameSpace from "../../reducer/name-space.js";
+import {BrowserRouter} from "react-router-dom";
 
 const mockStore = configureStore([]);
 
@@ -92,14 +93,16 @@ describe(`MainScreen`, () => {
     const tree = renderer
         .create(
             <Provider store={store}>
-              <MainScreen
-                isOpened={true}
-                currentSortType={`Popular`}
-                offers = {offers}
-                cities={cities}
-                currentCity={currentCity}
-                onHeaderClick = {() => {}}
-              />
+              <BrowserRouter>
+                <MainScreen
+                  isOpened={true}
+                  currentSortType={`Popular`}
+                  offers = {offers}
+                  cities={cities}
+                  currentCity={currentCity}
+                  onHeaderClick = {() => {}}
+                />
+              </BrowserRouter>
             </Provider>, {createNodeMock: () => {
               return document.createElement(`div`);
             }})

@@ -9,6 +9,8 @@ import {adaptComments} from "../../adapter/comments.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import CommentForm from "../comment-form/comment-form.jsx";
 
+const MAX_COOMMENT_LENGTH = 10;
+
 
 class ReviewsList extends PureComponent {
   constructor(props) {
@@ -21,12 +23,13 @@ class ReviewsList extends PureComponent {
   }
   render() {
     const {comments, authorizationStatus, id} = this.props;
+    const sortedComments = comments.slice(0, comments.length).sort((a, b) => new Date(b.reviewTime) - new Date(a.reviewTime)).slice(0, MAX_COOMMENT_LENGTH);
     return (
       <section className="property__reviews reviews">
         <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
         <ul className="reviews__list">
-          {comments.map((it, i) => <ReviewsItem
-            key={it.reviewId + i}
+          {sortedComments.map((it) => <ReviewsItem
+            key={it.reviewId}
             review={it}
           />)}
         </ul>

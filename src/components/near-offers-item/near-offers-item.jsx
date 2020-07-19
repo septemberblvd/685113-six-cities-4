@@ -30,14 +30,13 @@ const NearOffersItem = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${rating * 20}%`}}></span>
+            <span style={{width: `${Math.round(rating) * 20}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`offer/${nearOffer.id}`}
-            onClick={(evt) => {
-              evt.preventDefault();
+          <Link to={`/offer/${nearOffer.id}`}
+            onClick={() => {
               onHeaderClick(nearOffer);
             }}>{title}</Link>
         </h2>

@@ -17,8 +17,11 @@ const updateArrayWithNewElement = (arr, item) => {
   return newArr;
 };
 
-const getSortedOffers = (offers, sortType) => {
+const getSortedOffers = (allOffers, sortType, currentCity) => {
+  const offers = getOffersInCity(currentCity, allOffers);
   switch (sortType) {
+    case SortType.POPULAR:
+      return offers;
     case SortType.PRICE_LOW_TO_HIGH:
       return offers.slice().sort((a, b) => a.price - b.price);
     case SortType.PRICE_HIGH_TO_LOW:

@@ -1,6 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import NearOffersList from "./near-offers-list.jsx";
+import {BrowserRouter} from "react-router-dom";
 
 const offers = [
   {
@@ -43,18 +44,25 @@ const offers = [
 const onCardMouseEnter = jest.fn();
 const onCardMouseLeave = jest.fn();
 const onHeaderClick = jest.fn();
+const changeFavoriteStatus = jest.fn();
 
 describe(`NearOffersList`, () => {
   it(`Should NearOffersList render correctly`, () => {
     const tree = renderer
-        .create(<NearOffersList nearOffers={offers}
-          onHeaderClick={onHeaderClick}
-          onCardMouseLeave={onCardMouseLeave}
-          onCardMouseEnter={onCardMouseEnter}/>, {
-          createNodeMock: () => {
-            return document.createElement(`div`);
-          }
-        }
+        .create(
+            <BrowserRouter>
+              <NearOffersList nearOffers={offers}
+                onHeaderClick={onHeaderClick}
+                onCardMouseLeave={onCardMouseLeave}
+                onCardMouseEnter={onCardMouseEnter}
+                changeFavoriteStatus={changeFavoriteStatus}
+              />
+            </BrowserRouter>
+            , {
+              createNodeMock: () => {
+                return document.createElement(`div`);
+              }
+            }
         )
         .toJSON();
 

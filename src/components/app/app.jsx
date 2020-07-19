@@ -39,10 +39,6 @@ class App extends PureComponent {
       login,
       returnToMain,
       favoriteOffers,
-      nearOffers,
-      onLoadNearOffers,
-      changeFavoriteStatus,
-      allOffers,
       userEmail,
       offers,
       cities,
@@ -72,16 +68,7 @@ class App extends PureComponent {
             return (
               <Property
                 openedOfferId={props.match.params.id}
-                nearOffers={nearOffers}
-                onLoadNearOffers={onLoadNearOffers}
-                authorizationStatus={authorizationStatus}
-                userEmail={userEmail}
-                allOffers={allOffers}
-                offers={offers}
-                currentCity={currentCity}
-                onHeaderClick = {this._handleCardHeaderClick}
-                activeOfferId = {activeOfferId}
-                changeFavoriteStatus = {changeFavoriteStatus} />);
+              />);
           }}>
 
           </Route>
@@ -93,7 +80,8 @@ class App extends PureComponent {
             render={() => {
               return (
                 <Favorites
-                  favoriteOffers={favoriteOffers} />
+                  favoriteOffers={favoriteOffers}
+                  onHeaderClick = {this._handleCardHeaderClick} />
               );
             }}
           />

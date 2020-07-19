@@ -19,13 +19,14 @@ exports[`Property Should Property render correctly 1`] = `
         >
           <a
             className="header__logo-link"
-            href="main.html"
+            href="/"
+            onClick={[Function]}
           >
             <img
               alt="6 cities logo"
               className="header__logo"
               height="41"
-              src="img/logo.svg"
+              src="/img/logo.svg"
               width="81"
             />
           </a>
@@ -41,7 +42,8 @@ exports[`Property Should Property render correctly 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="#"
+                href="/sing-in"
+                onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
@@ -132,13 +134,7 @@ exports[`Property Should Property render correctly 1`] = `
         <div
           className="property__wrapper"
         >
-          <div
-            className="property__mark"
-          >
-            <span>
-              Premium
-            </span>
-          </div>
+          
           <div
             className="property__name-wrapper"
           >
@@ -149,10 +145,11 @@ exports[`Property Should Property render correctly 1`] = `
             </h1>
             <button
               className="property__bookmark-button button"
+              onClick={[Function]}
               type="button"
             >
               <svg
-                className="property__bookmark-icon"
+                className="place-card__bookmark-icon"
                 height="33"
                 width="31"
               >
@@ -221,7 +218,7 @@ exports[`Property Should Property render correctly 1`] = `
               className="property__price-value"
             >
               €
-              80
+              100
             </b>
             <span
               className="property__price-text"
@@ -290,7 +287,7 @@ exports[`Property Should Property render correctly 1`] = `
                   alt="Host avatar"
                   className="property__avatar user__avatar"
                   height="74"
-                  src="src"
+                  src="/src"
                   width="74"
                 />
               </div>
@@ -381,7 +378,7 @@ exports[`Property Should Property render correctly 1`] = `
                     className="reviews__time"
                     dateTime="2019-04-24"
                   >
-                    May 8, 2016
+                    July 2020
                   </time>
                 </div>
               </li>
@@ -618,6 +615,7 @@ exports[`Property Should Property render correctly 1`] = `
                 </div>
                 <button
                   className="place-card__bookmark-button button"
+                  onClick={[Function]}
                   type="button"
                 >
                   <svg
@@ -660,7 +658,7 @@ exports[`Property Should Property render correctly 1`] = `
                 className="place-card__name"
               >
                 <a
-                  href="#"
+                  href="/offer/1"
                   onClick={[Function]}
                 >
                   Wood and stone place

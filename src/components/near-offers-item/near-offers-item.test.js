@@ -1,6 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import NearOffersItem from "./near-offers-item.jsx";
+import {BrowserRouter} from "react-router-dom";
 
 const offers = [
   {
@@ -62,22 +63,26 @@ const offers = [
 const onCardMouseEnter = jest.fn();
 const onCardMouseLeave = jest.fn();
 const onHeaderClick = jest.fn();
+const changeFavoriteStatus = jest.fn();
 
 
 describe(`NearOfferItem`, () => {
   it(`Should NearOfferItem render correctly`, () => {
     const tree = renderer
-        .create(offers.map((it, i) => <NearOffersItem
-          key={it.id + i}
-          nearOffer={it}
-          onCardMouseEnter={onCardMouseEnter}
-          onCardMouseLeave={onCardMouseLeave}
-          onHeaderClick={onHeaderClick} />),
-        {
-          createNodeMock: () => {
-            return document.createElement(`div`);
-          }
-        })
+        .create(
+            <BrowserRouter>
+              <NearOffersItem
+                nearOffer={offers[0]}
+                onCardMouseEnter={onCardMouseEnter}
+                changeFavoriteStatus={changeFavoriteStatus}
+                onCardMouseLeave={onCardMouseLeave}
+                onHeaderClick={onHeaderClick} />
+            </BrowserRouter>,
+            {
+              createNodeMock: () => {
+                return document.createElement(`div`);
+              }
+            })
         .toJSON();
 
     expect(tree).toMatchSnapshot();

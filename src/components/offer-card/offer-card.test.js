@@ -1,6 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import OfferCard from "./offer-card.jsx";
+import {BrowserRouter} from "react-router-dom";
 
 const offers = [
   {
@@ -62,20 +63,25 @@ const offers = [
 const onCardMouseEnter = jest.fn();
 const onCardMouseLeave = jest.fn();
 const onHeaderClick = jest.fn();
+const changeFavoriteStatus = jest.fn();
+
 describe(`OfferCard`, () => {
   it(`Should OfferCard render correctly`, () => {
     const tree = renderer
-        .create(offers.map((it, i) => <OfferCard
-          key={it.id + i}
-          offer={it}
-          onCardMouseEnter={onCardMouseEnter}
-          onCardMouseLeave={onCardMouseLeave}
-          onHeaderClick={onHeaderClick} />),
-        {
-          createNodeMock: () => {
-            return document.createElement(`div`);
-          }
-        })
+        .create(
+            <BrowserRouter>
+              <OfferCard
+                offer={offers[0]}
+                onCardMouseEnter={onCardMouseEnter}
+                onCardMouseLeave={onCardMouseLeave}
+                changeFavoriteStatus={changeFavoriteStatus}
+                onHeaderClick={onHeaderClick} />
+            </BrowserRouter>,
+            {
+              createNodeMock: () => {
+                return document.createElement(`div`);
+              }
+            })
         .toJSON();
 
     expect(tree).toMatchSnapshot();

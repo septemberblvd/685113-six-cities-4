@@ -5,8 +5,9 @@ import PropTypes from "prop-types";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
 import {getAuthorizationStatus, getUserEmail} from "../../reducer/user/selectors.js";
 import {getFavoriteOffers} from "../../reducer/data/selectors";
-import {adaptOffersAll} from "../../adapter/offers";
+import {adaptOffersAll, adaptOffer} from "../../adapter/offers";
 import {AuthorizationStatus} from "../../reducer/user/user";
+import {ActionCreator} from "../../reducer/ui/ui.js";
 import {Link} from "react-router-dom";
 
 
@@ -23,7 +24,7 @@ class Favorites extends PureComponent {
     }
   }
   render() {
-    const {favoriteOffers, userEmail} = this.props;
+    const {favoriteOffers, userEmail, onCardHeaderClick, changeFavoriteStatus} = this.props;
 
     const destibuteOffersByCities = (cities, offers) => {
       return cities.map(
@@ -100,7 +101,9 @@ class Favorites extends PureComponent {
                                   <b className="place-card__price-value">&euro;{offer.price}</b>
                                   <span className="place-card__price-text">&#47;&nbsp;night</span>
                                 </div>
-                                <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
+                                <button className={offer.isItFavorite ?
+                                  `place-card__bookmark-button place-card__bookmark-button--active button`
+                                  : `place-card__bookmark-button button`} type="button" onClick={() => changeFavoriteStatus(offer.id, +!offer.isItFavorite)}>
                                   <svg className="place-card__bookmark-icon" width="18" height="19">
                                     <use xlinkHref="#icon-bookmark"></use>
                                   </svg>
@@ -114,7 +117,11 @@ class Favorites extends PureComponent {
                                 </div>
                               </div>
                               <h2 className="place-card__name">
-                                <a href="#">{offer.title}</a>
+                                <Link to={`/offer/${offer.id}`}
+                                  onClick={() => {
+                                    onCardHeaderClick(offer);
+                                  }}
+                                >{offer.title}</Link>
                               </h2>
                               <p className="place-card__type">{offer.type}</p>
                             </div>
@@ -155,6 +162,8 @@ Favorites.propTypes = {
   onLoadFavoriteOffers: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   userEmail: PropTypes.string.isRequired,
+  onCardHeaderClick: PropTypes.func.isRequired,
+  changeFavoriteStatus: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -166,6 +175,12 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onLoadFavoriteOffers() {
     dispatch(DataOperation.loadFavoriteOffers(adaptOffersAll));
+  },
+  changeFavoriteStatus(id, status) {
+    dispatch(DataOperation.changeFavoriteStatus(adaptOffer, id, status));
+  },
+  onCardHeaderClick(offer) {
+    dispatch(ActionCreator.setActiveOffer(offer));
   },
 });
 

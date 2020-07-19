@@ -1,11 +1,12 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Property from "./property.jsx";
+import {Property} from "./property.jsx";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import NameSpace from "../../reducer/name-space.js";
 import thunk from 'redux-thunk';
 import {Operation} from '../../reducer/data/data';
+import {BrowserRouter} from "react-router-dom";
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 jest.mock(`../../reducer/data/data`);
@@ -97,6 +98,7 @@ describe(`Property`, () => {
         authorizationStatus: `NO_AUTH`,
       },
       [NameSpace.DATA]: {
+        allOffers: offers,
         currentSortType: `Popular`,
         city: {
           cityName: `Paris`,
@@ -112,7 +114,7 @@ describe(`Property`, () => {
             reviewAvatar: `src`,
             reviewGrade: 4,
             reviewText: `Id minim labore ut velit sit velit.Magna deserunt reprehenderit consequat elit cupidatat proident nostrud amet minim nulla.`,
-            reviewTime: `May 8, 2016`,
+            reviewTime: `Sun Jul 19 2020 11:48:22 GMT+0700 (Красноярск, стандартное время)`,
             isPro: false,
           },
         ],
@@ -124,15 +126,20 @@ describe(`Property`, () => {
     const tree = renderer
         .create(
             <Provider store={store}>
-              <Property
-                offer={offer}
-                nearOffers={offers}
-                currentCity={currentCity}
-                onHeaderClick = {() => {}}
-                activeOfferId= {26}
-                onLoadComments={() => {}}
-                onLoadNearOffers={() => {}}
-              />
+              <BrowserRouter>
+                <Property
+                  allOffers={offers}
+                  openedOfferId={`1`}
+                  offer={offer}
+                  nearOffers={offers}
+                  currentCity={currentCity}
+                  onCardHeaderClick = {() => {}}
+                  activeOfferId= {26}
+                  onLoadComments={() => {}}
+                  onLoadNearOffers={() => {}}
+                  changeFavoriteStatus={() => {}}
+                />
+              </BrowserRouter>
             </Provider>
             , {
               createNodeMock: () => {

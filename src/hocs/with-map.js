@@ -17,7 +17,7 @@ const withMap = (Component) => {
       const {activeOfferId} = this.props;
 
       const icon = leaflet.icon({
-        iconUrl: `img/pin.svg`,
+        iconUrl: `/img/pin.svg`,
         iconSize: [30, 30]
       });
       const iconActive = leaflet.icon({
@@ -65,6 +65,7 @@ const withMap = (Component) => {
 
     componentWillUnmount() {
       this._mapRef.current = null;
+      this._map = null;
     }
 
     render() {

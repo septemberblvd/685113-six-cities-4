@@ -98,6 +98,8 @@ describe(`App`, () => {
             authorizationStatus={`NO_AUTH`}
             currentSortType={`Popular`}
             offers = {offers}
+            allOffers={offers}
+            favoriteOffers={offers}
             cities = {cities}
             currentCity={currentCity}
             nearOffers={[]}
@@ -105,6 +107,8 @@ describe(`App`, () => {
             returnToMain = {() => {}}
             onHeaderClick = {() => {}}
             loadComments = {() => {}}
+            onLoadFavoriteOffers = {() => {}}
+            changeFavoriteStatus = {() => {}}
             onCardHeaderClick = {() => {}}/>
         </Provider>,
         {createNodeMock: () => {

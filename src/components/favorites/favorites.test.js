@@ -1,12 +1,18 @@
+
 import React from "react";
-import Enzyme, {mount} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-import MainScreen from "./main-screen";
+import renderer from "react-test-renderer";
+import Favorites from "./favorites.jsx";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import NameSpace from "../../reducer/name-space.js";
-
-const mockStore = configureStore([]);
+import {Operation} from '../../reducer/data/data';
+import thunk from 'redux-thunk';
+import {BrowserRouter} from "react-router-dom";
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares);
+jest.mock(`../../reducer/data/data`);
+Operation.loadFavoriteOffers = () => (dispatch) => dispatch(jest.fn());
+Operation.changeFavoriteStatus = () => (dispatch) => dispatch(jest.fn());
 
 const offers = [
   {
@@ -65,58 +71,33 @@ const offers = [
   },
 ];
 
-const cities = [
-  {
-    cityName: `Paris`,
-    cityCoords: [48.85341, 2.3488],
-  },
-];
-
-const currentCity = {
-  cityName: `Paris`,
-  cityCoords: [48.85341, 2.3488],
-};
-
-Enzyme.configure({
-  adapter: new Adapter(),
-});
-
-describe(`MainScreenComponent`, () => {
-  it(`Should header button be pressed`, () => {
-    const onHeaderClick = jest.fn();
-
+describe(`Favorites`, () => {
+  it(`Should Favorites render correctly`, () => {
     const store = mockStore({
       [NameSpace.DATA]: {
-        currentSortType: `Popular`,
-        city: {
-          cityName: `Paris`,
-          cityCoords: [48.85341, 2.3488],
-        },
+        favoriteOffers: offers,
       },
-      [NameSpace.UI]: {
-        showSortMenu: false,
+      [NameSpace.USER]: {
+        authorizationStatus: `AUTH`,
+        userEmail: ``,
       }
     });
+    const tree = renderer
+        .create(
+            <Provider store={store}>
+              <BrowserRouter>
+                <Favorites
+                  authorizationStatus={`AUTH`}
+                  onLoadFavoriteOffers={() => {}}
+                  changeFavoriteStatus={() => {}}
+                  onCardHeaderClick={() => {}}
+                />
+              </BrowserRouter>
+            </Provider>, {createNodeMock: () => {
+              return document.createElement(`div`);
+            }})
+        .toJSON();
 
-    const mainScreen = mount(
-        <Provider store={store}>
-          <MainScreen
-            isOpened={true}
-            currentSortType={`Popular`}
-            cities={cities}
-            currentCity={currentCity}
-            offers = {offers}
-            onHeaderClick = {onHeaderClick}/>
-        </Provider>
-    );
-
-    const headerButtons = mainScreen.find(`.place-card__name a`);
-    const headerButtonOne = headerButtons.at(0);
-
-    headerButtonOne.simulate(`click`, {preventDefault() {}});
-
-    expect(onHeaderClick).toHaveBeenCalledTimes(1);
+    expect(tree).toMatchSnapshot();
   });
 });
-
-
