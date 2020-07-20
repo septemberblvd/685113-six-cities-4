@@ -10,7 +10,6 @@ const withOfferList = (Component) => {
   class WithOfferList extends PureComponent {
     constructor(props) {
       super(props);
-
     }
 
     render() {

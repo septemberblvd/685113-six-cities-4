@@ -1,22 +1,21 @@
-import React, {PureComponent} from "react";
+import Favorites from "../favorites/favorites.jsx";
+import history from "../../history.js";
 import MainScreen from "../main-screen/main-screen.jsx";
-import PropTypes from "prop-types";
-import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Property from "../property/property.jsx";
-import {OfferType, AppRoute} from "../../const.js";
-import {connect} from "react-redux";
+import PropTypes from "prop-types";
+import React, {PureComponent} from "react";
+import SingIn from "../sing-in/sing-in.jsx";
 import {ActionCreator} from "../../reducer/ui/ui.js";
-import {getCurrentCity, getCurrentOffers, getCurrentComments, getNearOffers, getFavoriteOffers, getOffers} from "../../reducer/data/selectors.js";
+import {adaptOffersAll, adaptOffer} from "../../adapter/offers.js";
+import {connect} from "react-redux";
 import {getActiveOffer, getActiveOfferId} from "../../reducer/ui/selectors.js";
 import {getAuthorizationStatus, getUserEmail} from "../../reducer/user/selectors.js";
+import {getCurrentCity, getCurrentOffers, getCurrentComments, getNearOffers, getFavoriteOffers, getOffers} from "../../reducer/data/selectors.js";
+import {OfferType, AppRoute} from "../../const.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
-import {adaptOffersAll, adaptOffer} from "../../adapter/offers.js";
-import SingIn from "../sing-in/sing-in.jsx";
-import history from "../../history.js";
-import Favorites from "../favorites/favorites.jsx";
 import PrivateRoute from "../private-route/private-route.jsx";
-
+import {Switch, Route, BrowserRouter} from "react-router-dom";
 
 class App extends PureComponent {
   constructor(props) {

@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 const NearOffersItem = (props) => {
   const {nearOffer, onCardMouseEnter, onCardMouseLeave, onHeaderClick, changeFavoriteStatus} = props;
   const {img, price, rating, title, type, isItFavorite} = nearOffer;
+
   return (
     <article className="near-places__card place-card" onMouseEnter={() => onCardMouseEnter(nearOffer)} onMouseLeave={() => onCardMouseLeave()}>
       <div className="near-places__image-wrapper place-card__image-wrapper">

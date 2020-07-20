@@ -1,10 +1,10 @@
-import React, {PureComponent, createRef} from "react";
-import {connect} from "react-redux";
-import PropTypes from "prop-types";
-import {Operation as DataOperation, ActionCreator} from "../../reducer/data/data.js";
-import {getNewComment, getNewRating, getSendStatus, getErrorStatus} from "../../reducer/data/selectors";
-import {adaptComments} from "../../adapter/comments.js";
 import Error from "../error/error.jsx";
+import PropTypes from "prop-types";
+import React, {PureComponent, createRef} from "react";
+import {adaptComments} from "../../adapter/comments.js";
+import {connect} from "react-redux";
+import {getNewComment, getNewRating, getSendStatus, getErrorStatus} from "../../reducer/data/selectors";
+import {Operation as DataOperation, ActionCreator} from "../../reducer/data/data.js";
 
 const ratingFields = [
   {
@@ -45,10 +45,12 @@ class CommentForm extends PureComponent {
     this._changeFormAccess = this._changeFormAccess.bind(this);
     this._isItValid = this._isItValid.bind(this);
   }
+
   _handleChangeComment(evt) {
     const {onCommentChange} = this.props;
 
     evt.preventDefault();
+
     if (this._isItValid()) {
       this.commentRef.current.style.backgroundColor = ``;
     }
@@ -68,7 +70,6 @@ class CommentForm extends PureComponent {
     this._changeFormAccess(true);
 
     if (this._isItValid()) {
-
       onCommentUpload(
           {
             comment: newComment,
@@ -83,6 +84,7 @@ class CommentForm extends PureComponent {
 
   _isItValid() {
     const {newComment, newRating} = this.props;
+
     if (newComment && newRating) {
       if (newComment.length < 50 || newComment.length > 300) {
         return false;
@@ -93,6 +95,7 @@ class CommentForm extends PureComponent {
   }
 
   _changeFormAccess(status) {
+
     if (status) {
       this.commentRef.current.setAttribute(`disabled`, `disabled`);
       this.buttonRef.current.setAttribute(`disabled`, `disabled`);
@@ -105,6 +108,7 @@ class CommentForm extends PureComponent {
 
   componentDidUpdate() {
     const {sendStatus, onCommentChange, onRatingChange, onChangeSendStatus} = this.props;
+
     if (sendStatus) {
       onRatingChange(null);
       onCommentChange(null);

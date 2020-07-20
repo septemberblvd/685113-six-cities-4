@@ -1,14 +1,15 @@
-import React from "react";
+import CitiesList from "../cities-list/cities-list.jsx";
+import composedWithOfferList from "../../hocs/with-offer-list.js";
+import Map from "../map/map.jsx";
+import NoOffers from '../no-offers/no-offers.jsx';
 import OffersList from "../offers-list/offers-list.jsx";
 import PropTypes from "prop-types";
-import Map from "../map/map.jsx";
-import {OfferType, AppRoute} from "../../const.js";
-import composedWithOfferList from "../../hocs/with-offer-list.js";
-import withMap from "../../hocs/with-map.js";
-import CitiesList from "../cities-list/cities-list.jsx";
+import React from "react";
 import Sort from "../sort/sort.jsx";
-import NoOffers from '../no-offers/no-offers.jsx';
+import withMap from "../../hocs/with-map.js";
 import {Link} from "react-router-dom";
+import {OfferType, AppRoute} from "../../const.js";
+
 
 const OffersListWrapped = composedWithOfferList(OffersList);
 const MapWrapped = withMap(Map);

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import leaflet from "leaflet";
 import {OfferType} from "../const.js";
 
+
 const withMap = (Component) => {
   class WithMap extends PureComponent {
     constructor(props) {

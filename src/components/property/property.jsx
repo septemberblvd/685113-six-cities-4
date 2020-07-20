@@ -1,5 +1,5 @@
 import React, {PureComponent} from "react";
-import {OfferType, AppRoute} from "../../const";
+import {OfferType, AppRoute, MAX_IMAGES} from "../../const";
 import PropTypes from "prop-types";
 import ReviewsList from "../reviews-list/reviews-list.jsx";
 import NearOffersList from "../near-offers-list/near-offers-list.jsx";
@@ -15,10 +15,10 @@ import {getUserEmail} from "../../reducer/user/selectors.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
 import {adaptOffersAll, adaptOffer} from "../../adapter/offers.js";
 
+
 const NearOffersListWrapped = composedWithOfferList(NearOffersList);
 const NearOffersMapWrapped = withMap(NearOffersMap);
 
-const MAX_IMAGES = 6;
 
 class Property extends PureComponent {
   constructor(props) {

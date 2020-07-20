@@ -7,8 +7,10 @@ import NameSpace from "../../reducer/name-space.js";
 import thunk from 'redux-thunk';
 import {Operation} from '../../reducer/data/data';
 import {BrowserRouter} from "react-router-dom";
+
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
+
 jest.mock(`../../reducer/data/data`);
 Operation.loadComments = () => (dispatch) => dispatch(jest.fn());
 

@@ -1,21 +1,22 @@
-import React, {PureComponent} from "react";
-import {OfferType, AppRoute} from "../../const";
-import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {Operation as DataOperation} from "../../reducer/data/data.js";
-import {getAuthorizationStatus, getUserEmail} from "../../reducer/user/selectors.js";
-import {getFavoriteOffers} from "../../reducer/data/selectors";
+import React, {PureComponent} from "react";
+import {ActionCreator} from "../../reducer/ui/ui.js";
 import {adaptOffersAll, adaptOffer} from "../../adapter/offers";
 import {AuthorizationStatus} from "../../reducer/user/user";
-import {ActionCreator} from "../../reducer/ui/ui.js";
+import {connect} from "react-redux";
+import {destibuteOffersByCities} from "../../utils";
+import {getAuthorizationStatus, getUserEmail} from "../../reducer/user/selectors.js";
+import {getFavoriteOffers} from "../../reducer/data/selectors";
 import {Link} from "react-router-dom";
+import {OfferType, AppRoute, citiesList} from "../../const";
+import {Operation as DataOperation} from "../../reducer/data/data.js";
 
 
 class Favorites extends PureComponent {
   constructor(props) {
     super(props);
-
   }
+
   componentDidMount() {
     const {onLoadFavoriteOffers, authorizationStatus} = this.props;
 
@@ -23,28 +24,9 @@ class Favorites extends PureComponent {
       onLoadFavoriteOffers();
     }
   }
+
   render() {
     const {favoriteOffers, userEmail, onCardHeaderClick, changeFavoriteStatus} = this.props;
-
-    const destibuteOffersByCities = (cities, offers) => {
-      return cities.map(
-          (it) => {
-            return {
-              city: it,
-              offers: offers.filter((offer) => offer.cityName === it),
-            };
-          }
-      );
-    };
-
-    const citiesList = [
-      `Amsterdam`,
-      `Paris`,
-      `Cologne`,
-      `Brussels`,
-      `Hamburg`,
-      `Dusseldorf`,
-    ];
 
     const sortedFavorites = destibuteOffersByCities(citiesList, favoriteOffers);
 

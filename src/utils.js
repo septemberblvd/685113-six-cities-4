@@ -33,4 +33,15 @@ const getSortedOffers = (allOffers, sortType, currentCity) => {
   }
 };
 
-export {extend, getOffersInCity, getSortedOffers, updateArrayWithNewElement};
+const destibuteOffersByCities = (cities, offers) => {
+  return cities.map(
+      (it) => {
+        return {
+          city: it,
+          offers: offers.filter((offer) => offer.cityName === it),
+        };
+      }
+  );
+};
+
+export {extend, getOffersInCity, getSortedOffers, updateArrayWithNewElement, destibuteOffersByCities};

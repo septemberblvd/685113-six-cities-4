@@ -1,5 +1,5 @@
 import React, {PureComponent} from "react";
-import {CommentType} from "../../const";
+import {CommentType, MAX_COOMMENT_LENGTH} from "../../const";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import ReviewsItem from "../reviews-item/reviews-item.jsx";
@@ -9,21 +9,22 @@ import {adaptComments} from "../../adapter/comments.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import CommentForm from "../comment-form/comment-form.jsx";
 
-const MAX_COOMMENT_LENGTH = 10;
-
 
 class ReviewsList extends PureComponent {
   constructor(props) {
     super(props);
 
   }
+
   componentDidMount() {
     const {id, onLoadComments} = this.props;
     onLoadComments(id);
   }
+
   render() {
     const {comments, authorizationStatus, id} = this.props;
     const sortedComments = comments.slice(0, comments.length).sort((a, b) => new Date(b.reviewTime) - new Date(a.reviewTime)).slice(0, MAX_COOMMENT_LENGTH);
+
     return (
       <section className="property__reviews reviews">
         <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
@@ -38,6 +39,7 @@ class ReviewsList extends PureComponent {
     );
   }
 }
+
 ReviewsList.propTypes = {
   comments: CommentType,
   id: PropTypes.number.isRequired,

@@ -1,5 +1,8 @@
-// import React from "react";
 import PropTypes from "prop-types";
+
+const MAX_IMAGES = 6;
+const MAX_COOMMENT_LENGTH = 10;
+
 const Offer = PropTypes.shape({
   title: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
@@ -82,4 +85,13 @@ const AppRoute = {
   ROOT: `/`,
 };
 
-export {OfferType, SortType, cities, CommentType, AppRoute};
+const citiesList = [
+  `Amsterdam`,
+  `Paris`,
+  `Cologne`,
+  `Brussels`,
+  `Hamburg`,
+  `Dusseldorf`,
+];
+
+export {OfferType, SortType, cities, CommentType, AppRoute, citiesList, MAX_IMAGES, MAX_COOMMENT_LENGTH};
