@@ -5,20 +5,35 @@ import {ActionCreator} from "../reducer/ui/ui.js";
 import {compose} from "redux";
 import {Operation as DataOperation} from "../reducer/data/data.js";
 import {adaptOffer} from "../adapter/offers.js";
+import {getAuthorizationStatus} from '../reducer/user/selectors.js';
+import {AuthorizationStatus} from '../reducer/user/user.js';
+import history from '../history.js';
+import {AppRoute} from '../const.js';
 
 const withOfferList = (Component) => {
   class WithOfferList extends PureComponent {
     constructor(props) {
       super(props);
+
+      this._handleChangeFavoriteStatus = this._handleChangeFavoriteStatus.bind(this);
+    }
+
+    _handleChangeFavoriteStatus(id, status) {
+      const {changeFavoriteStatus, authorizationStatus} = this.props;
+      if (authorizationStatus === AuthorizationStatus.AUTH) {
+        changeFavoriteStatus(id, status);
+      } else {
+        history.push(AppRoute.SING_IN);
+      }
     }
 
     render() {
-      const {onCardMouseEnter, onCardMouseLeave, changeFavoriteStatus} = this.props;
+      const {onCardMouseEnter, onCardMouseLeave} = this.props;
       return <Component
         {...this.props}
         onCardMouseLeave={onCardMouseLeave}
         onCardMouseEnter={onCardMouseEnter}
-        changeFavoriteStatus={changeFavoriteStatus}
+        changeFavoriteStatus={this._handleChangeFavoriteStatus}
       />;
     }
   }
@@ -27,10 +42,15 @@ const withOfferList = (Component) => {
     onCardMouseEnter: PropTypes.func.isRequired,
     onCardMouseLeave: PropTypes.func.isRequired,
     changeFavoriteStatus: PropTypes.func.isRequired,
+    authorizationStatus: PropTypes.string.isRequired,
   };
 
   return WithOfferList;
 };
+
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onCardMouseEnter(offer) {
@@ -45,7 +65,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const composedWithOfferList = compose(
-    connect(null, mapDispatchToProps), withOfferList
+    connect(mapStateToProps, mapDispatchToProps), withOfferList
 );
 
 export {withOfferList};

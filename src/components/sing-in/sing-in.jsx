@@ -3,6 +3,8 @@ import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {AppRoute} from "../../const";
+import history from "../../history";
+import {AuthorizationStatus} from "../../reducer/user/user";
 
 
 class SingIn extends PureComponent {
@@ -24,6 +26,14 @@ class SingIn extends PureComponent {
       login: this.loginRef.current.value,
       password: this.passwordRef.current.value,
     });
+  }
+
+  componentDidUpdate() {
+    const {authorizationStatus} = this.props;
+
+    if (authorizationStatus === AuthorizationStatus.AUTH) {
+      history.push(AppRoute.ROOT);
+    }
   }
 
   render() {
@@ -89,6 +99,7 @@ class SingIn extends PureComponent {
 SingIn.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onReturnButtonClick: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 

@@ -41,7 +41,8 @@ exports[`Favorites Should Favorites render correctly 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="#"
+                href="/favorite"
+                onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
@@ -49,7 +50,7 @@ exports[`Favorites Should Favorites render correctly 1`] = `
                 <span
                   className="header__user-name user__name"
                 >
-                  
+                  Sing in
                 </span>
               </a>
             </li>

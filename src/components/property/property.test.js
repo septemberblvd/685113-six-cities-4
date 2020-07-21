@@ -6,7 +6,9 @@ import {Provider} from "react-redux";
 import NameSpace from "../../reducer/name-space.js";
 import thunk from 'redux-thunk';
 import {Operation} from '../../reducer/data/data';
-import {BrowserRouter} from "react-router-dom";
+import {Router} from "react-router-dom";
+import history from '../../history.js';
+
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -128,8 +130,9 @@ describe(`Property`, () => {
     const tree = renderer
         .create(
             <Provider store={store}>
-              <BrowserRouter>
+              <Router history={history}>
                 <Property
+                  authorizationStatus={`NO_AUTH`}
                   allOffers={offers}
                   openedOfferId={`1`}
                   offer={offer}
@@ -141,7 +144,7 @@ describe(`Property`, () => {
                   onLoadNearOffers={() => {}}
                   changeFavoriteStatus={() => {}}
                 />
-              </BrowserRouter>
+              </Router>
             </Provider>
             , {
               createNodeMock: () => {

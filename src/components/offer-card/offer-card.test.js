@@ -1,7 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import OfferCard from "./offer-card.jsx";
-import {BrowserRouter} from "react-router-dom";
+import {Router} from "react-router-dom";
+import history from '../../history.js';
 
 const offers = [
   {
@@ -50,14 +51,14 @@ describe(`OfferCard`, () => {
   it(`Should OfferCard render correctly`, () => {
     const tree = renderer
         .create(
-            <BrowserRouter>
+            <Router history={history}>
               <OfferCard
                 offer={offers[0]}
                 onCardMouseEnter={onCardMouseEnter}
                 onCardMouseLeave={onCardMouseLeave}
                 changeFavoriteStatus={changeFavoriteStatus}
                 onHeaderClick={onHeaderClick} />
-            </BrowserRouter>,
+            </Router>,
             {
               createNodeMock: () => {
                 return document.createElement(`div`);

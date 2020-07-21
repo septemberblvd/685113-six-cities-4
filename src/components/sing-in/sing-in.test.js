@@ -1,19 +1,21 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import SingIn from "./sing-in.jsx";
-import {BrowserRouter} from "react-router-dom";
+import {Router} from "react-router-dom";
+import history from '../../history.js';
 
 
 const noop = () => {};
 
 it(`AuthScreen component render correctly`, () => {
   const tree = renderer.create(
-      <BrowserRouter>
+      <Router history={history}>
         <SingIn
+          authorizationStatus={`NO_AUTH`}
           onReturnButtonClick={noop}
           onSubmit={noop}
         />
-      </BrowserRouter>
+      </Router>
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

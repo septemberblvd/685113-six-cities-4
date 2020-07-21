@@ -79,7 +79,7 @@ const cities = [
 ];
 
 const AppRoute = {
-  SING_IN: `/sing-in`,
+  SING_IN: `/login`,
   OFFER: `/offer/:id`,
   FAVORITE: `/favorite`,
   ROOT: `/`,

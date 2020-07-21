@@ -2,7 +2,8 @@ import React from "react";
 import Enzyme, {mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import OfferCard from "./offer-card";
-import {BrowserRouter} from "react-router-dom";
+import {Router} from "react-router-dom";
+import history from '../../history.js';
 
 
 const userChoise = {
@@ -53,14 +54,14 @@ describe(`OfferCardComponent`, () => {
     const changeFavoriteStatus = jest.fn();
 
     const offerCard = mount(
-        <BrowserRouter>
+        <Router history={history}>
           <OfferCard
             offer={userChoise}
             onCardMouseEnter={onCardMouseEnter}
             onCardMouseLeave={onCardMouseLeave}
             changeFavoriteStatus={changeFavoriteStatus}
             onHeaderClick={onHeaderClick} />
-        </BrowserRouter>
+        </Router>
     );
 
     const offerCardTwo = offerCard.find(`.place-card`);

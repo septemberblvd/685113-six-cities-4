@@ -8,6 +8,7 @@ import {Operation as DataOperation} from "../../reducer/data/data.js";
 import {adaptComments} from "../../adapter/comments.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import CommentForm from "../comment-form/comment-form.jsx";
+import {AuthorizationStatus} from "../../reducer/user/user";
 
 
 class ReviewsList extends PureComponent {
@@ -34,7 +35,7 @@ class ReviewsList extends PureComponent {
             review={it}
           />)}
         </ul>
-        {authorizationStatus ? <CommentForm id={id}/> : ``}
+        {authorizationStatus === AuthorizationStatus.AUTH ? <CommentForm id={id}/> : ``}
       </section>
     );
   }

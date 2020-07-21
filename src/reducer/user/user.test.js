@@ -8,6 +8,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     authorizationStatus: AuthorizationStatus.NO_AUTH,
     userEmail: null,
+    isLoading: true,
   });
 });
 
@@ -76,7 +77,7 @@ describe(`Operation work correctly`, () => {
 
     return authChecker(dispatch, getState, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenCalledTimes(3);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.REQUIRED_AUTHORIZATION,
           payload: AuthorizationStatus.AUTH,
@@ -99,7 +100,7 @@ describe(`Operation work correctly`, () => {
 
     return login(dispatch, getState, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.REQUIRED_AUTHORIZATION,
           payload: `AUTH`,

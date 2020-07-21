@@ -70,6 +70,9 @@ describe(`App`, () => {
       },
       [NameSpace.UI]: {
         showSortMenu: false,
+      },
+      [NameSpace.USER]: {
+        authorizationStatus: `NO_AUTH`,
       }
     });
     const tree = renderer
@@ -84,8 +87,10 @@ describe(`App`, () => {
             favoriteOffers={offers}
             cities = {cities}
             currentCity={currentCity}
+            isLoading={true}
             nearOffers={[]}
             login = {() => {}}
+            checkAuth={() =>{}}
             returnToMain = {() => {}}
             onHeaderClick = {() => {}}
             loadComments = {() => {}}

@@ -41,7 +41,7 @@ exports[`AuthScreen component render correctly 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="/sing-in"
+                href="/login"
                 onClick={[Function]}
               >
                 <div

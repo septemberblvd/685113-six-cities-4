@@ -4,8 +4,10 @@ import MainScreen from "./main-screen.jsx";
 import NameSpace from "../../reducer/name-space.js";
 import React from "react";
 import renderer from "react-test-renderer";
-import {BrowserRouter} from "react-router-dom";
+import {Router} from "react-router-dom";
 import {Provider} from "react-redux";
+import history from '../../history.js';
+
 
 const mockStore = configureStore([]);
 
@@ -69,12 +71,15 @@ describe(`MainScreen`, () => {
       },
       [NameSpace.UI]: {
         showSortMenu: false,
+      },
+      [NameSpace.USER]: {
+        authorizationStatus: `NO_AUTH`,
       }
     });
     const tree = renderer
         .create(
             <Provider store={store}>
-              <BrowserRouter>
+              <Router history={history}>
                 <MainScreen
                   isOpened={true}
                   currentSortType={`Popular`}
@@ -82,8 +87,9 @@ describe(`MainScreen`, () => {
                   cities={cities}
                   currentCity={currentCity}
                   onHeaderClick = {() => {}}
+                  authorizationStatus={`NO_AUTH`}
                 />
-              </BrowserRouter>
+              </Router>
             </Provider>, {createNodeMock: () => {
               return document.createElement(`div`);
             }})

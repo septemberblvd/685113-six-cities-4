@@ -10,3 +10,9 @@ export const getAuthorizationStatus = (state) => {
 export const getUserEmail = (state) => {
   return state[NAME_SPACE].userEmail;
 };
+
+export const getLoadingStatus = (state) => {
+  return state[NAME_SPACE].isLoading;
+};
+
+

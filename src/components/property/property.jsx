@@ -11,9 +11,12 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/ui/ui.js";
 import {getCurrentCity, getCurrentOffers, getNearOffers, getOffers} from "../../reducer/data/selectors.js";
 import {getActiveOfferId} from "../../reducer/ui/selectors.js";
-import {getUserEmail} from "../../reducer/user/selectors.js";
+import {getUserEmail, getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
 import {adaptOffersAll, adaptOffer} from "../../adapter/offers.js";
+import history from '../../history.js';
+import {AuthorizationStatus} from "../../reducer/user/user";
+import HeaderNav from "../header-nav/header-nav.jsx";
 
 
 const NearOffersListWrapped = composedWithOfferList(NearOffersList);
@@ -30,6 +33,25 @@ class Property extends PureComponent {
     this._handleCardHeaderClick = this._handleCardHeaderClick.bind(this);
   }
 
+  _handleChangeFavorite() {
+    const {changeFavoriteStatus, authorizationStatus} = this.props;
+    const id = this.offer.id;
+    const status = +!this.offer.isItFavorite;
+
+    if (authorizationStatus === AuthorizationStatus.AUTH) {
+      changeFavoriteStatus(id, status);
+    } else {
+      history.push(AppRoute.SING_IN);
+    }
+  }
+
+  _handleCardHeaderClick(offer) {
+    const {onCardHeaderClick, onLoadNearOffers, openedOfferId} = this.props;
+
+    onCardHeaderClick(offer);
+    onLoadNearOffers(openedOfferId);
+  }
+
   componentDidMount() {
     const {onLoadNearOffers, openedOfferId} = this.props;
 
@@ -40,26 +62,10 @@ class Property extends PureComponent {
     this.offer = this.props.allOffers.find((it) => it.id === +this.props.openedOfferId);
   }
 
-  _handleChangeFavorite() {
-    const {changeFavoriteStatus} = this.props;
-    const id = this.offer.id;
-    const status = +!this.offer.isItFavorite;
-
-    changeFavoriteStatus(id, status);
-  }
-
-  _handleCardHeaderClick(offer) {
-    const {onCardHeaderClick, onLoadNearOffers, openedOfferId} = this.props;
-
-    onCardHeaderClick(offer);
-    onLoadNearOffers(openedOfferId);
-  }
-
   render() {
     const {
       allOffers,
       currentCity,
-      userEmail,
       nearOffers,
       onLoadNearOffers,
       openedOfferId,
@@ -76,17 +82,7 @@ class Property extends PureComponent {
                 <img className="header__logo" src="/img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </Link>
             </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <Link className="header__nav-link header__nav-link--profile" to={AppRoute.SING_IN}>
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">{userEmail ? userEmail : `Sing in`}</span>
-                  </Link>
-                </li>
-              </ul>
-            </nav>
+            <HeaderNav />
           </div>
         </div>
       </header>
@@ -201,6 +197,7 @@ Property.propTypes = {
     cityCoords: PropTypes.array.isRequired,
   }),
   activeOfferId: PropTypes.number,
+  authorizationStatus: PropTypes.string.isRequired,
   changeFavoriteStatus: PropTypes.func.isRequired,
   onLoadNearOffers: PropTypes.func.isRequired,
   onCardHeaderClick: PropTypes.func.isRequired,
@@ -213,6 +210,7 @@ const mapStateToProps = (state) => ({
   offers: getCurrentOffers(state),
   allOffers: getOffers(state),
   activeOfferId: getActiveOfferId(state),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

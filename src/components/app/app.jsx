@@ -9,13 +9,13 @@ import {ActionCreator} from "../../reducer/ui/ui.js";
 import {adaptOffersAll, adaptOffer} from "../../adapter/offers.js";
 import {connect} from "react-redux";
 import {getActiveOffer, getActiveOfferId} from "../../reducer/ui/selectors.js";
-import {getAuthorizationStatus, getUserEmail} from "../../reducer/user/selectors.js";
+import {getAuthorizationStatus, getUserEmail, getLoadingStatus} from "../../reducer/user/selectors.js";
 import {getCurrentCity, getCurrentOffers, getCurrentComments, getNearOffers, getFavoriteOffers, getOffers} from "../../reducer/data/selectors.js";
 import {OfferType, AppRoute} from "../../const.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
 import PrivateRoute from "../private-route/private-route.jsx";
-import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {Switch, Route, Router} from "react-router-dom";
 
 class App extends PureComponent {
   constructor(props) {
@@ -30,7 +30,6 @@ class App extends PureComponent {
     onCardHeaderClick(offer);
   }
 
-
   render() {
 
     const {
@@ -43,10 +42,12 @@ class App extends PureComponent {
       cities,
       currentCity,
       activeOfferId,
+      checkAuth,
+      isLoading,
     } = this.props;
 
     return (
-      <BrowserRouter history={history}>
+      <Router history={history}>
         <Switch>
           <Route exact path={AppRoute.ROOT}>
             <MainScreen
@@ -61,7 +62,8 @@ class App extends PureComponent {
           <Route exact path={AppRoute.SING_IN}>
             <SingIn
               onReturnButtonClick={returnToMain}
-              onSubmit={login} />
+              onSubmit={login}
+              authorizationStatus={authorizationStatus}/>
           </Route>
           <Route path={`/offer/:id`} render={(props) => {
             return (
@@ -74,6 +76,8 @@ class App extends PureComponent {
           <PrivateRoute
             exact
             authorizationStatus={authorizationStatus}
+            checkAuth={checkAuth}
+            isLoading={isLoading}
             path={AppRoute.FAVORITE}
 
             render={() => {
@@ -85,7 +89,7 @@ class App extends PureComponent {
             }}
           />
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
 
   }
@@ -124,6 +128,8 @@ App.propTypes = {
   activeOffer: OfferType,
   onLoadFavoriteOffers: PropTypes.func.isRequired,
   changeFavoriteStatus: PropTypes.func.isRequired,
+  checkAuth: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -137,11 +143,15 @@ const mapStateToProps = (state) => ({
   activeOffer: getActiveOffer(state),
   currentComments: getCurrentComments(state),
   favoriteOffers: getFavoriteOffers(state),
+  isLoading: getLoadingStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   login(authData) {
     dispatch(UserOperation.login(authData));
+  },
+  checkAuth() {
+    dispatch(UserOperation.checkAuth());
   },
   onLoadNearOffers(id) {
     dispatch(DataOperation.loadNearOffers(adaptOffersAll, id));

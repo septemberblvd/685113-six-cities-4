@@ -1,7 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import NearOffersItem from "./near-offers-item.jsx";
-import {BrowserRouter} from "react-router-dom";
+import {Router} from "react-router-dom";
+import history from '../../history.js';
+
 
 const offers = [
   {
@@ -51,14 +53,14 @@ describe(`NearOfferItem`, () => {
   it(`Should NearOfferItem render correctly`, () => {
     const tree = renderer
         .create(
-            <BrowserRouter>
+            <Router history={history}>
               <NearOffersItem
                 nearOffer={offers[0]}
                 onCardMouseEnter={onCardMouseEnter}
                 changeFavoriteStatus={changeFavoriteStatus}
                 onCardMouseLeave={onCardMouseLeave}
                 onHeaderClick={onHeaderClick} />
-            </BrowserRouter>,
+            </Router>,
             {
               createNodeMock: () => {
                 return document.createElement(`div`);

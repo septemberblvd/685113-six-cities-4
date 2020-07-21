@@ -5,9 +5,10 @@ import NameSpace from "../../reducer/name-space.js";
 import React from "react";
 import renderer from "react-test-renderer";
 import thunk from 'redux-thunk';
-import {BrowserRouter} from "react-router-dom";
+import {Router} from "react-router-dom";
 import {Operation} from '../../reducer/data/data';
 import {Provider} from "react-redux";
+import history from '../../history.js';
 
 
 const middlewares = [thunk];
@@ -74,14 +75,14 @@ describe(`Favorites`, () => {
     const tree = renderer
         .create(
             <Provider store={store}>
-              <BrowserRouter>
+              <Router history={history}>
                 <Favorites
                   authorizationStatus={`AUTH`}
                   onLoadFavoriteOffers={onLoadFavoriteOffers}
                   changeFavoriteStatus={changeFavoriteStatus}
                   onCardHeaderClick={onCardHeaderClick}
                 />
-              </BrowserRouter>
+              </Router>
             </Provider>, {createNodeMock: () => {
               return document.createElement(`div`);
             }})
