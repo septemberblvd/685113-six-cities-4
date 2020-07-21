@@ -1,4 +1,6 @@
 import {extend} from '../../utils';
+import history from '../../history';
+import {AppRoute} from '../../const';
 
 const AuthorizationStatus = {
   AUTH: `AUTH`,
@@ -47,6 +49,8 @@ const Operation = {
         dispatch(ActionCreator.checkLoading(false));
       })
       .catch((err) => {
+        dispatch(ActionCreator.checkLoading(true));
+        history.push(AppRoute.SING_IN);
         throw err;
       });
   },
