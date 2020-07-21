@@ -2,6 +2,8 @@ import React from "react";
 import Enzyme, {mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import OfferCard from "./offer-card";
+import {Router} from "react-router-dom";
+import history from '../../history.js';
 
 
 const userChoise = {
@@ -38,25 +40,6 @@ const userChoise = {
     isSuper: true,
   },
   coords: [52.39874984984841, 4.82456445558843],
-  reviews: [
-    {
-      reviewId: 14,
-      reviewName: `Ozzy`,
-      reviewAvatar: `src`,
-      reviewGrade: 4,
-      reviewText: `Id minim labore ut velit sit velit.Magna deserunt reprehenderit consequat elit cupidatat proident nostrud amet minim nulla.`,
-      reviewTime: `May 8, 2016`,
-    },
-    {
-      reviewId: 22,
-      reviewName: `Mick`,
-      reviewAvatar: `src`,
-      reviewGrade: 2,
-      reviewText: `Incididunt fugiat non aliqua eu nisi.Id Lorem cillum non voluptate nulla id fugiat Lorem exercitation irure ullamco enim veniam ullamco.`,
-      reviewTime: `June 5, 2018`,
-    },
-  ],
-  nearOffers: [1]
 };
 
 Enzyme.configure({
@@ -68,15 +51,17 @@ describe(`OfferCardComponent`, () => {
     const onCardMouseEnter = jest.fn();
     const onCardMouseLeave = jest.fn();
     const onHeaderClick = jest.fn();
-
+    const changeFavoriteStatus = jest.fn();
 
     const offerCard = mount(
-        <OfferCard
-          key={userChoise.id + 1}
-          offer={userChoise}
-          onCardMouseEnter={onCardMouseEnter}
-          onCardMouseLeave={onCardMouseLeave}
-          onHeaderClick={onHeaderClick} />
+        <Router history={history}>
+          <OfferCard
+            offer={userChoise}
+            onCardMouseEnter={onCardMouseEnter}
+            onCardMouseLeave={onCardMouseLeave}
+            changeFavoriteStatus={changeFavoriteStatus}
+            onHeaderClick={onHeaderClick} />
+        </Router>
     );
 
     const offerCardTwo = offerCard.find(`.place-card`);

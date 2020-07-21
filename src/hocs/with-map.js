@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import leaflet from "leaflet";
 import {OfferType} from "../const.js";
 
+
 const withMap = (Component) => {
   class WithMap extends PureComponent {
     constructor(props) {
@@ -17,7 +18,7 @@ const withMap = (Component) => {
       const {activeOfferId} = this.props;
 
       const icon = leaflet.icon({
-        iconUrl: `img/pin.svg`,
+        iconUrl: `/img/pin.svg`,
         iconSize: [30, 30]
       });
       const iconActive = leaflet.icon({
@@ -65,6 +66,7 @@ const withMap = (Component) => {
 
     componentWillUnmount() {
       this._mapRef.current = null;
+      this._map = null;
     }
 
     render() {

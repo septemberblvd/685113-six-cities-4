@@ -45,11 +45,13 @@ class Sort extends PureComponent {
 
   _handleMenuClick(sortType) {
     this._handleSortClick();
+
     this.props.onSort(sortType);
   }
 
   render() {
     const {currentSortType, isOpened} = this.props;
+
     return (
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>
@@ -98,4 +100,5 @@ Sort.propTypes = {
 };
 
 export {Sort};
+
 export default connect(mapStateToProps, mapDispatchToProps)(Sort);

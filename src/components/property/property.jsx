@@ -1,77 +1,88 @@
 import React, {PureComponent} from "react";
-import {OfferType} from "../../const";
+import {OfferType, AppRoute, MAX_IMAGES} from "../../const";
 import PropTypes from "prop-types";
 import ReviewsList from "../reviews-list/reviews-list.jsx";
 import NearOffersList from "../near-offers-list/near-offers-list.jsx";
 import composedWithOfferList from "../../hocs/with-offer-list.js";
 import withMap from "../../hocs/with-map.js";
 import NearOffersMap from "../near-offers-map/near-offers-map.jsx";
+import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer/ui/ui.js";
+import {getCurrentCity, getCurrentOffers, getNearOffers, getOffers} from "../../reducer/data/selectors.js";
+import {getActiveOfferId} from "../../reducer/ui/selectors.js";
+import {getUserEmail, getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import {Operation as DataOperation} from "../../reducer/data/data.js";
+import {adaptOffersAll, adaptOffer} from "../../adapter/offers.js";
+import history from '../../history.js';
+import {AuthorizationStatus} from "../../reducer/user/user";
+import HeaderNav from "../header-nav/header-nav.jsx";
+
 
 const NearOffersListWrapped = composedWithOfferList(NearOffersList);
 const NearOffersMapWrapped = withMap(NearOffersMap);
+
 
 class Property extends PureComponent {
   constructor(props) {
     super(props);
 
+    this.offer = this.props.allOffers.find((it) => it.id === +this.props.openedOfferId);
+
+    this._handleChangeFavorite = this._handleChangeFavorite.bind(this);
+    this._handleCardHeaderClick = this._handleCardHeaderClick.bind(this);
   }
+
+  _handleChangeFavorite() {
+    const {changeFavoriteStatus, authorizationStatus} = this.props;
+    const id = this.offer.id;
+    const status = +!this.offer.isItFavorite;
+
+    if (authorizationStatus === AuthorizationStatus.AUTH) {
+      changeFavoriteStatus(id, status);
+    } else {
+      history.push(AppRoute.SING_IN);
+    }
+  }
+
+  _handleCardHeaderClick(offer) {
+    const {onCardHeaderClick, onLoadNearOffers, openedOfferId} = this.props;
+
+    onCardHeaderClick(offer);
+    onLoadNearOffers(openedOfferId);
+  }
+
   componentDidMount() {
-    const {offer, onLoadNearOffers} = this.props;
-    onLoadNearOffers(offer.id);
+    const {onLoadNearOffers, openedOfferId} = this.props;
+
+    onLoadNearOffers(openedOfferId);
+  }
+
+  componentDidUpdate() {
+    this.offer = this.props.allOffers.find((it) => it.id === +this.props.openedOfferId);
   }
 
   render() {
     const {
-      offer,
-      onHeaderClick,
+      allOffers,
       currentCity,
-      activeOfferId,
-      userEmail,
       nearOffers,
       onLoadNearOffers,
+      openedOfferId,
     } = this.props;
-    const {
-      title,
-      price,
-      rating,
-      img,
-      type,
-      isItPremium,
-      isItFavorite,
-      id,
-      images,
-      description,
-      bedrooms,
-      guests,
-      appliances,
-      owner
-    } = offer;
 
+    const offer = allOffers.find((it) => it.id === +openedOfferId);
 
-    const {
-      avatar,
-      name,
-      isSuper
-    } = owner;
-
-    return <div className="page" id={id}>
+    return offer ? <div className="page" id={offer.id}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html"><img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" /></a>
+              <Link to={AppRoute.ROOT} className="header__logo-link">
+                <img className="header__logo" src="/img/logo.svg" alt="6 cities logo" width="81" height="41" />
+              </Link>
             </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">{userEmail ? userEmail : `Sing in`}</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            <HeaderNav />
           </div>
         </div>
       </header>
@@ -80,7 +91,7 @@ class Property extends PureComponent {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {images.map((image, i) => {
+              {offer.images.slice(0, MAX_IMAGES).map((image, i) => {
                 return (
                   <div key= {image + i} className="property__image-wrapper">
                     <img className="property__image" src={image} alt="Photo studio" />
@@ -91,17 +102,18 @@ class Property extends PureComponent {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {isItPremium ? <div className="property__mark">
+              {offer.isItPremium ? <div className="property__mark">
                 <span>Premium</span>
               </div> : ``}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {title}
+                  {offer.title}
                 </h1>
-                <button className={isItFavorite ?
+                <button className={offer.isItFavorite ?
                   `property__bookmark-button property__bookmark-button--active button`
-                  : `property__bookmark-button button`} type="button">
-                  <svg className="property__bookmark-icon" width="31" height="33">
+                  : `property__bookmark-button button`} type="button"
+                onClick={this._handleChangeFavorite}>
+                  <svg className="place-card__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
                   <span className="visually-hidden">To bookmarks</span>
@@ -109,30 +121,30 @@ class Property extends PureComponent {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `${rating * 20}%`}}></span>
+                  <span style={{width: `${Math.round(offer.rating) * 20}%`}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">{rating}</span>
+                <span className="property__rating-value rating__value">{offer.rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {type}
+                  {offer.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {bedrooms} Bedrooms
+                  {offer.bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                    Max {guests} adults
+                    Max {offer.guests} adults
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">&euro;{price}</b>
+                <b className="property__price-value">&euro;{offer.price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {appliances.map((item, i) => {
+                  {offer.appliances.map((item, i) => {
                     return (
                       <li key= {item + i} className="property__inside-item">
                         {item}
@@ -144,47 +156,76 @@ class Property extends PureComponent {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className={isSuper ? `property__avatar-wrapper user__avatar-wrapper property__avatar-wrapper--pro` : `property__avatar-wrapper user__avatar-wrapper`}>
-                    <img className="property__avatar user__avatar" src={avatar} width="74" height="74" alt="Host avatar" />
+                  <div className={offer.owner.isSuper ? `property__avatar-wrapper user__avatar-wrapper property__avatar-wrapper--pro` : `property__avatar-wrapper user__avatar-wrapper`}>
+                    <img className="property__avatar user__avatar" src={`/` + offer.owner.avatar} width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
-                    {name}
+                    {offer.owner.name}
                   </span>
                 </div>
                 <div className="property__title">
                   <p className="property__text">
-                    {description}
+                    {offer.description}
                   </p>
                 </div>
               </div>
               <ReviewsList id={offer.id} />
             </div>
           </div>
-          <NearOffersMapWrapped offers={nearOffers} currentCity={currentCity} activeOfferId={activeOfferId}/>
+          <NearOffersMapWrapped offers={nearOffers.concat(offer)} currentCity={currentCity} activeOfferId={offer.id}/>
         </section>
         <div className="container">
-          <NearOffersListWrapped nearOffers={nearOffers} onLoadNearOffers={onLoadNearOffers} onHeaderClick={onHeaderClick}/>
+          <NearOffersListWrapped nearOffers={nearOffers} onLoadNearOffers={onLoadNearOffers} onHeaderClick={this._handleCardHeaderClick}/>
         </div>
       </main>
-    </div>;
+    </div> : ``;
   }
 }
 
 Property.propTypes = {
   userEmail: PropTypes.string,
-  offer: OfferType,
   offers: PropTypes.arrayOf(OfferType),
-  onLoadNearOffers: PropTypes.func.isRequired,
+  openedOfferId: PropTypes.string.isRequired,
   nearOffers: PropTypes.arrayOf(
       OfferType
   ),
-  onHeaderClick: PropTypes.func,
+  allOffers: PropTypes.arrayOf(
+      OfferType
+  ),
   currentCity: PropTypes.shape({
     cityName: PropTypes.string.isRequired,
     cityCoords: PropTypes.array.isRequired,
   }),
   activeOfferId: PropTypes.number,
+  authorizationStatus: PropTypes.string.isRequired,
+  changeFavoriteStatus: PropTypes.func.isRequired,
+  onLoadNearOffers: PropTypes.func.isRequired,
+  onCardHeaderClick: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  userEmail: getUserEmail(state),
+  nearOffers: getNearOffers(state),
+  currentCity: getCurrentCity(state),
+  offers: getCurrentOffers(state),
+  allOffers: getOffers(state),
+  activeOfferId: getActiveOfferId(state),
+  authorizationStatus: getAuthorizationStatus(state),
+});
 
-export default Property;
+const mapDispatchToProps = (dispatch) => ({
+  onLoadNearOffers(id) {
+    dispatch(DataOperation.loadNearOffers(adaptOffersAll, id));
+  },
+  onCardHeaderClick(offer) {
+    dispatch(ActionCreator.setActiveOffer(offer));
+  },
+  changeFavoriteStatus(id, status) {
+    dispatch(DataOperation.changeFavoriteStatus(adaptOffer, id, status));
+  },
+});
+
+
+export {Property};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Property);

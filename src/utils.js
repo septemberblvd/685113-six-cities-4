@@ -10,8 +10,18 @@ const getOffersInCity = (cityName, offers) => {
   return offersInCity;
 };
 
-const getSortedOffers = (offers, sortType) => {
+const updateArrayWithNewElement = (arr, item) => {
+  const replacedIndex = arr.findIndex((it) => it.id === item.id);
+  const newArr = arr.slice(0, arr.length);
+  newArr.splice(replacedIndex, 1, item);
+  return newArr;
+};
+
+const getSortedOffers = (allOffers, sortType, currentCity) => {
+  const offers = getOffersInCity(currentCity, allOffers);
   switch (sortType) {
+    case SortType.POPULAR:
+      return offers;
     case SortType.PRICE_LOW_TO_HIGH:
       return offers.slice().sort((a, b) => a.price - b.price);
     case SortType.PRICE_HIGH_TO_LOW:
@@ -23,4 +33,15 @@ const getSortedOffers = (offers, sortType) => {
   }
 };
 
-export {extend, getOffersInCity, getSortedOffers};
+const destibuteOffersByCities = (cities, offers) => {
+  return cities.map(
+      (it) => {
+        return {
+          city: it,
+          offers: offers.filter((offer) => offer.cityName === it),
+        };
+      }
+  );
+};
+
+export {extend, getOffersInCity, getSortedOffers, updateArrayWithNewElement, destibuteOffersByCities};

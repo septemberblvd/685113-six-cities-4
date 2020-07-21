@@ -1,19 +1,21 @@
-import React, {PureComponent} from "react";
+import Favorites from "../favorites/favorites.jsx";
+import history from "../../history.js";
 import MainScreen from "../main-screen/main-screen.jsx";
-import PropTypes from "prop-types";
-import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Property from "../property/property.jsx";
-import {OfferType} from "../../const.js";
-import {connect} from "react-redux";
+import PropTypes from "prop-types";
+import React, {PureComponent} from "react";
+import SingIn from "../sing-in/sing-in.jsx";
 import {ActionCreator} from "../../reducer/ui/ui.js";
-import {getCurrentCity, getCurrentOffers, getCurrentComments, getNearOffers} from "../../reducer/data/selectors.js";
+import {adaptOffersAll, adaptOffer} from "../../adapter/offers.js";
+import {connect} from "react-redux";
 import {getActiveOffer, getActiveOfferId} from "../../reducer/ui/selectors.js";
-import {getAuthorizationStatus, getUserEmail} from "../../reducer/user/selectors.js";
+import {getAuthorizationStatus, getUserEmail, getLoadingStatus} from "../../reducer/user/selectors.js";
+import {getCurrentCity, getCurrentOffers, getCurrentComments, getNearOffers, getFavoriteOffers, getOffers} from "../../reducer/data/selectors.js";
+import {OfferType, AppRoute} from "../../const.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
-import {adaptOffersAll} from "../../adapter/offers.js";
-import SingIn from "../sing-in/sing-in.jsx";
-
+import PrivateRoute from "../private-route/private-route.jsx";
+import {Switch, Route, Router} from "react-router-dom";
 
 class App extends PureComponent {
   constructor(props) {
@@ -28,68 +30,66 @@ class App extends PureComponent {
     onCardHeaderClick(offer);
   }
 
-  _renderApp() {
+  render() {
 
     const {
       authorizationStatus,
-      nearOffers,
-      onLoadNearOffers,
+      login,
+      returnToMain,
+      favoriteOffers,
       userEmail,
       offers,
       cities,
       currentCity,
       activeOfferId,
-      activeOffer} = this.props;
-
-    if (activeOffer) {
-      return <Property
-        nearOffers={nearOffers}
-        onLoadNearOffers={onLoadNearOffers}
-        authorizationStatus={authorizationStatus}
-        userEmail={userEmail}
-        offer={activeOffer}
-        offers={offers}
-        currentCity={currentCity}
-        onHeaderClick = {this._handleCardHeaderClick}
-        activeOfferId = {activeOfferId}
-      />;
-    }
-
-    return <MainScreen
-      userEmail={userEmail}
-      offers = {offers}
-      cities = {cities}
-      currentCity={currentCity}
-      onHeaderClick = {this._handleCardHeaderClick}
-      activeOfferId = {activeOfferId}
-    />;
-  }
-
-
-  render() {
-
-    const {
-      // offers,
-      login,
-      returnToMain,
+      checkAuth,
+      isLoading,
     } = this.props;
 
     return (
-      <BrowserRouter>
+      <Router history={history}>
         <Switch>
-          <Route exact path="/">
-            {this._renderApp()}
+          <Route exact path={AppRoute.ROOT}>
+            <MainScreen
+              userEmail={userEmail}
+              offers = {offers}
+              cities = {cities}
+              currentCity={currentCity}
+              onHeaderClick = {this._handleCardHeaderClick}
+              activeOfferId = {activeOfferId}
+            />;
           </Route>
-          {/* <Route exact path="/dev-offer">
-            <Property offer={offers[0]}/>
-          </Route> */}
-          <Route exact path="/dev-sing-in">
+          <Route exact path={AppRoute.SING_IN}>
             <SingIn
               onReturnButtonClick={returnToMain}
-              onSubmit={login} />
+              onSubmit={login}
+              authorizationStatus={authorizationStatus}/>
           </Route>
+          <Route path={`/offer/:id`} render={(props) => {
+            return (
+              <Property
+                openedOfferId={props.match.params.id}
+              />);
+          }}>
+
+          </Route>
+          <PrivateRoute
+            exact
+            authorizationStatus={authorizationStatus}
+            checkAuth={checkAuth}
+            isLoading={isLoading}
+            path={AppRoute.FAVORITE}
+
+            render={() => {
+              return (
+                <Favorites
+                  favoriteOffers={favoriteOffers}
+                  onHeaderClick = {this._handleCardHeaderClick} />
+              );
+            }}
+          />
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
 
   }
@@ -104,7 +104,13 @@ App.propTypes = {
   nearOffers: PropTypes.arrayOf(
       OfferType
   ).isRequired,
+  allOffers: PropTypes.arrayOf(
+      OfferType
+  ).isRequired,
   offers: PropTypes.arrayOf(
+      OfferType
+  ).isRequired,
+  favoriteOffers: PropTypes.arrayOf(
       OfferType
   ).isRequired,
   cities: PropTypes.arrayOf(
@@ -120,6 +126,10 @@ App.propTypes = {
   activeOfferId: PropTypes.number,
   onCardHeaderClick: PropTypes.func.isRequired,
   activeOffer: OfferType,
+  onLoadFavoriteOffers: PropTypes.func.isRequired,
+  changeFavoriteStatus: PropTypes.func.isRequired,
+  checkAuth: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -128,24 +138,36 @@ const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
   currentCity: getCurrentCity(state),
   offers: getCurrentOffers(state),
+  allOffers: getOffers(state),
   activeOfferId: getActiveOfferId(state),
   activeOffer: getActiveOffer(state),
-  currentComments: getCurrentComments(state)
+  currentComments: getCurrentComments(state),
+  favoriteOffers: getFavoriteOffers(state),
+  isLoading: getLoadingStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   login(authData) {
     dispatch(UserOperation.login(authData));
   },
+  checkAuth() {
+    dispatch(UserOperation.checkAuth());
+  },
   onLoadNearOffers(id) {
     dispatch(DataOperation.loadNearOffers(adaptOffersAll, id));
+  },
+  onLoadFavoriteOffers() {
+    dispatch(DataOperation.loadFavoriteOffers(adaptOffersAll));
   },
   onCardHeaderClick(offer) {
     dispatch(ActionCreator.setActiveOffer(offer));
   },
   returnToMain() {
     dispatch(ActionCreator.setActiveOffer(null));
-  }
+  },
+  changeFavoriteStatus(id, status) {
+    dispatch(DataOperation.changeFavoriteStatus(adaptOffer, id, status));
+  },
 });
 
 export {App};

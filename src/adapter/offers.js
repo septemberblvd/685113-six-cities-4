@@ -1,4 +1,4 @@
-export const adaptOffer = (offer) => {
+const adaptOffer = (offer) => {
   return {
     title: offer.title,
     img: offer.preview_image,
@@ -23,7 +23,9 @@ export const adaptOffer = (offer) => {
   };
 };
 
-export const adaptOffersAll = (offers) => {
+const adaptOffersAll = (offers) => {
   const allOffers = offers.map((offer) => adaptOffer(offer));
   return allOffers;
 };
+
+export {adaptOffer, adaptOffersAll};

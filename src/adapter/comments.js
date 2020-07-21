@@ -1,4 +1,4 @@
-export const adaptComment = (comment) => {
+const adaptComment = (comment) => {
   return {
     reviewId: comment.id,
     authorId: comment.user.id,
@@ -11,7 +11,8 @@ export const adaptComment = (comment) => {
   };
 };
 
-export const adaptComments = (comments) => {
+const adaptComments = (comments) => {
   const commentsAll = comments.map((comment) => adaptComment(comment));
   return commentsAll;
 };
+export {adaptComment, adaptComments};

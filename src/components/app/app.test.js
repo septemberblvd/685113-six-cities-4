@@ -43,24 +43,6 @@ const offers = [
       isSuper: true,
     },
     coords: [52.39874984984841, 4.82456445558843],
-    reviews: [
-      {
-        reviewId: 14,
-        reviewName: `Ozzy`,
-        reviewAvatar: `src`,
-        reviewGrade: 4,
-        reviewText: `Id minim labore ut velit sit velit.Magna deserunt reprehenderit consequat elit cupidatat proident nostrud amet minim nulla.`,
-        reviewTime: `May 8, 2016`,
-      },
-      {
-        reviewId: 22,
-        reviewName: `Mick`,
-        reviewAvatar: `src`,
-        reviewGrade: 2,
-        reviewText: `Incididunt fugiat non aliqua eu nisi.Id Lorem cillum non voluptate nulla id fugiat Lorem exercitation irure ullamco enim veniam ullamco.`,
-        reviewTime: `June 5, 2018`,
-      },
-    ],
   },
 ];
 
@@ -88,6 +70,9 @@ describe(`App`, () => {
       },
       [NameSpace.UI]: {
         showSortMenu: false,
+      },
+      [NameSpace.USER]: {
+        authorizationStatus: `NO_AUTH`,
       }
     });
     const tree = renderer
@@ -98,13 +83,19 @@ describe(`App`, () => {
             authorizationStatus={`NO_AUTH`}
             currentSortType={`Popular`}
             offers = {offers}
+            allOffers={offers}
+            favoriteOffers={offers}
             cities = {cities}
             currentCity={currentCity}
+            isLoading={true}
             nearOffers={[]}
             login = {() => {}}
+            checkAuth={() =>{}}
             returnToMain = {() => {}}
             onHeaderClick = {() => {}}
             loadComments = {() => {}}
+            onLoadFavoriteOffers = {() => {}}
+            changeFavoriteStatus = {() => {}}
             onCardHeaderClick = {() => {}}/>
         </Provider>,
         {createNodeMock: () => {

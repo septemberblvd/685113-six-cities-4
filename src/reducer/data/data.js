@@ -1,5 +1,6 @@
-import {getOffersInCity, extend, getSortedOffers} from '../../utils';
-import {SortType} from '../../const.js';
+import {getOffersInCity, extend, getSortedOffers, updateArrayWithNewElement} from '../../utils';
+import {ActionCreator as ActionCreatorUI} from '../ui/ui.js';
+import {SortType} from '../../const';
 
 const initialState = {
   city: {
@@ -15,6 +16,7 @@ const initialState = {
   newRating: null,
   sendStatus: false,
   isError: false,
+  favoriteOffers: [],
 };
 
 const ActionType = {
@@ -28,6 +30,9 @@ const ActionType = {
   CHANGE_NEW_RATING: `CHANGE_NEW_RATING`,
   CHANGE_SEND_STATUS: `CHANGE_SEND_STATUS`,
   SET_ERROR: `SET_ERROR`,
+  LOAD_FAVORITE_OFFERS: `LOAD_FAVORITE_OFFERS`,
+  CHANGE_FAVORITE_STATUS: `CHANGE_FAVORITE_STATUS`,
+  UPDATE_OFFERS: `UPDATE_OFFERS`,
 };
 
 const ActionCreator = {
@@ -77,6 +82,18 @@ const ActionCreator = {
     type: ActionType.SET_ERROR,
     payload: isError,
   }),
+  loadFavoriteOffers: (offers) => {
+    return {
+      type: ActionType.LOAD_FAVORITE_OFFERS,
+      payload: offers,
+    };
+  },
+  updateOffers: (offer) => {
+    return {
+      type: ActionType.UPDATE_OFFERS,
+      payload: offer,
+    };
+  },
 };
 
 const Operation = {
@@ -126,6 +143,24 @@ const Operation = {
     }
     return null;
   },
+  loadFavoriteOffers: (adaptCallback) => (dispatch, getState, api) => {
+    return api.get(`/favorite`)
+      .then((response) => {
+        const data = adaptCallback ? adaptCallback(response.data) : response.data;
+        dispatch(ActionCreator.loadFavoriteOffers(data));
+      });
+  },
+  changeFavoriteStatus: (adaptCallback, id, status) => (dispatch, getState, api) => {
+    if (id) {
+      return api.post(`/favorite/${id}/${status}`)
+      .then((response) => {
+        const data = adaptCallback ? adaptCallback(response.data) : response.data;
+        dispatch(ActionCreator.updateOffers(data));
+        dispatch(ActionCreatorUI.setActiveOffer(data));
+      });
+    }
+    return null;
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -142,14 +177,13 @@ const reducer = (state = initialState, action) => {
       return extend(state, {city: action.payload});
     case ActionType.CHANGE_CURRENT_OFFERS:
       return extend(state, {
+        currentSortType: SortType.POPULAR,
         currentOffers: getOffersInCity(action.payload, state.allOffers),
       });
     case ActionType.SORT_OFFERS:
       return extend(state, {
         currentSortType: action.payload,
-        allOffers: action.payload === SortType.POPULAR
-          ? state.allOffers
-          : getSortedOffers(state.allOffers, action.payload),
+        currentOffers: getSortedOffers(state.allOffers, action.payload, state.city.cityName),
       });
     case ActionType.CHANGE_NEW_COMMENT:
       return extend(state, {
@@ -166,6 +200,15 @@ const reducer = (state = initialState, action) => {
     case ActionType.SET_ERROR:
       return extend(state, {
         isError: action.payload,
+      });
+    case ActionType.LOAD_FAVORITE_OFFERS:
+      return extend(state, {favoriteOffers: action.payload});
+    case ActionType.UPDATE_OFFERS:
+      return extend(state, {
+        currentOffers: updateArrayWithNewElement(state.currentOffers, action.payload),
+        allOffers: updateArrayWithNewElement(state.allOffers, action.payload),
+        nearOffers: updateArrayWithNewElement(state.nearOffers, action.payload),
+        favoriteOffers: updateArrayWithNewElement(state.favoriteOffers, action.payload),
       });
     default:
       return state;

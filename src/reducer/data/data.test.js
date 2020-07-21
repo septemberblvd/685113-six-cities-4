@@ -1222,6 +1222,7 @@ it(`Reducer without parameters return initial state`, () => {
     currentOffers: [],
     currentComments: [],
     nearOffers: [],
+    favoriteOffers: [],
     newComment: null,
     newRating: null,
     sendStatus: false,
@@ -1269,72 +1270,90 @@ it(`Reducer should change city`, () => {
 
 it(`Reducer should change offers in current city`, () => {
   expect(reducer({
-    city: {
-      cityName: `Amsterdam`,
-      cityCoords: [52.38333, 4.9],
-    },
+    currentSortType: `Popular`,
     allOffers: offers,
     currentOffers: offersInAmsterdam,
   }, {
     type: ActionType.CHANGE_CURRENT_OFFERS,
     payload: `Paris`,
   })).toEqual({
-    city: {
-      cityName: `Amsterdam`,
-      cityCoords: [52.38333, 4.9],
-    },
     allOffers: offers,
+    currentSortType: `Popular`,
     currentOffers: offersInParis,
   });
   expect(reducer({
-    city: {
-      cityName: `Amsterdam`,
-      cityCoords: [52.38333, 4.9],
-    },
+    currentSortType: `Popular`,
     allOffers: offers,
     currentOffers: offersInAmsterdam,
   }, {
     type: ActionType.CHANGE_CURRENT_OFFERS,
     payload: `Hamburg`,
   })).toEqual({
-    city: {
-      cityName: `Amsterdam`,
-      cityCoords: [52.38333, 4.9],
-    },
     allOffers: offers,
+    currentSortType: `Popular`,
     currentOffers: offersInHamburg,
   });
 });
 
 it(`Reducer should sort offers`, () => {
   expect(reducer({
+    city: {
+      cityName: `Amsterdam`,
+      cityCoords: [52.38333, 4.9],
+    },
     allOffers: offersInAmsterdam,
+    currentOffers: offersInAmsterdam,
     currentSortType: `Popular`,
   }, {
     type: ActionType.SORT_OFFERS,
     payload: `Price low to high`,
   })).toEqual({
-    allOffers: lowToHighOffersSorted,
+    city: {
+      cityName: `Amsterdam`,
+      cityCoords: [52.38333, 4.9],
+    },
+    allOffers: offersInAmsterdam,
+    currentOffers: lowToHighOffersSorted,
     currentSortType: `Price low to high`,
   });
   expect(reducer({
+    city: {
+      cityName: `Amsterdam`,
+      cityCoords: [52.38333, 4.9],
+    },
     allOffers: offersInAmsterdam,
+    currentOffers: offersInAmsterdam,
     currentSortType: `Popular`,
   }, {
     type: ActionType.SORT_OFFERS,
     payload: `Price high to low`,
   })).toEqual({
-    allOffers: highToLowOffersSorted,
+    city: {
+      cityName: `Amsterdam`,
+      cityCoords: [52.38333, 4.9],
+    },
+    allOffers: offersInAmsterdam,
+    currentOffers: highToLowOffersSorted,
     currentSortType: `Price high to low`,
   });
   expect(reducer({
+    city: {
+      cityName: `Amsterdam`,
+      cityCoords: [52.38333, 4.9],
+    },
     allOffers: offersInAmsterdam,
+    currentOffers: offersInAmsterdam,
     currentSortType: `Popular`,
   }, {
     type: ActionType.SORT_OFFERS,
     payload: `Top rated first`,
   })).toEqual({
-    allOffers: topRatedOffersSorted,
+    city: {
+      cityName: `Amsterdam`,
+      cityCoords: [52.38333, 4.9],
+    },
+    allOffers: offersInAmsterdam,
+    currentOffers: topRatedOffersSorted,
     currentSortType: `Top rated first`,
   });
 });
@@ -1438,6 +1457,44 @@ describe(`Operation work correctly`, () => {
         expect(dispatch).toHaveBeenCalledTimes(3);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_COMMENTS,
+          payload: [{fake: true}],
+        });
+      });
+  });
+  it(`Should make a correct API post to /favorite`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const getState = jest.fn();
+    const favoriteOffersUploader = Operation.loadFavoriteOffers();
+
+    apiMock
+      .onGet(`/favorite`)
+      .reply(200, [{fake: true}]);
+
+    return favoriteOffersUploader(dispatch, getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_FAVORITE_OFFERS,
+          payload: [{fake: true}],
+        });
+      });
+  });
+  it(`Should make a correct API post to /favorite/id`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const getState = jest.fn();
+    const statusChanger = Operation.changeFavoriteStatus(null, 1, 1);
+
+    apiMock
+      .onPost(`/favorite/1/1`)
+      .reply(200, [{fake: true}]);
+
+    return statusChanger(dispatch, getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.UPDATE_OFFERS,
           payload: [{fake: true}],
         });
       });

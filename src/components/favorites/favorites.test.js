@@ -1,15 +1,22 @@
 
 import configureStore from "redux-mock-store";
-import MainScreen from "./main-screen.jsx";
+import Favorites from "./favorites.jsx";
 import NameSpace from "../../reducer/name-space.js";
 import React from "react";
 import renderer from "react-test-renderer";
+import thunk from 'redux-thunk';
 import {Router} from "react-router-dom";
+import {Operation} from '../../reducer/data/data';
 import {Provider} from "react-redux";
 import history from '../../history.js';
 
 
-const mockStore = configureStore([]);
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares);
+
+jest.mock(`../../reducer/data/data`);
+Operation.loadFavoriteOffers = () => (dispatch) => dispatch(jest.fn());
+Operation.changeFavoriteStatus = () => (dispatch) => dispatch(jest.fn());
 
 const offers = [
   {
@@ -48,46 +55,32 @@ const offers = [
     coords: [52.39874984984841, 4.82456445558843],
   },
 ];
-const cities = [
-  {
-    cityName: `Paris`,
-    cityCoords: [48.85341, 2.3488],
-  },
-];
 
-const currentCity = {
-  cityName: `Paris`,
-  cityCoords: [48.85341, 2.3488],
-};
-describe(`MainScreen`, () => {
-  it(`Should MainScreen render correctly`, () => {
+describe(`Favorites`, () => {
+  it(`Should Favorites render correctly`, () => {
     const store = mockStore({
       [NameSpace.DATA]: {
-        currentSortType: `Popular`,
-        city: {
-          cityName: `Paris`,
-          cityCoords: [48.85341, 2.3488],
-        },
-      },
-      [NameSpace.UI]: {
-        showSortMenu: false,
+        favoriteOffers: offers,
       },
       [NameSpace.USER]: {
-        authorizationStatus: `NO_AUTH`,
+        authorizationStatus: `AUTH`,
+        userEmail: ``,
       }
     });
+
+    const onLoadFavoriteOffers = jest.fn();
+    const changeFavoriteStatus = jest.fn();
+    const onCardHeaderClick = jest.fn();
+
     const tree = renderer
         .create(
             <Provider store={store}>
               <Router history={history}>
-                <MainScreen
-                  isOpened={true}
-                  currentSortType={`Popular`}
-                  offers = {offers}
-                  cities={cities}
-                  currentCity={currentCity}
-                  onHeaderClick = {() => {}}
-                  authorizationStatus={`NO_AUTH`}
+                <Favorites
+                  authorizationStatus={`AUTH`}
+                  onLoadFavoriteOffers={onLoadFavoriteOffers}
+                  changeFavoriteStatus={changeFavoriteStatus}
+                  onCardHeaderClick={onCardHeaderClick}
                 />
               </Router>
             </Provider>, {createNodeMock: () => {
@@ -98,4 +91,3 @@ describe(`MainScreen`, () => {
     expect(tree).toMatchSnapshot();
   });
 });
-

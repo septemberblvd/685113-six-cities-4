@@ -1,10 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {OfferType} from "../../const.js";
+import {Link} from "react-router-dom";
 
 const NearOffersItem = (props) => {
-  const {nearOffer, onCardMouseEnter, onCardMouseLeave, onHeaderClick} = props;
+  const {nearOffer, onCardMouseEnter, onCardMouseLeave, onHeaderClick, changeFavoriteStatus} = props;
   const {img, price, rating, title, type, isItFavorite} = nearOffer;
+
   return (
     <article className="near-places__card place-card" onMouseEnter={() => onCardMouseEnter(nearOffer)} onMouseLeave={() => onCardMouseLeave()}>
       <div className="near-places__image-wrapper place-card__image-wrapper">
@@ -20,7 +22,7 @@ const NearOffersItem = (props) => {
           </div>
           <button className={isItFavorite ?
             `place-card__bookmark-button place-card__bookmark-button--active button`
-            : `place-card__bookmark-button button`} type="button">
+            : `place-card__bookmark-button button`} type="button" onClick={() => changeFavoriteStatus(nearOffer.id, +!isItFavorite)}>
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -29,16 +31,15 @@ const NearOffersItem = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${rating * 20}%`}}></span>
+            <span style={{width: `${Math.round(rating) * 20}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#"
-            onClick={(evt) => {
-              evt.preventDefault();
+          <Link to={`/offer/${nearOffer.id}`}
+            onClick={() => {
               onHeaderClick(nearOffer);
-            }}>{title}</a>
+            }}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -51,6 +52,7 @@ NearOffersItem.propTypes = {
   onCardMouseLeave: PropTypes.func.isRequired,
   onHeaderClick: PropTypes.func.isRequired,
   nearOffer: OfferType,
+  changeFavoriteStatus: PropTypes.func.isRequired,
 };
 
 export default NearOffersItem;

@@ -1,6 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import NearOffersItem from "./near-offers-item.jsx";
+import {Router} from "react-router-dom";
+import history from '../../history.js';
+
 
 const offers = [
   {
@@ -37,47 +40,32 @@ const offers = [
       isSuper: true,
     },
     coords: [52.39874984984841, 4.82456445558843],
-    reviews: [
-      {
-        reviewId: 14,
-        reviewName: `Ozzy`,
-        reviewAvatar: `src`,
-        reviewGrade: 4,
-        reviewText: `Id minim labore ut velit sit velit.Magna deserunt reprehenderit consequat elit cupidatat proident nostrud amet minim nulla.`,
-        reviewTime: `May 8, 2016`,
-      },
-      {
-        reviewId: 22,
-        reviewName: `Mick`,
-        reviewAvatar: `src`,
-        reviewGrade: 2,
-        reviewText: `Incididunt fugiat non aliqua eu nisi.Id Lorem cillum non voluptate nulla id fugiat Lorem exercitation irure ullamco enim veniam ullamco.`,
-        reviewTime: `June 5, 2018`,
-      },
-    ],
-    nearOffers: [1]
   },
 ];
 
 const onCardMouseEnter = jest.fn();
 const onCardMouseLeave = jest.fn();
 const onHeaderClick = jest.fn();
+const changeFavoriteStatus = jest.fn();
 
 
 describe(`NearOfferItem`, () => {
   it(`Should NearOfferItem render correctly`, () => {
     const tree = renderer
-        .create(offers.map((it, i) => <NearOffersItem
-          key={it.id + i}
-          nearOffer={it}
-          onCardMouseEnter={onCardMouseEnter}
-          onCardMouseLeave={onCardMouseLeave}
-          onHeaderClick={onHeaderClick} />),
-        {
-          createNodeMock: () => {
-            return document.createElement(`div`);
-          }
-        })
+        .create(
+            <Router history={history}>
+              <NearOffersItem
+                nearOffer={offers[0]}
+                onCardMouseEnter={onCardMouseEnter}
+                changeFavoriteStatus={changeFavoriteStatus}
+                onCardMouseLeave={onCardMouseLeave}
+                onHeaderClick={onHeaderClick} />
+            </Router>,
+            {
+              createNodeMock: () => {
+                return document.createElement(`div`);
+              }
+            })
         .toJSON();
 
     expect(tree).toMatchSnapshot();

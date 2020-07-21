@@ -1,7 +1,7 @@
-import React from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
+import React from "react";
 import {ActionCreator} from "../../reducer/data/data.js";
+import {connect} from "react-redux";
 import {getCurrentCity} from "../../reducer/data/selectors.js";
 
 const CitiesList = (props) => {
@@ -53,7 +53,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {CitiesList};
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(CitiesList);
 

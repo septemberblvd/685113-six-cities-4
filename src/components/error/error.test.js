@@ -1,6 +1,6 @@
+import Error from "./error.jsx";
 import React from "react";
 import renderer from "react-test-renderer";
-import Error from "./error.jsx";
 
 it(`Should Error render correctly`, () => {
   const tree = renderer
