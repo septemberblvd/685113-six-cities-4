@@ -1,8 +1,8 @@
 
 import configureStore from "redux-mock-store";
-import MainScreen from "./main-screen.jsx";
-import NameSpace from "../../reducer/name-space.js";
-import React from "react";
+import MainScreen from "./main-screen";
+import NameSpace from "../../reducer/name-space";
+import * as React from "react";
 import renderer from "react-test-renderer";
 import {Router} from "react-router-dom";
 import {Provider} from "react-redux";

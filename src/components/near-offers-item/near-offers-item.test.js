@@ -1,6 +1,6 @@
-import React from "react";
+import * as React from "react";
 import renderer from "react-test-renderer";
-import NearOffersItem from "./near-offers-item.jsx";
+import NearOffersItem from "./near-offers-item";
 import {Router} from "react-router-dom";
 import history from '../../history.js';
 

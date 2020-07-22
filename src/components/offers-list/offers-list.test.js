@@ -1,6 +1,6 @@
-import React from "react";
+import * as React from "react";
 import renderer from "react-test-renderer";
-import OffersList from "./offers-list.jsx";
+import OffersList from "./offers-list";
 import {Router} from "react-router-dom";
 import history from '../../history.js';
 

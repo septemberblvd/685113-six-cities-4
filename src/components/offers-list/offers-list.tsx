@@ -1,7 +1,7 @@
-import React from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
-import OfferCard from "../offer-card/offer-card.jsx";
-import {OfferType} from "../../const.js";
+import OfferCard from "../offer-card/offer-card";
+import {OfferType} from "../../const";
 
 
 const OffersList = (props) => {

@@ -1,5 +1,5 @@
 
-import React, {PureComponent, createRef} from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {AppRoute} from "../../const";
@@ -7,12 +7,12 @@ import history from "../../history";
 import {AuthorizationStatus} from "../../reducer/user/user";
 
 
-class SingIn extends PureComponent {
+class SingIn extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.loginRef = createRef();
-    this.passwordRef = createRef();
+    this.loginRef = React.createRef();
+    this.passwordRef = React.createRef();
 
     this._handleSubmit = this._handleSubmit.bind(this);
   }

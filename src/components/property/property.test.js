@@ -1,9 +1,9 @@
-import React from "react";
+import * as React from "react";
 import renderer from "react-test-renderer";
-import {Property} from "./property.jsx";
+import {Property} from "./property";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
-import NameSpace from "../../reducer/name-space.js";
+import NameSpace from "../../reducer/name-space";
 import thunk from 'redux-thunk';
 import {Operation} from '../../reducer/data/data';
 import {Router} from "react-router-dom";

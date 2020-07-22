@@ -1,8 +1,8 @@
-import React from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
 import {Route, Redirect} from "react-router-dom";
-import {AppRoute} from "../../const.js";
-import {AuthorizationStatus} from "../../reducer/user/user.js";
+import {AppRoute} from "../../const";
+import {AuthorizationStatus} from "../../reducer/user/user";
 
 
 class PrivateRoute extends React.PureComponent {

@@ -1,29 +1,29 @@
-import React, {PureComponent} from "react";
+import * as React from "react";
 import {OfferType, AppRoute, MAX_IMAGES} from "../../const";
 import PropTypes from "prop-types";
-import ReviewsList from "../reviews-list/reviews-list.jsx";
-import NearOffersList from "../near-offers-list/near-offers-list.jsx";
-import composedWithOfferList from "../../hocs/with-offer-list.js";
-import withMap from "../../hocs/with-map.js";
-import NearOffersMap from "../near-offers-map/near-offers-map.jsx";
+import ReviewsList from "../reviews-list/reviews-list";
+import NearOffersList from "../near-offers-list/near-offers-list";
+import composedWithOfferList from "../../hocs/with-offer-list";
+import withMap from "../../hocs/with-map";
+import NearOffersMap from "../near-offers-map/near-offers-map";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/ui/ui.js";
-import {getCurrentCity, getCurrentOffers, getNearOffers, getOffers} from "../../reducer/data/selectors.js";
-import {getActiveOfferId} from "../../reducer/ui/selectors.js";
-import {getUserEmail, getAuthorizationStatus} from "../../reducer/user/selectors.js";
-import {Operation as DataOperation} from "../../reducer/data/data.js";
-import {adaptOffersAll, adaptOffer} from "../../adapter/offers.js";
+import {ActionCreator} from "../../reducer/ui/ui";
+import {getCurrentCity, getCurrentOffers, getNearOffers, getOffers} from "../../reducer/data/selectors";
+import {getActiveOfferId} from "../../reducer/ui/selectors";
+import {getUserEmail, getAuthorizationStatus} from "../../reducer/user/selectors";
+import {Operation as DataOperation} from "../../reducer/data/data";
+import {adaptOffersAll, adaptOffer} from "../../adapter/offers";
 import history from '../../history.js';
 import {AuthorizationStatus} from "../../reducer/user/user";
-import HeaderNav from "../header-nav/header-nav.jsx";
+import HeaderNav from "../header-nav/header-nav";
 
 
 const NearOffersListWrapped = composedWithOfferList(NearOffersList);
 const NearOffersMapWrapped = withMap(NearOffersMap);
 
 
-class Property extends PureComponent {
+class Property extends React.PureComponent {
   constructor(props) {
     super(props);
 

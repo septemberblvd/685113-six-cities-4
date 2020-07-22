@@ -1,17 +1,17 @@
-import React, {PureComponent} from "react";
+import * as React from "react";
 import {CommentType, MAX_COOMMENT_LENGTH} from "../../const";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import ReviewsItem from "../reviews-item/reviews-item.jsx";
-import {getCurrentComments} from "../../reducer/data/selectors.js";
-import {Operation as DataOperation} from "../../reducer/data/data.js";
-import {adaptComments} from "../../adapter/comments.js";
-import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
-import CommentForm from "../comment-form/comment-form.jsx";
+import ReviewsItem from "../reviews-item/reviews-item";
+import {getCurrentComments} from "../../reducer/data/selectors";
+import {Operation as DataOperation} from "../../reducer/data/data";
+import {adaptComments} from "../../adapter/comments";
+import {getAuthorizationStatus} from "../../reducer/user/selectors";
+import CommentForm from "../comment-form/comment-form";
 import {AuthorizationStatus} from "../../reducer/user/user";
 
 
-class ReviewsList extends PureComponent {
+class ReviewsList extends React.PureComponent {
   constructor(props) {
     super(props);
 

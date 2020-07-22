@@ -1,13 +1,13 @@
-import React, {PureComponent} from "react";
+import * as React from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {Operation as UserOperation} from "../../reducer/user/user.js";
-import {getUserEmail} from "../../reducer/user/selectors.js";
+import {Operation as UserOperation} from "../../reducer/user/user";
+import {getUserEmail} from "../../reducer/user/selectors";
 import {Link} from "react-router-dom";
-import {AppRoute} from "../../const.js";
+import {AppRoute} from "../../const";
 
 
-class HeaderNav extends PureComponent {
+class HeaderNav extends React.PureComponent {
   constructor(props) {
     super(props);
 

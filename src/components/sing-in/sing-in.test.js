@@ -1,6 +1,6 @@
-import React from "react";
+import * as React from "react";
 import renderer from "react-test-renderer";
-import SingIn from "./sing-in.jsx";
+import SingIn from "./sing-in";
 import {Router} from "react-router-dom";
 import history from '../../history.js';
 

@@ -1,8 +1,8 @@
 import configureStore from "redux-mock-store";
-import NameSpace from "../../reducer/name-space.js";
-import React from "react";
+import NameSpace from "../../reducer/name-space";
+import * as React from "react";
 import renderer from "react-test-renderer";
-import {CommentForm} from "./comment-form.jsx";
+import {CommentForm} from "./comment-form";
 import {Provider} from "react-redux";
 
 const mockStore = configureStore([]);

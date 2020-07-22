@@ -1,7 +1,7 @@
-import React from "react";
+import * as React from "react";
 import {OfferType} from "../../const";
 import PropTypes from "prop-types";
-import NearOffersItem from "../near-offers-item/near-offers-item.jsx";
+import NearOffersItem from "../near-offers-item/near-offers-item";
 
 
 const NearOffersList = (props) => {

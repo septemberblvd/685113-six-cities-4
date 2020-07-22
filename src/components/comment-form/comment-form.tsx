@@ -1,10 +1,10 @@
-import Error from "../error/error.jsx";
+import Error from "../error/error";
 import PropTypes from "prop-types";
-import React, {PureComponent, createRef} from "react";
-import {adaptComments} from "../../adapter/comments.js";
+import * as React from "react";
+import {adaptComments} from "../../adapter/comments";
 import {connect} from "react-redux";
 import {getNewComment, getNewRating, getSendStatus, getErrorStatus} from "../../reducer/data/selectors";
-import {Operation as DataOperation, ActionCreator} from "../../reducer/data/data.js";
+import {Operation as DataOperation, ActionCreator} from "../../reducer/data/data";
 
 const ratingFields = [
   {
@@ -30,14 +30,14 @@ const ratingFields = [
 ];
 
 
-class CommentForm extends PureComponent {
+class CommentForm extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.commentRef = createRef();
-    this.ratingRef = createRef();
-    this.formRef = createRef();
-    this.buttonRef = createRef();
+    this.commentRef = React.createRef();
+    this.ratingRef = React.createRef();
+    this.formRef = React.createRef();
+    this.buttonRef = React.createRef();
 
     this._handleChangeComment = this._handleChangeComment.bind(this);
     this._handleChangeRating = this._handleChangeRating.bind(this);

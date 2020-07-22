@@ -1,11 +1,10 @@
-import React, {PureComponent} from 'react';
-import PropTypes from "prop-types";
+import * as React from 'react';
 import leaflet from "leaflet";
-import {OfferType} from "../const.js";
+import {OfferType} from "../const";
 
 
 const withMap = (Component) => {
-  class WithMap extends PureComponent {
+  class WithMap extends React.PureComponent {
     constructor(props) {
       super(props);
       this._mapRef = React.createRef();

@@ -1,17 +1,17 @@
-import React, {PureComponent} from 'react';
+import * as React from 'react';
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {ActionCreator} from "../reducer/ui/ui.js";
+import {ActionCreator} from "../reducer/ui/ui";
 import {compose} from "redux";
-import {Operation as DataOperation} from "../reducer/data/data.js";
-import {adaptOffer} from "../adapter/offers.js";
+import {Operation as DataOperation} from "../reducer/data/data";
+import {adaptOffer} from "../adapter/offers";
 import {getAuthorizationStatus} from '../reducer/user/selectors.js';
 import {AuthorizationStatus} from '../reducer/user/user.js';
 import history from '../history.js';
 import {AppRoute} from '../const.js';
 
 const withOfferList = (Component) => {
-  class WithOfferList extends PureComponent {
+  class WithOfferList extends React.PureComponent {
     constructor(props) {
       super(props);
 

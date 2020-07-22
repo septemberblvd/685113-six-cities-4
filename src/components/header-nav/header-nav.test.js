@@ -1,7 +1,7 @@
 import configureStore from "redux-mock-store";
-import HeaderNav from "./header-nav.jsx";
-import NameSpace from "../../reducer/name-space.js";
-import React from "react";
+import HeaderNav from "./header-nav";
+import NameSpace from "../../reducer/name-space";
+import * as React from "react";
 import renderer from "react-test-renderer";
 import thunk from 'redux-thunk';
 import {Router} from "react-router-dom";

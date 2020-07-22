@@ -1,6 +1,6 @@
-import React from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
-import {OfferType} from "../../const.js";
+import {OfferType} from "../../const";
 import {Link} from "react-router-dom";
 
 const OfferCard = (props) => {

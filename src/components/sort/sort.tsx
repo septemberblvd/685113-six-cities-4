@@ -1,8 +1,8 @@
-import React, {PureComponent} from 'react';
+import * as React from 'react';
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {ActionCreator as ActionCreatorData} from "../../reducer/data/data.js";
-import {ActionCreator as ActionCreatorUi} from "../../reducer/ui/ui.js";
+import {ActionCreator as ActionCreatorData} from "../../reducer/data/data";
+import {ActionCreator as ActionCreatorUi} from "../../reducer/ui/ui";
 import {SortType} from '../../const.js';
 import {getCurrentSortType} from '../../reducer/data/selectors.js';
 import {getShowSortMenu} from '../../reducer/ui/selectors.js';
@@ -26,7 +26,7 @@ const menuItems = [
   }
 ];
 
-class Sort extends PureComponent {
+class Sort extends React.PureComponent {
   constructor(props) {
     super(props);
 

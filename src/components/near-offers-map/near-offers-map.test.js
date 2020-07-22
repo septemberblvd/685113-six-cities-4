@@ -1,6 +1,6 @@
-import React from "react";
+import * as React from "react";
 import renderer from "react-test-renderer";
-import NearOffersMap from "./near-offers-map.jsx";
+import NearOffersMap from "./near-offers-map";
 
 const ref = React.createRef();
 

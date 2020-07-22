@@ -1,6 +1,6 @@
-import React from "react";
+import * as React from "react";
 import renderer from "react-test-renderer";
-import ReviewsItem from "./reviews-item.jsx";
+import ReviewsItem from "./reviews-item";
 
 const review = {
   reviewId: 14,

@@ -1,19 +1,19 @@
 import PropTypes from "prop-types";
-import React, {PureComponent} from "react";
-import {ActionCreator} from "../../reducer/ui/ui.js";
+import * as React from "react";
+import {ActionCreator} from "../../reducer/ui/ui";
 import {adaptOffersAll, adaptOffer} from "../../adapter/offers";
 import {AuthorizationStatus} from "../../reducer/user/user";
 import {connect} from "react-redux";
 import {destibuteOffersByCities} from "../../utils";
-import {getAuthorizationStatus, getUserEmail} from "../../reducer/user/selectors.js";
+import {getAuthorizationStatus, getUserEmail} from "../../reducer/user/selectors";
 import {getFavoriteOffers} from "../../reducer/data/selectors";
 import {Link} from "react-router-dom";
 import {OfferType, AppRoute, citiesList} from "../../const";
-import {Operation as DataOperation} from "../../reducer/data/data.js";
-import HeaderNav from "../header-nav/header-nav.jsx";
+import {Operation as DataOperation} from "../../reducer/data/data";
+import HeaderNav from "../header-nav/header-nav";
 
 
-class Favorites extends PureComponent {
+class Favorites extends React.PureComponent {
   constructor(props) {
     super(props);
   }

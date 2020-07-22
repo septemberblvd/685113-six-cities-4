@@ -1,23 +1,44 @@
-import Favorites from "../favorites/favorites.jsx";
-import history from "../../history.js";
-import MainScreen from "../main-screen/main-screen.jsx";
-import Property from "../property/property.jsx";
-import PropTypes from "prop-types";
-import React, {PureComponent} from "react";
-import SingIn from "../sing-in/sing-in.jsx";
-import {ActionCreator} from "../../reducer/ui/ui.js";
-import {adaptOffersAll, adaptOffer} from "../../adapter/offers.js";
+import Favorites from "../favorites/favorites";
+import history from "../../history";
+import MainScreen from "../main-screen/main-screen";
+import Property from "../property/property";
+import * as React from "react";
+import SingIn from "../sing-in/sing-in";
+import {ActionCreator} from "../../reducer/ui/ui";
+import {adaptOffersAll, adaptOffer} from "../../adapter/offers";
 import {connect} from "react-redux";
-import {getActiveOffer, getActiveOfferId} from "../../reducer/ui/selectors.js";
-import {getAuthorizationStatus, getUserEmail, getLoadingStatus} from "../../reducer/user/selectors.js";
-import {getCurrentCity, getCurrentOffers, getCurrentComments, getNearOffers, getFavoriteOffers, getOffers} from "../../reducer/data/selectors.js";
-import {OfferType, AppRoute} from "../../const.js";
-import {Operation as UserOperation} from "../../reducer/user/user.js";
-import {Operation as DataOperation} from "../../reducer/data/data.js";
-import PrivateRoute from "../private-route/private-route.jsx";
+import {getActiveOffer, getActiveOfferId} from "../../reducer/ui/selectors";
+import {getAuthorizationStatus, getUserEmail, getLoadingStatus} from "../../reducer/user/selectors";
+import {getCurrentCity, getCurrentOffers, getCurrentComments, getNearOffers, getFavoriteOffers, getOffers} from "../../reducer/data/selectors";
+import {OfferType, AppRoute} from "../../const";
+import {Operation as UserOperation} from "../../reducer/user/user";
+import {Operation as DataOperation} from "../../reducer/data/data";
+import PrivateRoute from "../private-route/private-route";
 import {Switch, Route, Router} from "react-router-dom";
+import {Offer, Cities} from "../../types";
 
-class App extends PureComponent {
+interface Props {
+  authorizationStatus: string,
+  userEmail: string,
+  nearOffers: Offer[],
+  allOffers: Offer[],
+  offers: Offer[],
+  favoriteOffers: Offer[],
+  activeOffer: Offer,
+  cities: Cities[],
+  currentCity: Cities,
+  activeOfferId: number,
+  login: () => void,
+  onCardHeaderClick: (Offer) => void,
+  onLoadFavoriteOffers: () => void,
+  changeFavoriteStatus: () => void,
+  checkAuth: () => void,
+  returnToMain: () => void,
+  onLoadNearOffers: () => void,
+  isLoading: boolean,
+};
+
+class App extends React.PureComponent<Props, {}> {
   constructor(props) {
     super(props);
 
@@ -61,7 +82,6 @@ class App extends PureComponent {
           </Route>
           <Route exact path={AppRoute.SING_IN}>
             <SingIn
-              onReturnButtonClick={returnToMain}
               onSubmit={login}
               authorizationStatus={authorizationStatus}/>
           </Route>
@@ -73,13 +93,10 @@ class App extends PureComponent {
           }}>
 
           </Route>
-          <PrivateRoute
-            exact
+          <PrivateRoute exact path={AppRoute.FAVORITE}
             authorizationStatus={authorizationStatus}
             checkAuth={checkAuth}
             isLoading={isLoading}
-            path={AppRoute.FAVORITE}
-
             render={() => {
               return (
                 <Favorites
@@ -94,43 +111,6 @@ class App extends PureComponent {
 
   }
 }
-
-App.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  login: PropTypes.func.isRequired,
-  userEmail: PropTypes.string,
-  returnToMain: PropTypes.func.isRequired,
-  onLoadNearOffers: PropTypes.func,
-  nearOffers: PropTypes.arrayOf(
-      OfferType
-  ).isRequired,
-  allOffers: PropTypes.arrayOf(
-      OfferType
-  ).isRequired,
-  offers: PropTypes.arrayOf(
-      OfferType
-  ).isRequired,
-  favoriteOffers: PropTypes.arrayOf(
-      OfferType
-  ).isRequired,
-  cities: PropTypes.arrayOf(
-      PropTypes.shape({
-        cityName: PropTypes.string.isRequired,
-        cityCoords: PropTypes.array.isRequired,
-      })
-  ).isRequired,
-  currentCity: PropTypes.shape({
-    cityName: PropTypes.string.isRequired,
-    cityCoords: PropTypes.array.isRequired,
-  }),
-  activeOfferId: PropTypes.number,
-  onCardHeaderClick: PropTypes.func.isRequired,
-  activeOffer: OfferType,
-  onLoadFavoriteOffers: PropTypes.func.isRequired,
-  changeFavoriteStatus: PropTypes.func.isRequired,
-  checkAuth: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-};
 
 const mapStateToProps = (state) => ({
   userEmail: getUserEmail(state),

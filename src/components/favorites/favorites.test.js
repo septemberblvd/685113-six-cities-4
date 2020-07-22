@@ -1,8 +1,8 @@
 
 import configureStore from "redux-mock-store";
-import Favorites from "./favorites.jsx";
-import NameSpace from "../../reducer/name-space.js";
-import React from "react";
+import Favorites from "./favorites";
+import NameSpace from "../../reducer/name-space";
+import * as React from "react";
 import renderer from "react-test-renderer";
 import thunk from 'redux-thunk';
 import {Router} from "react-router-dom";
