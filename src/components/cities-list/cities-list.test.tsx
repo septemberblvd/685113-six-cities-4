@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as renderer from "react-test-renderer";
 import {CitiesList} from "./cities-list";
+import {noop} from "../../utils";
 
 const cities = [
   {
@@ -21,7 +22,7 @@ describe(`CitiesList`, () => {
           <CitiesList
             cities={cities}
             currentCity={currentCity}
-            onCityClick={() => {}}
+            onCityClick={noop}
           />,
           {createNodeMock: () => {
             return document.createElement(`div`);

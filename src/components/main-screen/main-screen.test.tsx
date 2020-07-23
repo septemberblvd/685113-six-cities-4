@@ -7,6 +7,7 @@ import * as renderer from "react-test-renderer";
 import {Router} from "react-router-dom";
 import {Provider} from "react-redux";
 import history from '../../history.js';
+import {noop} from "../../utils";
 
 
 const mockStore = configureStore([]);
@@ -19,6 +20,7 @@ const offers = [
     rating: 5,
     type: `Apartment`,
     isItPremium: true,
+    isItFavorite: true,
     id: 1,
     cityName: `Paris`,
     images: [
@@ -81,13 +83,15 @@ describe(`MainScreen`, () => {
             <Provider store={store}>
               <Router history={history}>
                 <MainScreen
-                  isOpened={true}
-                  currentSortType={`Popular`}
+                  // isOpened={true}
+                  // currentSortType={`Popular`}
                   offers = {offers}
                   cities={cities}
                   currentCity={currentCity}
-                  onHeaderClick = {() => {}}
-                  authorizationStatus={`NO_AUTH`}
+                  activeOfferId={1}
+                  userEmail={`Foo@mail.ru`}
+                  onHeaderClick={noop}
+                  // authorizationStatus={`NO_AUTH`}
                 />
               </Router>
             </Provider>, {createNodeMock: () => {

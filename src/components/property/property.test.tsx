@@ -23,6 +23,7 @@ const offer = {
   rating: 5,
   type: `Apartment`,
   isItPremium: true,
+  isItFavorite: true,
   id: 1,
   cityName: `Paris`,
   images: [
@@ -60,6 +61,7 @@ const offers = [
     rating: 5,
     type: `Apartment`,
     isItPremium: false,
+    isItFavorite: true,
     id: 1,
     cityName: `Paris`,
     images: [
@@ -134,13 +136,15 @@ describe(`Property`, () => {
                 <Property
                   authorizationStatus={`NO_AUTH`}
                   allOffers={offers}
+                  offers={offers}
+                  userEmail={`Foo@mail.ru`}
                   openedOfferId={`1`}
-                  offer={offer}
+                  // offer={offer}
                   nearOffers={offers}
                   currentCity={currentCity}
                   onCardHeaderClick = {() => {}}
                   activeOfferId= {26}
-                  onLoadComments={() => {}}
+                  // onLoadComments={() => {}}
                   onLoadNearOffers={() => {}}
                   changeFavoriteStatus={() => {}}
                 />

@@ -4,6 +4,7 @@ import * as React from "react";
 import * as renderer from "react-test-renderer";
 import {CommentForm} from "./comment-form";
 import {Provider} from "react-redux";
+import {noop} from "../../utils";
 
 const mockStore = configureStore([]);
 
@@ -24,10 +25,10 @@ describe(`CommentForm`, () => {
             id={1}
             sendStatus={false}
             isError={false}
-            onChangeSendStatus={() => {}}
-            onCommentChange={() => {}}
-            onRatingChange={() => {}}
-            onCommentUpload={() => {}}/>
+            onChangeSendStatus={noop}
+            onCommentChange={noop}
+            onRatingChange={noop}
+            onCommentUpload={noop}/>
         </Provider>,
         {createNodeMock: () => {
           return document.createElement(`div`);

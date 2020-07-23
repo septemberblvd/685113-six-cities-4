@@ -12,6 +12,7 @@ const offers = [
     rating: 5,
     type: `Apartment`,
     isItPremium: true,
+    isItFavorite: true,
     id: 1,
     cityName: `Paris`,
     images: [

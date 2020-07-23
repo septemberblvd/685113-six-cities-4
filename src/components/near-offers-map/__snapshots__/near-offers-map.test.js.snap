@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Should Map render correctly 1`] = `
-<section
-  className="property__map map"
-  id="map"
-/>
-`;
