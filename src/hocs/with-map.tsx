@@ -1,10 +1,22 @@
 import * as React from 'react';
-import leaflet from "leaflet";
-import {OfferType} from "../const";
+import * as leaflet from "leaflet";
+import { Offer, Cities } from '../types';
 
+interface Props {
+  offers: Offer[],
+  currentCity: Cities,
+  activeOfferId: number,
+};
 
 const withMap = (Component) => {
-  class WithMap extends React.PureComponent {
+
+  class WithMap extends React.PureComponent<Props, {}> {
+    private _mapRef: React.RefObject<HTMLDivElement>;
+    private _zoom: number;
+    private _city: number[];
+    private _map: any;
+
+
     constructor(props) {
       super(props);
       this._mapRef = React.createRef();
@@ -64,7 +76,6 @@ const withMap = (Component) => {
     }
 
     componentWillUnmount() {
-      this._mapRef.current = null;
       this._map = null;
     }
 
@@ -75,17 +86,6 @@ const withMap = (Component) => {
       />;
     }
   }
-
-  WithMap.propTypes = {
-    offers: PropTypes.arrayOf(
-        OfferType
-    ).isRequired,
-    currentCity: PropTypes.shape({
-      cityName: PropTypes.string.isRequired,
-      cityCoords: PropTypes.array.isRequired,
-    }),
-    activeOfferId: PropTypes.number,
-  };
 
   return WithMap;
 };

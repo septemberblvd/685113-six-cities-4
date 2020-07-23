@@ -1,4 +1,4 @@
-import {SortType} from './const.js';
+import {SortType, MAX_COOMMENT_LENGTH} from './const.js';
 
 const extend = (a, b) => {
   return Object.assign({}, a, b);
@@ -44,4 +44,12 @@ const destibuteOffersByCities = (cities, offers) => {
   );
 };
 
-export {extend, getOffersInCity, getSortedOffers, updateArrayWithNewElement, destibuteOffersByCities};
+const sortComments = (comments) => {
+  return comments.slice(0, comments.length).sort((a, b) => new Date(b.reviewTime) - new Date(a.reviewTime)).slice(0, MAX_COOMMENT_LENGTH);
+};
+
+const noop = () => {
+  // do nothing
+};
+
+export {extend, getOffersInCity, getSortedOffers, updateArrayWithNewElement, destibuteOffersByCities, sortComments, noop};

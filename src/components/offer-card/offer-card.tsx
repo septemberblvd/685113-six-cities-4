@@ -1,9 +1,16 @@
 import * as React from "react";
-import PropTypes from "prop-types";
-import {OfferType} from "../../const";
 import {Link} from "react-router-dom";
+import {Offer} from "../../types";
 
-const OfferCard = (props) => {
+interface Props {
+  onCardMouseEnter: (offer: Offer) => void,
+  onCardMouseLeave: () => void,
+  onHeaderClick: (offer: Offer) => void,
+  offer: Offer,
+  changeFavoriteStatus: (id, status: number) => void,
+};
+
+const OfferCard: React.FunctionComponent<Props> = (props: Props) => {
   const {offer, onCardMouseEnter, onCardMouseLeave, onHeaderClick, changeFavoriteStatus} = props;
   const {isItPremium, img, price, rating, title, type, isItFavorite, id} = offer;
 
@@ -45,14 +52,6 @@ const OfferCard = (props) => {
       <p className="place-card__type">{type}</p>
     </div>
   </article>;
-};
-
-OfferCard.propTypes = {
-  onCardMouseEnter: PropTypes.func.isRequired,
-  onCardMouseLeave: PropTypes.func.isRequired,
-  onHeaderClick: PropTypes.func.isRequired,
-  offer: OfferType,
-  changeFavoriteStatus: PropTypes.func.isRequired,
 };
 
 export default OfferCard;

@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import * as React from "react";
 import {ActionCreator} from "../../reducer/ui/ui";
 import {adaptOffersAll, adaptOffer} from "../../adapter/offers";
@@ -8,12 +7,21 @@ import {destibuteOffersByCities} from "../../utils";
 import {getAuthorizationStatus, getUserEmail} from "../../reducer/user/selectors";
 import {getFavoriteOffers} from "../../reducer/data/selectors";
 import {Link} from "react-router-dom";
-import {OfferType, AppRoute, citiesList} from "../../const";
+import {AppRoute, citiesList} from "../../const";
 import {Operation as DataOperation} from "../../reducer/data/data";
 import HeaderNav from "../header-nav/header-nav";
+import { Offer } from "../../types";
 
+interface Props {
+  favoriteOffers: Offer[],
+  onLoadFavoriteOffers: () => void,
+  authorizationStatus: string,
+  userEmail: string,
+  onCardHeaderClick: (offer: Offer) => void,
+  changeFavoriteStatus: (id, status: number) => void,
+};
 
-class Favorites extends React.PureComponent {
+class Favorites extends React.PureComponent<Props, {}> {
   constructor(props) {
     super(props);
   }
@@ -130,14 +138,6 @@ class Favorites extends React.PureComponent {
     );
   }
 }
-Favorites.propTypes = {
-  favoriteOffers: OfferType,
-  onLoadFavoriteOffers: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  userEmail: PropTypes.string.isRequired,
-  onCardHeaderClick: PropTypes.func.isRequired,
-  changeFavoriteStatus: PropTypes.func.isRequired,
-};
 
 const mapStateToProps = (state) => ({
   favoriteOffers: getFavoriteOffers(state),

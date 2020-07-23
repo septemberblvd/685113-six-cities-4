@@ -1,13 +1,17 @@
 import * as React from "react";
 import {connect} from "react-redux";
-import PropTypes from "prop-types";
 import {Operation as UserOperation} from "../../reducer/user/user";
 import {getUserEmail} from "../../reducer/user/selectors";
 import {Link} from "react-router-dom";
 import {AppRoute} from "../../const";
 
+interface Props {
+  userEmail: string,
+  checkAuth: () => void,
+};
 
-class HeaderNav extends React.PureComponent {
+
+class HeaderNav extends React.PureComponent<Props, {}> {
   constructor(props) {
     super(props);
 
@@ -35,11 +39,6 @@ class HeaderNav extends React.PureComponent {
     </nav>;
   }
 }
-
-HeaderNav.propTypes = {
-  userEmail: PropTypes.string,
-  checkAuth: PropTypes.func.isRequired,
-};
 
 const mapStateToProps = (state) => ({
   userEmail: getUserEmail(state),

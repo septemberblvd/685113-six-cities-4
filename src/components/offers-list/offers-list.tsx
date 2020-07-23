@@ -1,10 +1,17 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import OfferCard from "../offer-card/offer-card";
 import {OfferType} from "../../const";
+import { Offer } from "../../types";
 
+interface Props {
+  offers: Offer[],
+  onHeaderClick: () => void,
+  onCardMouseEnter: () => void,
+  onCardMouseLeave: () => void,
+  changeFavoriteStatus: () => void,
+};
 
-const OffersList = (props) => {
+const OffersList: React.FunctionComponent<Props> = (props: Props) => {
 
   const {offers, onHeaderClick, onCardMouseEnter, onCardMouseLeave, changeFavoriteStatus} = props;
   return (
@@ -19,16 +26,6 @@ const OffersList = (props) => {
       />)}
     </div>
   );
-};
-
-OffersList.propTypes = {
-  offers: PropTypes.arrayOf(
-      OfferType
-  ).isRequired,
-  onHeaderClick: PropTypes.func.isRequired,
-  onCardMouseEnter: PropTypes.func.isRequired,
-  onCardMouseLeave: PropTypes.func.isRequired,
-  changeFavoriteStatus: PropTypes.func.isRequired,
 };
 
 export default OffersList;

@@ -1,9 +1,9 @@
 
-import configureStore from "redux-mock-store";
+import * as configureStore from "redux-mock-store";
 import Favorites from "./favorites";
 import NameSpace from "../../reducer/name-space";
 import * as React from "react";
-import renderer from "react-test-renderer";
+import * as renderer from "react-test-renderer";
 import thunk from 'redux-thunk';
 import {Router} from "react-router-dom";
 import {Operation} from '../../reducer/data/data';

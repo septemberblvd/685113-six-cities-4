@@ -1,10 +1,10 @@
 import Error from "../error/error";
-import PropTypes from "prop-types";
 import * as React from "react";
 import {adaptComments} from "../../adapter/comments";
 import {connect} from "react-redux";
 import {getNewComment, getNewRating, getSendStatus, getErrorStatus} from "../../reducer/data/selectors";
 import {Operation as DataOperation, ActionCreator} from "../../reducer/data/data";
+import {Comment} from "../../types";
 
 const ratingFields = [
   {
@@ -29,8 +29,27 @@ const ratingFields = [
   },
 ];
 
+interface Props {
+  id: number,
+  newComment: string,
+  newRating: string,
+  onCommentChange: (comment: string) => void,
+  onRatingChange: (rating: string) => void,
+  onCommentUpload: (comment: Comment,
+    adaptCallback: () => void,
+    id: number,
+    sendStatus: boolean) => void,
+  sendStatus: boolean,
+  onChangeSendStatus: (sendStatus: boolean) => void,
+  isError: boolean,
+};
 
-class CommentForm extends React.PureComponent {
+class CommentForm extends React.PureComponent<Props, {}> {
+  private commentRef: React.RefObject<HTMLTextAreaElement>;
+  private ratingRef: React.RefObject<HTMLInputElement>;
+  private formRef: React.RefObject<HTMLFormElement>;
+  private buttonRef: React.RefObject<HTMLInputElement>;
+
   constructor(props) {
     super(props);
 
@@ -167,17 +186,6 @@ class CommentForm extends React.PureComponent {
     );
   }
 }
-CommentForm.propTypes = {
-  id: PropTypes.number.isRequired,
-  newComment: PropTypes.string,
-  newRating: PropTypes.string,
-  onCommentChange: PropTypes.func.isRequired,
-  onRatingChange: PropTypes.func.isRequired,
-  onCommentUpload: PropTypes.func.isRequired,
-  sendStatus: PropTypes.bool.isRequired,
-  onChangeSendStatus: PropTypes.func.isRequired,
-  isError: PropTypes.bool.isRequired,
-};
 
 const mapStateToProps = (state) => ({
   newComment: getNewComment(state),

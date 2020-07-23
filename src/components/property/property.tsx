@@ -1,6 +1,5 @@
 import * as React from "react";
 import {OfferType, AppRoute, MAX_IMAGES} from "../../const";
-import PropTypes from "prop-types";
 import ReviewsList from "../reviews-list/reviews-list";
 import NearOffersList from "../near-offers-list/near-offers-list";
 import composedWithOfferList from "../../hocs/with-offer-list";
@@ -17,13 +16,29 @@ import {adaptOffersAll, adaptOffer} from "../../adapter/offers";
 import history from '../../history.js';
 import {AuthorizationStatus} from "../../reducer/user/user";
 import HeaderNav from "../header-nav/header-nav";
+import { Offer, Cities, Owner } from "../../types";
 
 
 const NearOffersListWrapped = composedWithOfferList(NearOffersList);
 const NearOffersMapWrapped = withMap(NearOffersMap);
 
+interface Props {
+  userEmail: string,
+  offers: Offer[],
+  openedOfferId: string,
+  nearOffers: Offer[],
+  allOffers: Offer[],
+  currentCity: Cities,
+  activeOfferId: number,
+  authorizationStatus: string,
+  changeFavoriteStatus: (id, status: number) => void,
+  onLoadNearOffers: (openedOfferId: string) => void,
+  onCardHeaderClick: (offer: Offer) => void,
+};
 
-class Property extends React.PureComponent {
+class Property extends React.PureComponent<Props, {}> {
+  private offer: Offer;
+
   constructor(props) {
     super(props);
 
@@ -71,9 +86,10 @@ class Property extends React.PureComponent {
       openedOfferId,
     } = this.props;
 
+
     const offer = allOffers.find((it) => it.id === +openedOfferId);
 
-    return offer ? <div className="page" id={offer.id}>
+    return offer ? <div className="page">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -181,27 +197,6 @@ class Property extends React.PureComponent {
     </div> : ``;
   }
 }
-
-Property.propTypes = {
-  userEmail: PropTypes.string,
-  offers: PropTypes.arrayOf(OfferType),
-  openedOfferId: PropTypes.string.isRequired,
-  nearOffers: PropTypes.arrayOf(
-      OfferType
-  ),
-  allOffers: PropTypes.arrayOf(
-      OfferType
-  ),
-  currentCity: PropTypes.shape({
-    cityName: PropTypes.string.isRequired,
-    cityCoords: PropTypes.array.isRequired,
-  }),
-  activeOfferId: PropTypes.number,
-  authorizationStatus: PropTypes.string.isRequired,
-  changeFavoriteStatus: PropTypes.func.isRequired,
-  onLoadNearOffers: PropTypes.func.isRequired,
-  onCardHeaderClick: PropTypes.func.isRequired,
-};
 
 const mapStateToProps = (state) => ({
   userEmail: getUserEmail(state),

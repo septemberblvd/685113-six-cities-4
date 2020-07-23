@@ -1,21 +1,30 @@
 import CitiesList from "../cities-list/cities-list";
 import composedWithOfferList from "../../hocs/with-offer-list";
 import Map from "../map/map";
-import NoOffers from '../no-offers/no-offers.jsx';
+import NoOffers from '../no-offers/no-offers';
 import OffersList from "../offers-list/offers-list";
-import PropTypes from "prop-types";
 import * as React from "react";
 import Sort from "../sort/sort";
 import withMap from "../../hocs/with-map";
 import {Link} from "react-router-dom";
-import {OfferType, AppRoute} from "../../const";
+import {AppRoute} from "../../const";
 import HeaderNav from "../header-nav/header-nav";
+import { Offer, Cities } from "../../types";
 
 
 const OffersListWrapped = composedWithOfferList(OffersList);
 const MapWrapped = withMap(Map);
 
-const MainScreen = (props) => {
+interface Props {
+  offers: Offer[],
+  onHeaderClick: (offer: Offer) => void,
+  cities: Cities[],
+  currentCity: Cities,
+  activeOfferId: number,
+  userEmail: string,
+};
+
+const MainScreen: React.FunctionComponent<Props> = (props: Props) => {
   const {cities, offers, currentCity, onHeaderClick, activeOfferId} = props;
 
   return <div className="page page--gray page--main">
@@ -56,25 +65,6 @@ const MainScreen = (props) => {
   </div>;
 
 
-};
-
-MainScreen.propTypes = {
-  offers: PropTypes.arrayOf(
-      OfferType
-  ).isRequired,
-  onHeaderClick: PropTypes.func.isRequired,
-  cities: PropTypes.arrayOf(
-      PropTypes.shape({
-        cityName: PropTypes.string.isRequired,
-        cityCoords: PropTypes.array.isRequired,
-      })
-  ).isRequired,
-  currentCity: PropTypes.shape({
-    cityName: PropTypes.string.isRequired,
-    cityCoords: PropTypes.array.isRequired,
-  }),
-  activeOfferId: PropTypes.number,
-  userEmail: PropTypes.string,
 };
 
 

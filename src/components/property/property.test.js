@@ -1,7 +1,7 @@
 import * as React from "react";
-import renderer from "react-test-renderer";
+import * as renderer from "react-test-renderer";
 import {Property} from "./property";
-import configureStore from "redux-mock-store";
+import * as configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import NameSpace from "../../reducer/name-space";
 import thunk from 'redux-thunk';

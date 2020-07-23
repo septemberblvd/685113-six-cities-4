@@ -1,11 +1,18 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import {Route, Redirect} from "react-router-dom";
 import {AppRoute} from "../../const";
 import {AuthorizationStatus} from "../../reducer/user/user";
 
+interface Props {
+  authorizationStatus: string,
+  exact: boolean,
+  path: string,
+  render: () => void,
+  checkAuth: () => void,
+  isLoading: boolean,
+};
 
-class PrivateRoute extends React.PureComponent {
+class PrivateRoute extends React.PureComponent<Props, {}> {
   constructor(props) {
     super(props);
   }
@@ -46,15 +53,6 @@ class PrivateRoute extends React.PureComponent {
     );
   }
 }
-
-PrivateRoute.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  exact: PropTypes.bool.isRequired,
-  path: PropTypes.string.isRequired,
-  render: PropTypes.func.isRequired,
-  checkAuth: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-};
 
 export default PrivateRoute;
 

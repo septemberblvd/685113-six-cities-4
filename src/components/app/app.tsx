@@ -10,7 +10,7 @@ import {connect} from "react-redux";
 import {getActiveOffer, getActiveOfferId} from "../../reducer/ui/selectors";
 import {getAuthorizationStatus, getUserEmail, getLoadingStatus} from "../../reducer/user/selectors";
 import {getCurrentCity, getCurrentOffers, getCurrentComments, getNearOffers, getFavoriteOffers, getOffers} from "../../reducer/data/selectors";
-import {OfferType, AppRoute} from "../../const";
+import {AppRoute} from "../../const";
 import {Operation as UserOperation} from "../../reducer/user/user";
 import {Operation as DataOperation} from "../../reducer/data/data";
 import PrivateRoute from "../private-route/private-route";
@@ -29,7 +29,7 @@ interface Props {
   currentCity: Cities,
   activeOfferId: number,
   login: () => void,
-  onCardHeaderClick: (Offer) => void,
+  onCardHeaderClick: (offer: Offer) => void,
   onLoadFavoriteOffers: () => void,
   changeFavoriteStatus: () => void,
   checkAuth: () => void,
@@ -56,7 +56,6 @@ class App extends React.PureComponent<Props, {}> {
     const {
       authorizationStatus,
       login,
-      returnToMain,
       favoriteOffers,
       userEmail,
       offers,

@@ -1,9 +1,10 @@
 import * as React from "react";
-import renderer from "react-test-renderer";
+import * as renderer from "react-test-renderer";
 import {App} from "./app";
-import configureStore from "redux-mock-store";
+import * as configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import NameSpace from "../../reducer/name-space";
+import {noop} from "../../utils";
 
 const mockStore = configureStore([]);
 
@@ -73,15 +74,19 @@ describe(`App`, () => {
       },
       [NameSpace.USER]: {
         authorizationStatus: `NO_AUTH`,
+        userEmail: `Foo@Mail.ru`,
       }
     });
     const tree = renderer
     .create(
         <Provider store={store}>
           <App
-            isOpened={true}
+            // isOpened={true}
             authorizationStatus={`NO_AUTH`}
-            currentSortType={`Popular`}
+            userEmail={`Foo@Mail.ru`}
+            activeOffer={offers[0]}
+            activeOfferId={1}
+            // currentSortType={`Popular`}
             offers = {offers}
             allOffers={offers}
             favoriteOffers={offers}
@@ -89,14 +94,15 @@ describe(`App`, () => {
             currentCity={currentCity}
             isLoading={true}
             nearOffers={[]}
-            login = {() => {}}
-            checkAuth={() =>{}}
-            returnToMain = {() => {}}
-            onHeaderClick = {() => {}}
-            loadComments = {() => {}}
-            onLoadFavoriteOffers = {() => {}}
-            changeFavoriteStatus = {() => {}}
-            onCardHeaderClick = {() => {}}/>
+            login = {noop}
+            checkAuth={noop}
+            returnToMain = {noop}
+            // onHeaderClick = {noop}
+            // loadComments = {noop}
+            onLoadNearOffers={noop}
+            onLoadFavoriteOffers = {noop}
+            changeFavoriteStatus = {noop}
+            onCardHeaderClick = {noop}/>
         </Provider>,
         {createNodeMock: () => {
           return document.createElement(`div`);

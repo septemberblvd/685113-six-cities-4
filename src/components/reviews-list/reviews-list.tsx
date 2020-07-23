@@ -1,7 +1,6 @@
 import * as React from "react";
-import {CommentType, MAX_COOMMENT_LENGTH} from "../../const";
+import {sortComments} from "../../utils";
 import {connect} from "react-redux";
-import PropTypes from "prop-types";
 import ReviewsItem from "../reviews-item/reviews-item";
 import {getCurrentComments} from "../../reducer/data/selectors";
 import {Operation as DataOperation} from "../../reducer/data/data";
@@ -9,9 +8,16 @@ import {adaptComments} from "../../adapter/comments";
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
 import CommentForm from "../comment-form/comment-form";
 import {AuthorizationStatus} from "../../reducer/user/user";
+import { Review } from "../../types";
 
+interface Props {
+  comments: Review[],
+  id: number,
+  onLoadComments: (id: number) => void,
+  authorizationStatus: string,
+};
 
-class ReviewsList extends React.PureComponent {
+class ReviewsList extends React.PureComponent<Props, {}> {
   constructor(props) {
     super(props);
 
@@ -24,7 +30,7 @@ class ReviewsList extends React.PureComponent {
 
   render() {
     const {comments, authorizationStatus, id} = this.props;
-    const sortedComments = comments.slice(0, comments.length).sort((a, b) => new Date(b.reviewTime) - new Date(a.reviewTime)).slice(0, MAX_COOMMENT_LENGTH);
+    const sortedComments = sortComments(comments)
 
     return (
       <section className="property__reviews reviews">
@@ -40,13 +46,6 @@ class ReviewsList extends React.PureComponent {
     );
   }
 }
-
-ReviewsList.propTypes = {
-  comments: CommentType,
-  id: PropTypes.number.isRequired,
-  onLoadComments: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-};
 
 const mapStateToProps = (state) => ({
   comments: getCurrentComments(state),

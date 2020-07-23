@@ -1,14 +1,13 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 
-const NearOffersMap = (props) => {
+interface Props {
+  mapRef: React.RefObject<HTMLInputElement>,
+};
+
+const NearOffersMap: React.FunctionComponent<Props> = (props: Props) => {
   return (
     <section className="property__map map" id={`map`} ref={props.mapRef}></section>
   );
-};
-
-NearOffersMap.propTypes = {
-  mapRef: PropTypes.shape().isRequired
 };
 
 export default NearOffersMap;

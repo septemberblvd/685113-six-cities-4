@@ -1,8 +1,12 @@
 import * as React from "react";
-import PropTypes from "prop-types";
-import moment from "moment";
+import * as moment from "moment";
+import { Review } from "../../types";
 
-const ReviewsItem = (props) => {
+interface Props {
+  review: Review,
+};
+
+const ReviewsItem: React.FunctionComponent<Props> = (props: Props) => {
   const {review} = props;
   const {reviewName, reviewAvatar, reviewGrade, reviewText, reviewTime} = review;
 
@@ -30,16 +34,6 @@ const ReviewsItem = (props) => {
       </div>
     </li>
   );
-};
-
-ReviewsItem.propTypes = {
-  review: PropTypes.shape({
-    reviewName: PropTypes.string.isRequired,
-    reviewAvatar: PropTypes.string.isRequired,
-    reviewGrade: PropTypes.number.isRequired,
-    reviewText: PropTypes.string.isRequired,
-    reviewTime: PropTypes.string.isRequired,
-  }).isRequired
 };
 
 export default ReviewsItem;

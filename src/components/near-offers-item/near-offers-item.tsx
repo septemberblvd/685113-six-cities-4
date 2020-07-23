@@ -1,9 +1,16 @@
 import * as React from "react";
-import PropTypes from "prop-types";
-import {OfferType} from "../../const";
 import {Link} from "react-router-dom";
+import {Offer} from "../../types";
 
-const NearOffersItem = (props) => {
+interface Props {
+  onCardMouseEnter: (nearOffer: Offer) => void,
+  onCardMouseLeave: () => void,
+  onHeaderClick: (nearOffer: Offer) => void,
+  nearOffer: Offer,
+  changeFavoriteStatus: (id, status: number) => void,
+};
+
+const NearOffersItem: React.FunctionComponent<Props> = (props: Props) => {
   const {nearOffer, onCardMouseEnter, onCardMouseLeave, onHeaderClick, changeFavoriteStatus} = props;
   const {img, price, rating, title, type, isItFavorite} = nearOffer;
 
@@ -45,14 +52,6 @@ const NearOffersItem = (props) => {
       </div>
     </article>
   );
-};
-
-NearOffersItem.propTypes = {
-  onCardMouseEnter: PropTypes.func.isRequired,
-  onCardMouseLeave: PropTypes.func.isRequired,
-  onHeaderClick: PropTypes.func.isRequired,
-  nearOffer: OfferType,
-  changeFavoriteStatus: PropTypes.func.isRequired,
 };
 
 export default NearOffersItem;

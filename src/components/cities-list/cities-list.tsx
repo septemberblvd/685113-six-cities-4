@@ -1,10 +1,16 @@
-import PropTypes from "prop-types";
 import * as React from "react";
 import {ActionCreator} from "../../reducer/data/data";
 import {connect} from "react-redux";
 import {getCurrentCity} from "../../reducer/data/selectors";
+import { Cities } from "../../types";
 
-const CitiesList = (props) => {
+  interface Props {
+    cities: Cities[],
+    currentCity: Cities,
+    onCityClick: (evt: {}, city: Cities) => void,
+  };
+
+  const CitiesList: React.FunctionComponent<Props> = (props: Props) => {
   const {cities, currentCity, onCityClick} = props;
 
   return (
@@ -24,20 +30,6 @@ const CitiesList = (props) => {
       </ul>
     </section>
   );
-};
-
-CitiesList.propTypes = {
-  cities: PropTypes.arrayOf(
-      PropTypes.shape({
-        cityName: PropTypes.string.isRequired,
-        cityCoords: PropTypes.array.isRequired,
-      })
-  ).isRequired,
-  currentCity: PropTypes.shape({
-    cityName: PropTypes.string.isRequired,
-    cityCoords: PropTypes.array.isRequired,
-  }),
-  onCityClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

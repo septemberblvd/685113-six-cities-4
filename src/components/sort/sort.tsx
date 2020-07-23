@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {connect} from "react-redux";
-import PropTypes from "prop-types";
 import {ActionCreator as ActionCreatorData} from "../../reducer/data/data";
 import {ActionCreator as ActionCreatorUi} from "../../reducer/ui/ui";
 import {SortType} from '../../const.js';
@@ -26,7 +25,14 @@ const menuItems = [
   }
 ];
 
-class Sort extends React.PureComponent {
+interface Props {
+  isOpened: boolean,
+  onShowSortMenu: (isOpened: boolean) => void,
+  currentSortType: string,
+  onSort: (sortType: string) => void,
+};
+
+class Sort extends React.PureComponent<Props, {}> {
   constructor(props) {
     super(props);
 
@@ -55,7 +61,7 @@ class Sort extends React.PureComponent {
     return (
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>
-        <span className="places__sorting-type" onClick={this._handleSortClick} tabIndex="0">
+        <span className="places__sorting-type" onClick={this._handleSortClick} tabIndex={0}>
           {currentSortType}
           <svg className="places__sorting-arrow" width="7" height="4">
             <use xlinkHref="#icon-arrow-select"></use>
@@ -66,7 +72,7 @@ class Sort extends React.PureComponent {
           {menuItems.map((menuItem, i) => (
             <li key={menuItem.type + i}
               className={`places__option ${menuItem.type === currentSortType && `places__option--active`}`}
-              tabIndex="0"
+              tabIndex={0}
               onClick={() => this._handleMenuClick(menuItem.type)}
             >
               {menuItem.text}
@@ -91,13 +97,6 @@ const mapStateToProps = (state) => ({
   currentSortType: getCurrentSortType(state),
   isOpened: getShowSortMenu(state),
 });
-
-Sort.propTypes = {
-  isOpened: PropTypes.bool,
-  onShowSortMenu: PropTypes.func.isRequired,
-  currentSortType: PropTypes.string,
-  onSort: PropTypes.func.isRequired,
-};
 
 export {Sort};
 

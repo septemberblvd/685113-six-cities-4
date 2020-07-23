@@ -1,9 +1,9 @@
 
-import configureStore from "redux-mock-store";
+import * as configureStore from "redux-mock-store";
 import MainScreen from "./main-screen";
 import NameSpace from "../../reducer/name-space";
 import * as React from "react";
-import renderer from "react-test-renderer";
+import * as renderer from "react-test-renderer";
 import {Router} from "react-router-dom";
 import {Provider} from "react-redux";
 import history from '../../history.js';

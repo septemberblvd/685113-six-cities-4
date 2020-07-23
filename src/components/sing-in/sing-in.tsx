@@ -1,13 +1,21 @@
 
 import * as React from "react";
-import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {AppRoute} from "../../const";
 import history from "../../history";
 import {AuthorizationStatus} from "../../reducer/user/user";
 
 
-class SingIn extends React.PureComponent {
+interface Props {
+  onSubmit: ({login, password: string}) => void
+  authorizationStatus: string,
+};
+
+
+class SingIn extends React.PureComponent<Props, null> {
+  private loginRef: React.RefObject<HTMLInputElement>;
+  private passwordRef: React.RefObject<HTMLInputElement>;
+
   constructor(props) {
     super(props);
 
@@ -37,7 +45,6 @@ class SingIn extends React.PureComponent {
   }
 
   render() {
-    const {onReturnButtonClick} = this.props;
 
     return (
       <div className="page page--gray page--login">
@@ -71,12 +78,12 @@ class SingIn extends React.PureComponent {
               <form className="login__form form" action="#" method="post" onSubmit={this._handleSubmit}>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">E-mail</label>
-                  <input className="login__input form__input" type="email" name="email" placeholder="Email" required=""
+                  <input className="login__input form__input" type="email" name="email" placeholder="Email" 
                     ref={this.loginRef} />
                 </div>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">Password</label>
-                  <input className="login__input form__input" type="password" name="password" placeholder="Password" required=""
+                  <input className="login__input form__input" type="password" name="password" placeholder="Password" 
                     ref={this.passwordRef} />
                 </div>
                 <button className="login__submit form__submit button" type="submit">Sign in</button>
@@ -84,7 +91,7 @@ class SingIn extends React.PureComponent {
             </section>
             <section className="locations locations--login locations--current">
               <div className="locations__item">
-                <Link className="locations__item-link" to={AppRoute.ROOT} onClick={onReturnButtonClick}>
+                <Link className="locations__item-link" to={AppRoute.ROOT}>
                   <span>Amsterdam</span>
                 </Link>
               </div>
@@ -95,12 +102,6 @@ class SingIn extends React.PureComponent {
     );
   }
 }
-
-SingIn.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  onReturnButtonClick: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-};
 
 
 export default SingIn;

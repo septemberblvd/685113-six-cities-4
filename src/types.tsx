@@ -1,7 +1,7 @@
 export interface Owner {
     avatar: string,
-      name: string,
-      isSuper: boolean,
+    name: string,
+    isSuper: boolean,
 }
 
 export interface Offer {
@@ -19,10 +19,24 @@ export interface Offer {
     bedrooms: number,
     guests: number,
     appliances: string[],
-    owner: Owner[],
+    owner: Owner,
 }
 
 export interface Cities {
     cityName: string,
     cityCoords: number[],
+}
+
+export interface Comment {
+    comment: string,
+    rating: string,
+}
+
+export interface Review {
+    reviewName: string,
+    reviewAvatar: string,
+    reviewGrade: number,
+    reviewText: string,
+    reviewTime: string,
+    reviewId: number,
 }

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {connect} from "react-redux";
-import PropTypes from "prop-types";
 import {ActionCreator} from "../reducer/ui/ui";
 import {compose} from "redux";
 import {Operation as DataOperation} from "../reducer/data/data";
@@ -10,8 +9,15 @@ import {AuthorizationStatus} from '../reducer/user/user.js';
 import history from '../history.js';
 import {AppRoute} from '../const.js';
 
+interface Props {
+  onCardMouseEnter: () => void,
+  onCardMouseLeave: () => void,
+  changeFavoriteStatus: (id, status: number) => void,
+  authorizationStatus: string,
+};
+
 const withOfferList = (Component) => {
-  class WithOfferList extends React.PureComponent {
+  class WithOfferList extends React.PureComponent<Props, []> {
     constructor(props) {
       super(props);
 
@@ -37,13 +43,6 @@ const withOfferList = (Component) => {
       />;
     }
   }
-
-  WithOfferList.propTypes = {
-    onCardMouseEnter: PropTypes.func.isRequired,
-    onCardMouseLeave: PropTypes.func.isRequired,
-    changeFavoriteStatus: PropTypes.func.isRequired,
-    authorizationStatus: PropTypes.string.isRequired,
-  };
 
   return WithOfferList;
 };

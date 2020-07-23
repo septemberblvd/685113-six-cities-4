@@ -1,10 +1,16 @@
 import * as React from "react";
-import {OfferType} from "../../const";
-import PropTypes from "prop-types";
 import NearOffersItem from "../near-offers-item/near-offers-item";
+import { Offer } from "../../types";
 
+interface Props {
+  nearOffers: Offer[],
+  onHeaderClick: () => void,
+  onCardMouseEnter: () => void,
+  onCardMouseLeave: () => void,
+  changeFavoriteStatus: () => void,
+};
 
-const NearOffersList = (props) => {
+const NearOffersList: React.FunctionComponent<Props> = (props: Props) => {
 
   const {nearOffers, onCardMouseEnter, onHeaderClick, onCardMouseLeave, changeFavoriteStatus} = props;
   return (
@@ -22,16 +28,6 @@ const NearOffersList = (props) => {
       </div>
     </section>
   );
-};
-
-NearOffersList.propTypes = {
-  nearOffers: PropTypes.arrayOf(
-      OfferType
-  ).isRequired,
-  onHeaderClick: PropTypes.func.isRequired,
-  onCardMouseEnter: PropTypes.func.isRequired,
-  onCardMouseLeave: PropTypes.func.isRequired,
-  changeFavoriteStatus: PropTypes.func.isRequired,
 };
 
 export default NearOffersList;
