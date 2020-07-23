@@ -1,4 +1,4 @@
-import * as configureStore from "redux-mock-store";
+import configureStore from "redux-mock-store";
 import HeaderNav from "./header-nav";
 import NameSpace from "../../reducer/name-space";
 import * as React from "react";

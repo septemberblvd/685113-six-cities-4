@@ -1,6 +1,7 @@
 import * as React from "react";
-import Enzyme, {mount} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import * as Enzyme from 'enzyme';
+import {mount} from 'enzyme';
+import * as Adapter from "enzyme-adapter-react-16";
 import OfferCard from "./offer-card";
 import {Router} from "react-router-dom";
 import history from '../../history.js';

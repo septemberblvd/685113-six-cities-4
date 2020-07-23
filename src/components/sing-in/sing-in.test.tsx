@@ -11,7 +11,6 @@ it(`AuthScreen component render correctly`, () => {
       <Router history={history}>
         <SingIn
           authorizationStatus={`NO_AUTH`}
-          // onReturnButtonClick={noop}
           onSubmit={noop}
         />
       </Router>

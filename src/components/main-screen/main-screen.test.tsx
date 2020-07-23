@@ -1,5 +1,5 @@
 
-import * as configureStore from "redux-mock-store";
+import configureStore from "redux-mock-store";
 import MainScreen from "./main-screen";
 import NameSpace from "../../reducer/name-space";
 import * as React from "react";
@@ -83,15 +83,12 @@ describe(`MainScreen`, () => {
             <Provider store={store}>
               <Router history={history}>
                 <MainScreen
-                  // isOpened={true}
-                  // currentSortType={`Popular`}
                   offers = {offers}
                   cities={cities}
                   currentCity={currentCity}
                   activeOfferId={1}
                   userEmail={`Foo@mail.ru`}
                   onHeaderClick={noop}
-                  // authorizationStatus={`NO_AUTH`}
                 />
               </Router>
             </Provider>, {createNodeMock: () => {

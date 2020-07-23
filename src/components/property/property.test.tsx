@@ -1,13 +1,14 @@
 import * as React from "react";
 import * as renderer from "react-test-renderer";
 import {Property} from "./property";
-import * as configureStore from "redux-mock-store";
+import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import NameSpace from "../../reducer/name-space";
 import thunk from 'redux-thunk';
 import {Operation} from '../../reducer/data/data';
 import {Router} from "react-router-dom";
 import history from '../../history.js';
+import {noop} from "../../utils";
 
 
 const middlewares = [thunk];
@@ -139,14 +140,12 @@ describe(`Property`, () => {
                   offers={offers}
                   userEmail={`Foo@mail.ru`}
                   openedOfferId={`1`}
-                  // offer={offer}
                   nearOffers={offers}
                   currentCity={currentCity}
-                  onCardHeaderClick = {() => {}}
+                  onCardHeaderClick = {noop}
                   activeOfferId= {26}
-                  // onLoadComments={() => {}}
-                  onLoadNearOffers={() => {}}
-                  changeFavoriteStatus={() => {}}
+                  onLoadNearOffers={noop}
+                  changeFavoriteStatus={noop}
                 />
               </Router>
             </Provider>

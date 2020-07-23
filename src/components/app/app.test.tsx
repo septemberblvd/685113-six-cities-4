@@ -81,12 +81,10 @@ describe(`App`, () => {
     .create(
         <Provider store={store}>
           <App
-            // isOpened={true}
             authorizationStatus={`NO_AUTH`}
             userEmail={`Foo@Mail.ru`}
             activeOffer={offers[0]}
             activeOfferId={1}
-            // currentSortType={`Popular`}
             offers = {offers}
             allOffers={offers}
             favoriteOffers={offers}
@@ -97,8 +95,6 @@ describe(`App`, () => {
             login = {noop}
             checkAuth={noop}
             returnToMain = {noop}
-            // onHeaderClick = {noop}
-            // loadComments = {noop}
             onLoadNearOffers={noop}
             onLoadFavoriteOffers = {noop}
             changeFavoriteStatus = {noop}
