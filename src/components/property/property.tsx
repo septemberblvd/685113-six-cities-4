@@ -19,7 +19,13 @@ import HeaderNav from "../header-nav/header-nav";
 import { Offer, Cities, Owner } from "../../types";
 
 
-const NearOffersListWrapped = composedWithOfferList(NearOffersList);
+interface PropsNearOffersList {
+  nearOffers: Offer[],
+  onHeaderClick: (offer: Offer) => void
+  onLoadNearOffers: (openedOfferId: string) => void
+}
+
+const NearOffersListWrapped = composedWithOfferList(NearOffersList) as React.ComponentType<PropsNearOffersList>;
 const NearOffersMapWrapped = withMap(NearOffersMap);
 
 interface Props {

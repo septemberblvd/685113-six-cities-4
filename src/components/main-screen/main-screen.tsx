@@ -12,7 +12,12 @@ import HeaderNav from "../header-nav/header-nav";
 import { Offer, Cities } from "../../types";
 
 
-const OffersListWrapped = composedWithOfferList(OffersList);
+interface PropsOffersList {
+  offers: Offer[],
+  onHeaderClick: (offer: Offer) => void
+}
+
+const OffersListWrapped = composedWithOfferList(OffersList) as React.ComponentType<PropsOffersList>;
 const MapWrapped = withMap(Map);
 
 interface Props {
