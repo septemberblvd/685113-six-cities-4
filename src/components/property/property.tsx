@@ -1,5 +1,5 @@
 import * as React from "react";
-import {OfferType, AppRoute, MAX_IMAGES} from "../../const";
+import {AppRoute, MAX_IMAGES} from "../../const";
 import ReviewsList from "../reviews-list/reviews-list";
 import NearOffersList from "../near-offers-list/near-offers-list";
 import composedWithOfferList from "../../hocs/with-offer-list";
@@ -16,31 +16,31 @@ import {adaptOffersAll, adaptOffer} from "../../adapter/offers";
 import history from '../../history.js';
 import {AuthorizationStatus} from "../../reducer/user/user";
 import HeaderNav from "../header-nav/header-nav";
-import { Offer, Cities, Owner } from "../../types";
+import {Offer, Cities} from "../../types";
 
 
 interface PropsNearOffersList {
-  nearOffers: Offer[],
-  onHeaderClick: (offer: Offer) => void
-  onLoadNearOffers: (openedOfferId: string) => void
+  nearOffers: Offer[];
+  onHeaderClick: (offer: Offer) => void;
+  onLoadNearOffers: (openedOfferId: string) => void;
 }
 
 const NearOffersListWrapped = composedWithOfferList(NearOffersList) as React.ComponentType<PropsNearOffersList>;
 const NearOffersMapWrapped = withMap(NearOffersMap);
 
 interface Props {
-  userEmail: string,
-  offers: Offer[],
-  openedOfferId: string,
-  nearOffers: Offer[],
-  allOffers: Offer[],
-  currentCity: Cities,
-  activeOfferId: number,
-  authorizationStatus: string,
-  changeFavoriteStatus: (id, status: number) => void,
-  onLoadNearOffers: (openedOfferId: string) => void,
-  onCardHeaderClick: (offer: Offer) => void,
-};
+  userEmail: string;
+  offers: Offer[];
+  openedOfferId: string;
+  nearOffers: Offer[];
+  allOffers: Offer[];
+  currentCity: Cities;
+  activeOfferId: number;
+  authorizationStatus: string;
+  changeFavoriteStatus: (id, status: number) => void;
+  onLoadNearOffers: (openedOfferId: string) => void;
+  onCardHeaderClick: (offer: Offer) => void;
+}
 
 class Property extends React.PureComponent<Props, {}> {
   private offer: Offer;

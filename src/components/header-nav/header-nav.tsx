@@ -6,9 +6,9 @@ import {Link} from "react-router-dom";
 import {AppRoute} from "../../const";
 
 interface Props {
-  userEmail: string,
-  checkAuth: () => void,
-};
+  userEmail: string;
+  checkAuth: () => void;
+}
 
 
 class HeaderNav extends React.PureComponent<Props, {}> {

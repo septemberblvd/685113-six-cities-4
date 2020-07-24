@@ -2,7 +2,7 @@ import * as React from "react";
 
 
 interface Props {
-  mapRef: React.RefObject<HTMLInputElement>,
+  mapRef: React.RefObject<HTMLInputElement>;
 }
 
 const Map: React.FunctionComponent<Props> = (props: Props) => {

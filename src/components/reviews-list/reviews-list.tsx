@@ -8,19 +8,18 @@ import {adaptComments} from "../../adapter/comments";
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
 import CommentForm from "../comment-form/comment-form";
 import {AuthorizationStatus} from "../../reducer/user/user";
-import { Review } from "../../types";
+import {Review} from "../../types";
 
 interface Props {
-  comments: Review[],
-  id: number,
-  onLoadComments: (id: number) => void,
-  authorizationStatus: string,
-};
+  comments: Review[];
+  id: number;
+  onLoadComments: (id: number) => void;
+  authorizationStatus: string;
+}
 
 class ReviewsList extends React.PureComponent<Props, {}> {
   constructor(props) {
     super(props);
-
   }
 
   componentDidMount() {
@@ -30,7 +29,7 @@ class ReviewsList extends React.PureComponent<Props, {}> {
 
   render() {
     const {comments, authorizationStatus, id} = this.props;
-    const sortedComments = sortComments(comments)
+    const sortedComments = sortComments(comments);
 
     return (
       <section className="property__reviews reviews">

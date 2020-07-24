@@ -9,25 +9,25 @@ import withMap from "../../hocs/with-map";
 import {Link} from "react-router-dom";
 import {AppRoute} from "../../const";
 import HeaderNav from "../header-nav/header-nav";
-import { Offer, Cities } from "../../types";
+import {Offer, Cities} from "../../types";
 
 
 interface PropsOffersList {
-  offers: Offer[],
-  onHeaderClick: (offer: Offer) => void
+  offers: Offer[];
+  onHeaderClick: (offer: Offer) => void;
 }
 
 const OffersListWrapped = composedWithOfferList(OffersList) as React.ComponentType<PropsOffersList>;
 const MapWrapped = withMap(Map);
 
 interface Props {
-  offers: Offer[],
-  onHeaderClick: (offer: Offer) => void,
-  cities: Cities[],
-  currentCity: Cities,
-  activeOfferId: number,
-  userEmail: string,
-};
+  offers: Offer[];
+  onHeaderClick: (offer: Offer) => void;
+  cities: Cities[];
+  currentCity: Cities;
+  activeOfferId: number;
+  userEmail: string;
+}
 
 const MainScreen: React.FunctionComponent<Props> = (props: Props) => {
   const {cities, offers, currentCity, onHeaderClick, activeOfferId} = props;

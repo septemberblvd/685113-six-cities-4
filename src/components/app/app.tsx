@@ -18,25 +18,25 @@ import {Switch, Route, Router} from "react-router-dom";
 import {Offer, Cities} from "../../types";
 
 interface Props {
-  authorizationStatus: string,
-  userEmail: string,
-  nearOffers: Offer[],
-  allOffers: Offer[],
-  offers: Offer[],
-  favoriteOffers: Offer[],
-  activeOffer: Offer,
-  cities: Cities[],
-  currentCity: Cities,
-  activeOfferId: number,
-  login: () => void,
-  onCardHeaderClick: (offer: Offer) => void,
-  onLoadFavoriteOffers: () => void,
-  changeFavoriteStatus: () => void,
-  checkAuth: () => void,
-  returnToMain: () => void,
-  onLoadNearOffers: () => void,
-  isLoading: boolean,
-};
+  authorizationStatus: string;
+  userEmail: string;
+  nearOffers: Offer[];
+  allOffers: Offer[];
+  offers: Offer[];
+  favoriteOffers: Offer[];
+  activeOffer: Offer;
+  cities: Cities[];
+  currentCity: Cities;
+  activeOfferId: number;
+  login: () => void;
+  onCardHeaderClick: (offer: Offer) => void;
+  onLoadFavoriteOffers: () => void;
+  changeFavoriteStatus: () => void;
+  checkAuth: () => void;
+  returnToMain: () => void;
+  onLoadNearOffers: () => void;
+  isLoading: boolean;
+}
 
 class App extends React.PureComponent<Props, {}> {
   constructor(props) {

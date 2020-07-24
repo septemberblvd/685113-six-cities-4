@@ -1,12 +1,12 @@
 import * as React from 'react';
 import * as leaflet from "leaflet";
-import { Offer, Cities } from '../types';
+import {Offer, Cities} from '../types';
 
 interface Props {
-  offers: Offer[],
-  currentCity: Cities,
-  activeOfferId: number,
-};
+  offers: Offer[];
+  currentCity: Cities;
+  activeOfferId: number;
+}
 
 const withMap = (Component) => {
 

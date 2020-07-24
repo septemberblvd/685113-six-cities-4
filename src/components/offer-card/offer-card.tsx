@@ -3,12 +3,12 @@ import {Link} from "react-router-dom";
 import {Offer} from "../../types";
 
 interface Props {
-  onCardMouseEnter: (offer: Offer) => void,
-  onCardMouseLeave: () => void,
-  onHeaderClick: (offer: Offer) => void,
-  offer: Offer,
-  changeFavoriteStatus: (id, status: number) => void,
-};
+  onCardMouseEnter: (offer: Offer) => void;
+  onCardMouseLeave: () => void;
+  onHeaderClick: (offer: Offer) => void;
+  offer: Offer;
+  changeFavoriteStatus: (id, status: number) => void;
+}
 
 const OfferCard: React.FunctionComponent<Props> = (props: Props) => {
   const {offer, onCardMouseEnter, onCardMouseLeave, onHeaderClick, changeFavoriteStatus} = props;

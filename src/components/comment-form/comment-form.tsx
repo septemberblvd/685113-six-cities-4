@@ -30,19 +30,19 @@ const ratingFields = [
 ];
 
 interface Props {
-  id: number,
-  newComment: string,
-  newRating: string,
-  onCommentChange: (comment: string) => void,
-  onRatingChange: (rating: string) => void,
+  id: number;
+  newComment: string;
+  newRating: string;
+  onCommentChange: (comment: string) => void;
+  onRatingChange: (rating: string) => void;
   onCommentUpload: (comment: Comment,
     adaptCallback: () => void,
     id: number,
-    sendStatus: boolean) => void,
-  sendStatus: boolean,
-  onChangeSendStatus: (sendStatus: boolean) => void,
-  isError: boolean,
-};
+    sendStatus: boolean) => void;
+  sendStatus: boolean;
+  onChangeSendStatus: (sendStatus: boolean) => void;
+  isError: boolean;
+}
 
 class CommentForm extends React.PureComponent<Props, {}> {
   private commentRef: React.RefObject<HTMLTextAreaElement>;

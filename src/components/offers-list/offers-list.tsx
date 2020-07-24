@@ -1,15 +1,14 @@
 import * as React from "react";
 import OfferCard from "../offer-card/offer-card";
-import {OfferType} from "../../const";
-import { Offer } from "../../types";
+import {Offer} from "../../types";
 
 interface Props {
-  offers: Offer[],
-  onHeaderClick: () => void,
-  onCardMouseEnter: () => void,
-  onCardMouseLeave: () => void,
-  changeFavoriteStatus: () => void,
-};
+  offers: Offer[];
+  onHeaderClick: () => void;
+  onCardMouseEnter: () => void;
+  onCardMouseLeave: () => void;
+  changeFavoriteStatus: () => void;
+}
 
 const OffersList: React.FunctionComponent<Props> = (props: Props) => {
 

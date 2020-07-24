@@ -10,16 +10,16 @@ import {Link} from "react-router-dom";
 import {AppRoute, citiesList} from "../../const";
 import {Operation as DataOperation} from "../../reducer/data/data";
 import HeaderNav from "../header-nav/header-nav";
-import { Offer } from "../../types";
+import {Offer} from "../../types";
 
 interface Props {
-  favoriteOffers: Offer[],
-  onLoadFavoriteOffers: () => void,
-  authorizationStatus: string,
-  userEmail: string,
-  onCardHeaderClick: (offer: Offer) => void,
-  changeFavoriteStatus: (id, status: number) => void,
-};
+  favoriteOffers: Offer[];
+  onLoadFavoriteOffers: () => void;
+  authorizationStatus: string;
+  userEmail: string;
+  onCardHeaderClick: (offer: Offer) => void;
+  changeFavoriteStatus: (id, status: number) => void;
+}
 
 class Favorites extends React.PureComponent<Props, {}> {
   constructor(props) {

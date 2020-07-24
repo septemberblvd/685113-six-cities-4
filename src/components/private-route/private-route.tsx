@@ -4,13 +4,13 @@ import {AppRoute} from "../../const";
 import {AuthorizationStatus} from "../../reducer/user/user";
 
 interface Props {
-  authorizationStatus: string,
-  exact: boolean,
-  path: string,
-  render: () => void,
-  checkAuth: () => void,
-  isLoading: boolean,
-};
+  authorizationStatus: string;
+  exact: boolean;
+  path: string;
+  render: () => void;
+  checkAuth: () => void;
+  isLoading: boolean;
+}
 
 class PrivateRoute extends React.PureComponent<Props, {}> {
   constructor(props) {

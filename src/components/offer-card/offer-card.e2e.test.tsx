@@ -68,7 +68,7 @@ describe(`OfferCardComponent`, () => {
 
     const offerCardTwo = offerCard.find(`.place-card`);
 
-    offerCardTwo.simulate(`mouseenter`, {preventDefault() {}});
+    offerCardTwo.simulate(`mouseenter`);
 
     expect(onCardMouseEnter).toHaveBeenCalledTimes(1);
     expect(onCardMouseEnter.mock.calls[0][0]).toMatchObject(userChoise);

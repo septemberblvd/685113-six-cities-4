@@ -26,11 +26,11 @@ const menuItems = [
 ];
 
 interface Props {
-  isOpened: boolean,
-  onShowSortMenu: (isOpened: boolean) => void,
-  currentSortType: string,
-  onSort: (sortType: string) => void,
-};
+  isOpened: boolean;
+  onShowSortMenu: (isOpened: boolean) => void;
+  currentSortType: string;
+  onSort: (sortType: string) => void;
+}
 
 class Sort extends React.PureComponent<Props, {}> {
   constructor(props) {

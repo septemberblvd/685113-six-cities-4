@@ -2,15 +2,15 @@ import * as React from "react";
 import {ActionCreator} from "../../reducer/data/data";
 import {connect} from "react-redux";
 import {getCurrentCity} from "../../reducer/data/selectors";
-import { Cities } from "../../types";
+import {Cities} from "../../types";
 
   interface Props {
-    cities: Cities[],
-    currentCity: Cities,
-    onCityClick: (evt: {}, city: Cities) => void,
-  };
+    cities: Cities[];
+    currentCity: Cities;
+    onCityClick: (evt: {}, city: Cities) => void;
+  }
 
-  const CitiesList: React.FunctionComponent<Props> = (props: Props) => {
+const CitiesList: React.FunctionComponent<Props> = (props: Props) => {
   const {cities, currentCity, onCityClick} = props;
 
   return (

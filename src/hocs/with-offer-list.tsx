@@ -10,11 +10,11 @@ import history from '../history.js';
 import {AppRoute} from '../const.js';
 
 interface Props {
-  onCardMouseEnter: () => void,
-  onCardMouseLeave: () => void,
-  changeFavoriteStatus: (id, status: number) => void,
-  authorizationStatus: string,
-};
+  onCardMouseEnter: () => void;
+  onCardMouseLeave: () => void;
+  changeFavoriteStatus: (id, status: number) => void;
+  authorizationStatus: string;
+}
 
 const withOfferList = (Component) => {
   class WithOfferList extends React.PureComponent<Props, []> {

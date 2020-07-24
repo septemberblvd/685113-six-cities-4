@@ -1,10 +1,10 @@
 import * as React from "react";
 import * as moment from "moment";
-import { Review } from "../../types";
+import {Review} from "../../types";
 
 interface Props {
-  review: Review,
-};
+  review: Review;
+}
 
 const ReviewsItem: React.FunctionComponent<Props> = (props: Props) => {
   const {review} = props;

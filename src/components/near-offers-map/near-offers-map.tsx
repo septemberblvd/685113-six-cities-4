@@ -1,8 +1,8 @@
 import * as React from "react";
 
 interface Props {
-  mapRef: React.RefObject<HTMLInputElement>,
-};
+  mapRef: React.RefObject<HTMLInputElement>;
+}
 
 const NearOffersMap: React.FunctionComponent<Props> = (props: Props) => {
   return (

@@ -17,43 +17,6 @@ const mockStore = configureStore(middlewares);
 jest.mock(`../../reducer/data/data`);
 Operation.loadComments = () => (dispatch) => dispatch(jest.fn());
 
-const offer = {
-  title: `Wood and stone place`,
-  img: `src`,
-  price: 80,
-  rating: 5,
-  type: `Apartment`,
-  isItPremium: true,
-  isItFavorite: true,
-  id: 1,
-  cityName: `Paris`,
-  images: [
-    `src`,
-    `src`,
-    `src`,
-    `src`,
-    `src`,
-    `src`,
-  ],
-  description: `Some text`,
-  bedrooms: 2,
-  guests: 3,
-  appliances: [
-    `Wi-Fi`,
-    `Baby seat`,
-    `Kitchen`,
-    `Dishwasher`,
-    `Cabel TV`,
-    `Fridge`,
-  ],
-  owner: {
-    avatar: `src`,
-    name: `Death`,
-    isSuper: true,
-  },
-  coords: [52.39874984984841, 4.82456445558843],
-};
-
 const offers = [
   {
     title: `Wood and stone place`,
