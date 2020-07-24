@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as leaflet from "leaflet";
+import * as Leaflet from "leaflet";
 import {Offer, Cities} from '../types';
 
 interface Props {
@@ -14,7 +15,7 @@ const withMap = (Component) => {
     private _mapRef: React.RefObject<HTMLDivElement>;
     private _zoom: number;
     private _city: number[];
-    private _map: any;
+    private _map: Leaflet;
 
 
     constructor(props) {
