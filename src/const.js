@@ -1,48 +1,5 @@
-import PropTypes from "prop-types";
-
 const MAX_IMAGES = 6;
 const MAX_COOMMENT_LENGTH = 10;
-
-const Offer = PropTypes.shape({
-  title: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  rating: PropTypes.number.isRequired,
-  type: PropTypes.string.isRequired,
-  isItPremium: PropTypes.bool.isRequired,
-  isItFavorite: PropTypes.bool.isRequired,
-  id: PropTypes.number.isRequired,
-  cityName: PropTypes.string.isRequired,
-  images: PropTypes.arrayOf(
-      PropTypes.string.isRequired
-  ).isRequired,
-  description: PropTypes.string.isRequired,
-  bedrooms: PropTypes.number.isRequired,
-  guests: PropTypes.number.isRequired,
-  appliances: PropTypes.arrayOf(
-      PropTypes.string.isRequired
-  ).isRequired,
-  owner: PropTypes.shape({
-    avatar: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    isSuper: PropTypes.bool.isRequired,
-  }).isRequired,
-});
-
-const OfferType = PropTypes.oneOfType([Offer, () => null]);
-
-const CommentType = PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.shape(
-    {
-      reviewId: PropTypes.number.isRequired,
-      authorId: PropTypes.number.isRequired,
-      reviewName: PropTypes.string.isRequired,
-      reviewAvatar: PropTypes.string.isRequired,
-      reviewGrade: PropTypes.number.isRequired,
-      reviewText: PropTypes.string.isRequired,
-      reviewTime: PropTypes.string.isRequired,
-      isPro: PropTypes.bool.isRequired,
-    }
-)), () => null]);
 
 const SortType = {
   POPULAR: `Popular`,
@@ -94,4 +51,4 @@ const citiesList = [
   `Dusseldorf`,
 ];
 
-export {OfferType, SortType, cities, CommentType, AppRoute, citiesList, MAX_IMAGES, MAX_COOMMENT_LENGTH};
+export {SortType, cities, AppRoute, citiesList, MAX_IMAGES, MAX_COOMMENT_LENGTH};
