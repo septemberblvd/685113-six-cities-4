@@ -1,6 +1,6 @@
 /* eslint-disable max-nested-callbacks */
-import {reducer, ActionCreator, ActionType, Operation} from "./data.js";
-import {createAPI} from "../../api.js";
+import {reducer, ActionCreator, ActionType, Operation} from "./data";
+import {createAPI} from "../../api";
 import MockAdapter from "axios-mock-adapter";
 
 const api = createAPI(() => {});

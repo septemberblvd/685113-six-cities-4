@@ -1,4 +1,4 @@
-import {reducer, ActionCreator} from "./ui.js";
+import {reducer, ActionCreator} from "./ui";
 
 
 it(`Reducer without parameters return initial state`, () => {
