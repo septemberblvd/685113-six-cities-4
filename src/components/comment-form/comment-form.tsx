@@ -65,6 +65,19 @@ class CommentForm extends React.PureComponent<Props, {}> {
     this._isItValid = this._isItValid.bind(this);
   }
 
+  componentDidUpdate() {
+    const {sendStatus, onCommentChange, onRatingChange, onChangeSendStatus} = this.props;
+
+    if (sendStatus) {
+      onRatingChange(null);
+      onCommentChange(null);
+      this.commentRef.current.style.backgroundColor = ``;
+      this.formRef.current.reset();
+      this._changeFormAccess(false);
+      onChangeSendStatus(sendStatus);
+    }
+  }
+
   _handleChangeComment(evt) {
     const {onCommentChange} = this.props;
 
@@ -123,19 +136,6 @@ class CommentForm extends React.PureComponent<Props, {}> {
       this.buttonRef.current.removeAttribute(`disabled`);
     }
 
-  }
-
-  componentDidUpdate() {
-    const {sendStatus, onCommentChange, onRatingChange, onChangeSendStatus} = this.props;
-
-    if (sendStatus) {
-      onRatingChange(null);
-      onCommentChange(null);
-      this.commentRef.current.style.backgroundColor = ``;
-      this.formRef.current.reset();
-      this._changeFormAccess(false);
-      onChangeSendStatus(sendStatus);
-    }
   }
 
   render() {
