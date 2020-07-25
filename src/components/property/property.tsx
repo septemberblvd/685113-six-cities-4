@@ -54,6 +54,16 @@ class Property extends React.PureComponent<Props, {}> {
     this._handleCardHeaderClick = this._handleCardHeaderClick.bind(this);
   }
 
+  componentDidMount() {
+    const {onLoadNearOffers, openedOfferId} = this.props;
+
+    onLoadNearOffers(openedOfferId);
+  }
+
+  componentDidUpdate() {
+    this.offer = this.props.allOffers.find((it) => it.id === +this.props.openedOfferId);
+  }
+
   _handleChangeFavorite() {
     const {changeFavoriteStatus, authorizationStatus} = this.props;
     const id = this.offer.id;
@@ -71,16 +81,6 @@ class Property extends React.PureComponent<Props, {}> {
 
     onCardHeaderClick(offer);
     onLoadNearOffers(openedOfferId);
-  }
-
-  componentDidMount() {
-    const {onLoadNearOffers, openedOfferId} = this.props;
-
-    onLoadNearOffers(openedOfferId);
-  }
-
-  componentDidUpdate() {
-    this.offer = this.props.allOffers.find((it) => it.id === +this.props.openedOfferId);
   }
 
   render() {
